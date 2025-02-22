@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@font-face {
+       font-family: AlmaraiLight;
+       src: url("../public/assets/Fonts/Almarai-Light.ttf");
+}
+
+@font-face {
+       font-family: AlmaraiRegular;
+       src: url("../public/assets/Fonts/Almarai-Regular.ttf");
+}
+
+@font-face {
+       font-family: AlmaraiBold;
+       src: url("../public/assets/Fonts/Almarai-Bold.ttf");
+}
+
+@font-face {
+       font-family: AlmaraiExtrabold;
+       src: url("../public/assets/Fonts/Almarai-ExtraBold.ttf");
+}
+
+:root {
+       direction: rtl;
+}
+
+@theme {
+       --breakpoint-sm: 320px;
+       --breakpoint-md: 640px;
+       --breakpoint-lg: 740px;
+       --breakpoint-xl: 1280px;
+
+       --font-TextFontLight: AlmaraiLight;
+       --font-TextFontRegular: AlmaraiRegular;
+       --font-TextFontMedium: AlmaraiBold;
+       --font-TextFontSemiBold: AlmaraiBold;
+       --font-TextFontBold: AlmaraiExtrabold;
+
+       --color-mainColor: #0bb388;
+       --color-secoundColor: #0499f1;
+       --color-thirdColor: #14c5c6;
+       --color-AddText: #5e5e5e;
+
+       /* 
+       --sidebar-bg: var(--color-thirdColor);
+  --sidebar-text: #ffffff;
+  --page-bg: #f0fdfa;
+  --section-bg: var(--color-secoundColor);
+  --section-text: #ffffff;
+   */
+
+       --color-mainBgColor: #e5e5e5;
+       --color-secoundBgColor: #f5f5f5;
+       --color-thirdBgColor: #9d9d9d;
+       --color-AddButton: #ffffff;
+       --drop-shadow-nav: -7px -2px 4px rgba(0, 0, 0, 0.30)
+}
+
+/* WebKit Scrollbar Page Styles */
+.scrollPage::-webkit-scrollbar {
+       width: 6px;
+       padding-left: 10px;
+}
+
+.scrollPage::-webkit-scrollbar-track {
+       background: transparent;
+       border-radius: 10px;
+}
+
+.scrollPage::-webkit-scrollbar-thumb {
+       background-color: #9E090F;
+       border-radius: 10px;
+}
