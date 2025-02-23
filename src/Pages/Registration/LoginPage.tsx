@@ -48,6 +48,7 @@ const LoginPage = () => {
 
       auth.loginUser(response.data.user);
 
+      /* navigate depending on user role */
       navigate("/", { replace: true });
     }
   }, [response]);

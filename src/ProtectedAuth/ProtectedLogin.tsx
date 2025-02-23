@@ -1,11 +1,12 @@
-import { Outlet } from "react-router-dom";
+import { ReactNode } from "react";
 
-const ProtectedLogin = () => {
-  return (
-    <div>
-      <Outlet />
-    </div>
-  );
+interface ProtectedLoginProps {
+  children: ReactNode;
+}
+
+const ProtectedLogin = ({ children }: ProtectedLoginProps) => {
+  // component logic
+  return <>{children}</>;
 };
 
 export default ProtectedLogin;
