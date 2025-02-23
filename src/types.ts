@@ -25,5 +25,9 @@ interface AuthContextType {
       width: number;
       height: number;
     }
+    interface Obj {
+      name: string;
+      id: number;
+    }
 
-     export type { AuthContextType, PostOptions, ChangeStateOptions,LogoProps };
+     export type { AuthContextType, PostOptions, ChangeStateOptions,LogoProps,Obj };
