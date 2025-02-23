@@ -1,10 +1,11 @@
 interface EmailInputProps {
   value: string;
+  isSign: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   placeholder?: string;
   backgound?: string;
-  placeholderSize?: boolean;
+  // placeholderSize?: boolean;
   borderColor?: string;
   paddinLeft?: string;
   paddinRight?: string;
@@ -12,11 +13,12 @@ interface EmailInputProps {
 
 const EmailInput: React.FC<EmailInputProps> = ({
   value,
+  isSign = true,
   onChange,
   required = true,
   placeholder,
   backgound = "secoundBgColor",
-  placeholderSize = false,
+  // placeholderSize = false,
   borderColor = "none",
   paddinLeft = "pl-2",
   paddinRight = "pr-2",
@@ -30,10 +32,13 @@ const EmailInput: React.FC<EmailInputProps> = ({
           onChange={onChange}
           required={required}
           className={`w-full border-2 rounded-2xl border-${borderColor}
-                                   outline-none px-2 py-3 shadow ${paddinLeft} ${paddinRight}
-                                   ${placeholderSize ? "text-xl" : "text-3xl"} 
-                                   font-TextFontRegular bg-${backgound} text-2xl text-thirdColor
-                                   valueInput`}
+                          outline-none ${
+                            isSign
+                              ? "px-2 py-3 text-thirdColor text-3xl"
+                              : "p-2 text-InputColor text-2xl"
+                          } shadow ${paddinLeft} ${paddinRight}
+                          font-TextFontRegular bg-${backgound} text-2xl text-thirdColor
+                          valueInput`}
           placeholder={placeholder}
         />
       </div>
@@ -42,3 +47,7 @@ const EmailInput: React.FC<EmailInputProps> = ({
 };
 
 export default EmailInput;
+
+/*  ${
+            isSign ? "pl-2 pr-2 text-thirdColor" : "p-2 text-InputColor"
+          } */

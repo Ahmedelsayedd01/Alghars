@@ -1,9 +1,8 @@
 import { FaPlus } from "react-icons/fa";
 interface ButtonAddProps {
   isWidth?: boolean;
-  Text?: string;
+  text?: string;
   BgColor?: string;
-  Color?: string;
   Size?: string;
   handleClick: () => void;
   iconColor?: string;
@@ -11,9 +10,8 @@ interface ButtonAddProps {
 
 const ButtonAdd = ({
   isWidth = false,
-  Text = "Add",
+  text = "اضافة",
   BgColor = "thirdColor",
-  Color = "white",
   handleClick,
 }: ButtonAddProps) => {
   return (
@@ -21,17 +19,17 @@ const ButtonAdd = ({
       type="submit"
       className={`bg-${BgColor} ${
         isWidth ? "w-full" : ""
-      } flex items-center justify-center gap-x-2 cursor-pointer text-xl text-${Color} font-TextFontRegular pt-2 p-3 
-              border-mainColor border-2 hover:bg-transparent hover:text-mainColor duration-300 ease-in-out
+      } sm:w-full lg:w-[200px] flex items-center justify-center gap-x-2 cursor-pointer text-2xl text-white font-TextFontRegular p-2 
+               border-2 border-thirdColor hover:bg-transparent hover:text-thirdColor duration-300 ease-in-out
               hover:shadow-lg transform hover:-translate-y-1 active:scale-95 
               rounded-xl
-              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-mainColor
+              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-thirdColor
               group
               `}
       onClick={handleClick}
     >
       <FaPlus />
-      <span> {Text}</span>
+      <span> {text}</span>
     </button>
   );
 };
