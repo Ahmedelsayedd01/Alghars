@@ -39,6 +39,8 @@
        --color-mainColor: #0bb388;
        --color-secoundColor: #0499f1;
        --color-thirdColor: #14c5c6;
+
+       --color-InputColor: #6b7280;
        --color-AddText: #5e5e5e;
 
        /* 
@@ -54,6 +56,30 @@
        --color-thirdBgColor: #9d9d9d;
        --color-AddButton: #ffffff;
        --drop-shadow-nav: -7px -2px 4px rgba(0, 0, 0, 0.30)
+}
+
+.p-inputtext {
+       font-family: var(--font-TextFontRegular);
+       color: var(--color-InputColor);
+       font-size: 1.5rem;
+       padding: 0.5rem;
+}
+
+.p-dropdown {
+       box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2) !important;
+}
+
+.p-dropdown-panel {
+       margin-top: 5px !important;
+}
+
+.p-dropdown-item-label {
+       font-family: var(--font-TextFontMedium);
+       color: var(--color-thirdColor);
+}
+
+.p-icon {
+       color: var(--color-thirdColor);
 }
 
 /* WebKit Scrollbar Page Styles */
