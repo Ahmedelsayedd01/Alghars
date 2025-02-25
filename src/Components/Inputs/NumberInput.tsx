@@ -32,7 +32,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
   };
 
   return (
-    <div className="sm:w-full lg:w-[25%] flex flex-col items-start justify-center gap-y-2">
+    <div className="sm:w-full lg:w-[26%] flex flex-col items-start justify-center gap-y-2">
       <span className="text-xl font-TextFontMedium text-thirdColor">
         {title}
       </span>

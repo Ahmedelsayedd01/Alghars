@@ -35,9 +35,9 @@ const EmailInput: React.FC<EmailInputProps> = ({
                           outline-none ${
                             isSign
                               ? "px-2 py-3 text-thirdColor text-3xl"
-                              : "p-2 text-InputColor text-2xl"
+                              : "p-3 text-InputColor text-2xl"
                           } shadow ${paddinLeft} ${paddinRight}
-                          font-TextFontRegular bg-${backgound} text-2xl text-thirdColor
+                          font-TextFontRegular bg-${backgound} 
                           valueInput`}
           placeholder={placeholder}
         />

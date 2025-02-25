@@ -19,7 +19,7 @@ const ButtonAdd = ({
       type="submit"
       className={`bg-${BgColor} ${
         isWidth ? "w-full" : ""
-      } sm:w-full lg:w-[200px] flex items-center justify-center gap-x-2 cursor-pointer text-2xl text-white font-TextFontRegular p-2 
+      } sm:w-full lg:w-[200px] flex items-center justify-center gap-x-3 cursor-pointer text-xl text-white font-TextFontRegular p-2 
                border-2 border-thirdColor hover:bg-transparent hover:text-thirdColor duration-300 ease-in-out
               hover:shadow-lg transform hover:-translate-y-1 active:scale-95 
               rounded-xl
@@ -28,8 +28,8 @@ const ButtonAdd = ({
               `}
       onClick={handleClick}
     >
+      <span className="text-2xl">{text}</span>
       <FaPlus />
-      <span> {text}</span>
     </button>
   );
 };

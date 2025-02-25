@@ -5,8 +5,7 @@ import {
   PasswordInput,
   SubmitButton,
 } from "../../Components/Components";
-// import logo from "../../assets/logo.png";
-import photo from "../../assets/image1.png";
+import photo from "../../Assets/Images/image1.png";
 import { useAuth } from "../../Context/Auth";
 import { useNavigate } from "react-router-dom";
 import { usePost } from "../../Hooks/usePost";
@@ -80,6 +79,7 @@ const LoginPage = () => {
                         value={email}
                         required={false}
                         placeholder={"الايميل"}
+                        isSign={true}
                         onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
@@ -89,6 +89,7 @@ const LoginPage = () => {
                         value={password}
                         placeholder={"كلمة المرور"}
                         required={false}
+                        isSign={true}
                         onChange={(e) => setPassword(e.target.value)}
                       />
                     </div>
@@ -96,6 +97,11 @@ const LoginPage = () => {
 
                   <div className="w-11/12 mx-auto">
                     <SubmitButton
+                      bgColor="thirdColor"
+                      Color="white"
+                      width="w-full"
+                      type="submit"
+                      withIcon={false}
                       text={"تسجيل الدخول"}
                       handleClick={() => handleLogin}
                     />
