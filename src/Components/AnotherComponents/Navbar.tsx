@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useAuth } from "../../Context/Auth.jsx";
-import Logo from "../../assets/logo.png";
+import Logo from "../../Assets/Images/logo.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../Store/CreateSlices.tsx";
@@ -36,8 +36,8 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="flex items-center justify-between py-1 px-4 gap-x-4">
-        <div className="sm:w-10/12 lg:w-6/12 xl:w-3/12 flex items-center justify-start sm:gap-x-4">
+      <nav className="flex items-center justify-between py-2 px-4 gap-x-4">
+        <div className="sm:w-5/12 lg:w-6/12 xl:w-3/12 flex items-center justify-start sm:gap-x-4">
           <div className="relative z-10 w-14">
             {/* image profile */}
             {auth?.userState?.image ? (
@@ -69,8 +69,10 @@ const Navbar = () => {
         <div className="">
           <SubmitButton
             type="button"
+            bgColor="thirdColor"
             text={"تسجيل الخروج"}
             handleClick={handleLogout}
+            withIcon={false}
           />
         </div>
       </nav>

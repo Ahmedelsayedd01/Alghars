@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { LinksSidebar } from "../Components";
-// import Logo from "../../assets/logo.png";
+// import Logo from "../../Assets/Images/logo.png";
 import { useAuth } from "../../Context/Auth";
 
 const Sidebar = () => {
@@ -41,9 +41,11 @@ const Sidebar = () => {
           } bg-white rounded-2xl drop-shadow-sm `}
           alt="logo"
         /> */}
-        <span className={`${
+        <span
+          className={`${
             hideSide ? "text-5xl py-3" : "text-sm pt-6 pb-2"
-          } w-full text-center font-TextFontSemiBold text-white drop-shadow-lg`}>
+          } w-full text-center font-TextFontSemiBold text-white drop-shadow-lg`}
+        >
           الغرس
         </span>
       </div>
