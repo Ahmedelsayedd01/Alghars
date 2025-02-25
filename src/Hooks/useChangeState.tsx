@@ -11,7 +11,7 @@ export const useChangeState = () => {
     any
   > | null>(null);
 
-  const changeState = async ({ url, name, data }: ChangeStateOptions) => {
+  const changeState = async ({ url, message, data }: ChangeStateOptions) => {
     // Accepting a single "data" object
     setLoadingChange(true);
     try {
@@ -27,7 +27,7 @@ export const useChangeState = () => {
 
       if (response.status === 200) {
         setResponseChange(response);
-        auth.toastSuccess(name);
+        auth.toastSuccess(message);
         return true; // Return true on success
       }
     } catch (error: unknown) {

@@ -1,16 +1,27 @@
-import { useState } from "react";
-import { TitleSection } from "../../../Components/Components";
-import { AddTeacherSection, TeachersPage } from "../../../Pages/Pages";
+import { useNavigate } from "react-router-dom";
+import { SubmitButton, TitleSection } from "../../../Components/Components";
+import { TeachersPage } from "../../../Pages/Pages";
 
 const TeachersLayout = () => {
-  const [update, setUpdate] = useState(false);
+  const navigate = useNavigate();
   return (
-    <>
-      <TitleSection text={"اضافة معلم"} />
-      <AddTeacherSection update={update} setUpdate={setUpdate} />
-      <TitleSection text={"قائمة المعلمين"} />
-      <TeachersPage refetch={update} />
-    </>
+    <div className="mb-28">
+      <div className="w-full flex items-center justify-between">
+        <TitleSection text={"قائمة المعلمين"} navIcon={false} />
+        <SubmitButton
+          type="button"
+          withIcon={true}
+          handleClick={() => navigate("/dashboard/teachers/add")}
+          text={"اضافة معلم"}
+          bgColor="secondColor"
+          Color="white"
+          px="px-0"
+          rounded="rounded-xl"
+          width="w-48"
+        />
+      </div>
+      <TeachersPage />
+    </div>
   );
 };
 

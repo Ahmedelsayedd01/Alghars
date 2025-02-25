@@ -1,4 +1,4 @@
-import logo from "../../assets/logo.png";
+import logo from "../../Assets/Images/logo.png";
 import { LogoProps } from "../../types";
 
 const Loading = ({ width, height }: LogoProps) => {

@@ -10,7 +10,7 @@ export const useDelete = () => {
     any
   > | null>(null);
 
-  const deleteData = async (url: string, name: string) => {
+  const deleteData = async (url: string, message: string) => {
     setLoadingDelete(true);
     try {
       const config = {
@@ -23,7 +23,7 @@ export const useDelete = () => {
 
       if (response.status === 200) {
         setResponseDelete(response);
-        auth.toastSuccess(name);
+        auth.toastSuccess(message);
         return true; // Return true on success
       }
     } catch (error: unknown) {
