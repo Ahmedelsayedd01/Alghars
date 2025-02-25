@@ -37,7 +37,7 @@
        --font-TextFontBold: AlmaraiExtrabold;
 
        --color-mainColor: #0bb388;
-       --color-secoundColor: #0499f1;
+       --color-secondColor: #00a2e6;
        --color-thirdColor: #14c5c6;
 
        --color-InputColor: #6b7280;
@@ -47,7 +47,7 @@
        --sidebar-bg: var(--color-thirdColor);
   --sidebar-text: #ffffff;
   --page-bg: #f0fdfa;
-  --section-bg: var(--color-secoundColor);
+  --section-bg: var(--color-secondColor);
   --section-text: #ffffff;
    */
 
@@ -94,6 +94,6 @@
 }
 
 .scrollPage::-webkit-scrollbar-thumb {
-       background-color: #9E090F;
+       background-color: #14c5c6;
        border-radius: 10px;
 }
