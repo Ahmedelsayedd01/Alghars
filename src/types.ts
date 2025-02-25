@@ -17,8 +17,8 @@ interface AuthContextType {
     }
      interface ChangeStateOptions {
       url: string;
-      name: string;
-      data: string;
+      message: string;
+      data: number;
     }
 
      interface LogoProps {
