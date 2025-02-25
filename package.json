@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.0",
     "@reduxjs/toolkit": "^2.5.1",
     "@tailwindcss/vite": "^4.0.6",
     "axios": "^1.7.9",
@@ -20,8 +21,10 @@
     "react-icons": "^5.4.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^6.29.0",
+    "react-spinners": "^0.15.0",
     "react-toastify": "^11.0.3",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "styled-components": "^6.1.15"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
