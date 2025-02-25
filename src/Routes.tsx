@@ -4,6 +4,7 @@ import ProtectedLogin from "./ProtectedAuth/ProtectedLogin";
 import { LoginPage } from "./Pages/Pages";
 import ProtectedRoute from "./ProtectedAuth/ProtectedRoute";
 import {
+  AddTeacherLayout,
   ClassesLayout,
   StudentsLayout,
   SubjectsLayout,
@@ -39,7 +40,16 @@ export const router = createBrowserRouter(
           children: [
             {
               path: "teachers",
-              element: <TeachersLayout />,
+              children: [
+                {
+                  path: "",
+                  element: <TeachersLayout />,
+                },
+                {
+                  path: "add",
+                  element: <AddTeacherLayout />,
+                },
+              ],
             },
             {
               path: "students",
