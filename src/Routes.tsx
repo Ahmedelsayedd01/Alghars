@@ -4,8 +4,15 @@ import ProtectedLogin from "./ProtectedAuth/ProtectedLogin";
 import { LoginPage } from "./Pages/Pages";
 import ProtectedRoute from "./ProtectedAuth/ProtectedRoute";
 import {
+  AddClassLayout,
+  AddStudentLayout,
+  AddSubjectLayout,
   AddTeacherLayout,
   ClassesLayout,
+  EditClassLayout,
+  EditStudentLayout,
+  EditSubjectLayout,
+  EditTeacherLayout,
   StudentsLayout,
   SubjectsLayout,
   TeachersLayout,
@@ -49,19 +56,62 @@ export const router = createBrowserRouter(
                   path: "add",
                   element: <AddTeacherLayout />,
                 },
+                {
+                  path: "edit/:teacherId",
+                  element: <EditTeacherLayout />,
+                },
               ],
             },
             {
               path: "students",
-              element: <StudentsLayout />,
+              children: [
+                {
+                  path: "",
+                  element: <StudentsLayout />,
+                },
+                {
+                  path: "add",
+                  element: <AddStudentLayout />,
+                },
+                {
+                  path: "edit/:studentId",
+                  element: <EditStudentLayout />,
+                },
+              ],
             },
             {
               path: "subjects",
-              element: <SubjectsLayout />,
+              children: [
+                {
+                  path: "",
+                  element: <SubjectsLayout />,
+                },
+                {
+                  path: "add",
+                  element: <AddSubjectLayout />,
+                },
+                {
+                  path: "edit/:subjectId",
+                  element: <EditSubjectLayout />,
+                },
+              ],
             },
             {
               path: "classes",
-              element: <ClassesLayout />,
+              children: [
+                {
+                  path: "",
+                  element: <ClassesLayout />,
+                },
+                {
+                  path: "add",
+                  element: <AddClassLayout />,
+                },
+                {
+                  path: "edit/:classId",
+                  element: <EditClassLayout />,
+                },
+              ],
             },
           ],
         },
