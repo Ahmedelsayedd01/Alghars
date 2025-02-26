@@ -161,7 +161,7 @@ const AddTeacherPage = () => {
           </span>
           {/* Teacher Status */}
           <Switch
-          bgColor={false}
+          bgcolor={false}
             checked={teacherStatus === 1}
             handleClick={handleTeacherStatus}
           />

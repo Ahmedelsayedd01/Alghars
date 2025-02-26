@@ -10,9 +10,11 @@ import {
 import { Link } from "react-router-dom";
 import { DeleteIcon, EditIcon, WarningIcon } from "../../../assets/Icons";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
+import { useSelector } from "react-redux";
 
 const TeachersPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
+  const teachersStore = useSelector((state: any) => state.teachers.data);
   // const {
   //   refetch: refetchTeachers,
   //   loading: loadingTeachers,
@@ -24,7 +26,7 @@ const TeachersPage = () => {
 
   interface Teacher {
     id: number;
-    index: number;
+    // index: number;
     name: string;
     email: string;
     subject: string;
@@ -33,251 +35,9 @@ const TeachersPage = () => {
     countClass: number;
     image_link: string;
     status: number;
-    // Add other properties as needed
   }
 
-  const [teachers, setTeachers] = useState<Teacher[]>([
-    {
-      id: 1,
-      index: 1,
-      name: "Teacher 1",
-      email: "teacher1@example.com",
-      phone: "123456789",
-      address: "Address 1",
-      countClass: 5,
-      image_link: "https://via.placeholder.com/150",
-      subject: "Arabic",
-      status: 1,
-    },
-    {
-      id: 2,
-      index: 2,
-      name: "Teacher 2",
-      email: "teacher2@example.com",
-      phone: "987654321",
-      address: "Address 2",
-      countClass: 4,
-      image_link: "https://via.placeholder.com/150",
-      subject: "Math",
-      status: 1,
-    },
-    {
-      id: 3,
-      index: 3,
-      name: "Teacher 3",
-      email: "teacher3@example.com",
-      phone: "111222333",
-      address: "Address 3",
-      countClass: 6,
-      image_link: "https://via.placeholder.com/150",
-      subject: "Science",
-      status: 0,
-    },
-    {
-      id: 4,
-      index: 4,
-      name: "Teacher 4",
-      email: "teacher4@example.com",
-      phone: "444555666",
-      address: "Address 4",
-      countClass: 3,
-      image_link: "https://via.placeholder.com/150",
-      subject: "English",
-      status: 1,
-    },
-    {
-      id: 5,
-      index: 5,
-      name: "Teacher 5",
-      email: "teacher5@example.com",
-      phone: "777888999",
-      address: "Address 5",
-      countClass: 2,
-      image_link: "https://via.placeholder.com/150",
-      subject: "History",
-      status: 1,
-    },
-    {
-      id: 6,
-      index: 6,
-      name: "Teacher 6",
-      email: "teacher6@example.com",
-      phone: "123123123",
-      address: "Address 6",
-      countClass: 7,
-      image_link: "https://via.placeholder.com/150",
-      subject: "Geography",
-      status: 0,
-    },
-    {
-      id: 7,
-      index: 7,
-      name: "Teacher 7",
-      email: "teacher7@example.com",
-      phone: "456456456",
-      address: "Address 7",
-      countClass: 4,
-      image_link: "https://via.placeholder.com/150",
-      subject: "Physics",
-      status: 1,
-    },
-    {
-      id: 8,
-      index: 8,
-      name: "Teacher 8",
-      email: "teacher8@example.com",
-      phone: "789789789",
-      address: "Address 8",
-      countClass: 5,
-      image_link: "https://via.placeholder.com/150",
-      subject: "Chemistry",
-      status: 1,
-    },
-    {
-      id: 9,
-      index: 9,
-      name: "Teacher 9",
-      email: "teacher9@example.com",
-      phone: "321321321",
-      address: "Address 9",
-      countClass: 6,
-      image_link: "https://via.placeholder.com/150",
-      subject: "Biology",
-      status: 0,
-    },
-    {
-      id: 10,
-      index: 10,
-      name: "Teacher 10",
-      email: "teacher10@example.com",
-      phone: "654654654",
-      address: "Address 10",
-      countClass: 3,
-      image_link: "https://via.placeholder.com/150",
-      subject: "Computer Science",
-      status: 1,
-    },
-    {
-      id: 11,
-      index: 11,
-      name: "Teacher 11",
-      email: "teacher11@example.com",
-      phone: "987987987",
-      address: "Address 11",
-      countClass: 4,
-      image_link: "https://via.placeholder.com/150",
-      subject: "Economics",
-      status: 0,
-    },
-    {
-      id: 12,
-      index: 12,
-      name: "Teacher 12",
-      email: "teacher12@example.com",
-      phone: "147258369",
-      address: "Address 12",
-      countClass: 5,
-      image_link: "https://via.placeholder.com/150",
-      subject: "Philosophy",
-      status: 1,
-    },
-    {
-      id: 13,
-      index: 13,
-      name: "Teacher 13",
-      email: "teacher13@example.com",
-      phone: "258369147",
-      address: "Address 13",
-      countClass: 3,
-      image_link: "https://via.placeholder.com/150",
-      subject: "Music",
-      status: 1,
-    },
-    {
-      id: 14,
-      index: 14,
-      name: "Teacher 14",
-      email: "teacher14@example.com",
-      phone: "369147258",
-      address: "Address 14",
-      countClass: 6,
-      image_link: "https://via.placeholder.com/150",
-      subject: "Art",
-      status: 0,
-    },
-    {
-      id: 15,
-      index: 15,
-      name: "Teacher 15",
-      email: "teacher15@example.com",
-      phone: "123654789",
-      address: "Address 15",
-      countClass: 7,
-      image_link: "https://via.placeholder.com/150",
-      subject: "Physical Education",
-      status: 1,
-    },
-    {
-      id: 16,
-      index: 16,
-      name: "Teacher 16",
-      email: "teacher16@example.com",
-      phone: "987321654",
-      address: "Address 16",
-      countClass: 4,
-      image_link: "https://via.placeholder.com/150",
-      subject: "Literature",
-      status: 1,
-    },
-    {
-      id: 17,
-      index: 17,
-      name: "Teacher 17",
-      email: "teacher17@example.com",
-      phone: "456789123",
-      address: "Address 17",
-      countClass: 5,
-      image_link: "https://via.placeholder.com/150",
-      subject: "Drama",
-      status: 0,
-    },
-    {
-      id: 18,
-      index: 18,
-      name: "Teacher 18",
-      email: "teacher18@example.com",
-      phone: "789123456",
-      address: "Address 18",
-      countClass: 6,
-      image_link: "https://via.placeholder.com/150",
-      subject: "Social Studies",
-      status: 1,
-    },
-    {
-      id: 19,
-      index: 19,
-      name: "Teacher 19",
-      email: "teacher19@example.com",
-      phone: "321654987",
-      address: "Address 19",
-      countClass: 3,
-      image_link: "https://via.placeholder.com/150",
-      subject: "French",
-      status: 1,
-    },
-    {
-      id: 20,
-      index: 20,
-      name: "Teacher 20",
-      email: "teacher20@example.com",
-      phone: "654987321",
-      address: "Address 20",
-      countClass: 4,
-      image_link: "https://via.placeholder.com/150",
-      subject: "German",
-      status: 0,
-    },
-  ]);
+  const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [openDelete, setOpenDelete] = useState<number | null>(null);
 
   const [currentPage, setCurrentPage] = useState(1); // Track the current page
@@ -298,9 +58,10 @@ const TeachersPage = () => {
   };
 
   // Fetch Teachers when the component mounts or when refetch is called
-  // useEffect(() => {
-  //   refetchTeachers();
-  // }, [refetchTeachers]); // Empty dependency array to only call refetch once on mount
+  useEffect(() => {
+    // refetchTeachers();
+    setTeachers(teachersStore);
+  }, [teachersStore]); // Empty dependency array to only call refetch once on mount
 
   // View supp category
 
@@ -448,7 +209,7 @@ const TeachersPage = () => {
                         <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
                           <Switch
                             checked={teacher.status === 1}
-                            bgColor={true}
+                            bgcolor={true}
                             handleClick={() => {
                               handleChangeStaus(
                                 teacher.id,
@@ -488,8 +249,7 @@ const TeachersPage = () => {
                                         />
                                         <div className="flex items-center">
                                           <div className="text-center text-xl font-TextFontSemiBold text-gray-600">
-                                            سوف يتم حذف المعلم{" "}
-                                            {teacher?.name || "teacher"}
+                                            سوف يتم حذف المعلم {teacher?.name || ""}
                                           </div>
                                         </div>
                                       </div>
@@ -535,13 +295,13 @@ const TeachersPage = () => {
               <SubmitButton
                 text="التالي"
                 bgColor="mainColor"
-                Color="white"
                 px="px-0"
                 rounded="rounded-xl"
                 handleClick={() => setCurrentPage(currentPage + 1)}
                 width="w-24"
                 type="button"
                 withIcon={false}
+                withShare={false}
               />
             )}
             <div className="flex flex-row-reverse items-center justify-center gap-x-4">
@@ -565,13 +325,13 @@ const TeachersPage = () => {
               <SubmitButton
                 text="السابق"
                 bgColor="mainColor"
-                Color="white"
                 px="px-0"
                 rounded="rounded-xl"
                 handleClick={() => setCurrentPage(currentPage - 1)}
                 width="w-24"
                 type="button"
                 withIcon={false}
+                withShare={false}
               />
             )}
           </div>
