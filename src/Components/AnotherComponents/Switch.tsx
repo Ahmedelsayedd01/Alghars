@@ -3,16 +3,12 @@ import styled from "styled-components";
 interface SwitchProps {
   handleClick: () => void;
   checked: boolean;
-  bgColor: boolean;
+  bgcolor?: boolean;
 }
 
-const Switch: React.FC<SwitchProps> = ({
-  handleClick,
-  checked,
-  bgColor = false,
-}) => {
+const Switch: React.FC<SwitchProps> = ({ handleClick, checked, bgcolor }) => {
   return (
-    <StyledWrapper bgColor={bgColor}>
+    <$StyledWrapper $bgcolor={bgcolor ? "true" : undefined}>
       <label className="switch">
         <input
           type="checkbox"
@@ -22,11 +18,11 @@ const Switch: React.FC<SwitchProps> = ({
         />
         <span className="slider" />
       </label>
-    </StyledWrapper>
+    </$StyledWrapper>
   );
 };
 
-const StyledWrapper = styled.div<{ bgColor: boolean }>`
+const $StyledWrapper = styled.div<{ $bgcolor?: string }>`
   .switch {
     font-size: 10px;
     position: relative;
@@ -67,7 +63,8 @@ const StyledWrapper = styled.div<{ bgColor: boolean }>`
   }
 
   input:checked + .slider {
-    background-color: ${(props) => (props.bgColor ? "#0bb388" : "#14c5c6")};
+    background-color: ${(props) =>
+      props.$bgcolor === "true" ? "#0bb388" : "#14c5c6"};
   }
 
   input:checked + .slider:before {

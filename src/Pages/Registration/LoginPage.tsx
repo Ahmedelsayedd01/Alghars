@@ -98,10 +98,10 @@ const LoginPage = () => {
                   <div className="w-11/12 mx-auto">
                     <SubmitButton
                       bgColor="thirdColor"
-                      Color="white"
                       width="w-full"
                       type="submit"
                       withIcon={false}
+                      withShare={false}
                       text={"تسجيل الدخول"}
                       handleClick={() => handleLogin}
                     />

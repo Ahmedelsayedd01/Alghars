@@ -68,11 +68,15 @@ const Navbar = () => {
         </div>
         <div className="">
           <SubmitButton
+            px="px-0"
+            width="w-48"
+            bgColor={"thirdColor"}
+            rounded="rounded-xl"
             type="button"
-            bgColor="thirdColor"
             text={"تسجيل الخروج"}
             handleClick={handleLogout}
             withIcon={false}
+            withShare={false}
           />
         </div>
       </nav>
