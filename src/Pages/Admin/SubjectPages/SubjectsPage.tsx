@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { DeleteIcon, EditIcon, WarningIcon } from "../../../assets/Icons";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { useSelector } from "react-redux";
+import { Subjects } from "../../../types";
 
 const SubjectsPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
@@ -24,13 +25,8 @@ const SubjectsPage = () => {
   const { changeState, loadingChange, responseChange } = useChangeState();
   const { deleteData, loadingDelete, responseDelete } = useDelete();
 
-  interface Subject {
-    id: number;
-    name: string;
-    status: number;
-  }
 
-  const [subjects, setSubjects] = useState<Subject[]>([]);
+  const [subjects, setSubjects] = useState<Subjects[]>([]);
   const [openDelete, setOpenDelete] = useState<number | null>(null);
 
   const [currentPage, setCurrentPage] = useState(1); // Track the current page

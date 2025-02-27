@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { DeleteIcon, EditIcon, WarningIcon } from "../../../assets/Icons";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { useSelector } from "react-redux";
+import { Students } from "../../../types";
 
 const StudentsPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
@@ -24,20 +25,8 @@ const StudentsPage = () => {
   const { changeState, loadingChange, responseChange } = useChangeState();
   const { deleteData, loadingDelete, responseDelete } = useDelete();
 
-  interface Student {
-    id: number;
-    name: string;
-    category: string;
-    parentPhone: string;
-    address: string;
-    countClass: number;
-    subscription: number;
-    image_link: string;
-    payment: string;
-    status: number;
-  }
 
-  const [students, setStudents] = useState<Student[]>([]);
+  const [students, setStudents] = useState<Students[]>([]);
   const [openDelete, setOpenDelete] = useState<number | null>(null);
 
   const [currentPage, setCurrentPage] = useState(1); // Track the current page

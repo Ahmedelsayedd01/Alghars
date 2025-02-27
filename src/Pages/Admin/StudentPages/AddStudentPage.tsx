@@ -2,9 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   ButtonAdd,
   DropDown,
-  EmailInput,
   NumberInput,
-  PasswordInput,
   Switch,
   TextInput,
   UploadInput,
