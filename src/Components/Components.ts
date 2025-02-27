@@ -10,6 +10,7 @@ export {default as Switch } from "./AnotherComponents/Switch";
 export {default as TextInput } from "./Inputs/TextInput";
 export {default as NumberInput } from "./Inputs/NumberInput";
 
+export {default as DateInput } from "./Inputs/DateInput";
 export {default as DropDown } from "./Inputs/DropDown";
 export {default as UploadInput } from "./Inputs/UploadInput";
 
