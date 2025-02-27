@@ -11,6 +11,7 @@ import {
 } from "../../../Components/Components";
 import { Obj } from "../../../types";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 interface HandleImageClickProps {
   ref: React.RefObject<HTMLInputElement>;
@@ -38,13 +39,7 @@ const EditTeacherPage = ({ nameTitle }: EditTeacherPageProps) => {
   const [teacherStatus, setTeacherStatus] = useState(0);
 
   const [selectedSubject, setSelectedSubject] = useState<Obj | null>(null);
-  const subjects: Obj[] = [
-    { name: "لندن", id: 1 },
-    { name: "لاسان", id: 2 },
-    { name: "يوسكو", id: 3 },
-    { name: "صو", id: 4 },
-    { name: "بارس", id: 5 },
-  ];
+  const subjects = useSelector((state: any) => state.subjects.data);
 
   useEffect(() => {
     console.log("teacherId", teacherId);
@@ -80,7 +75,7 @@ const EditTeacherPage = ({ nameTitle }: EditTeacherPageProps) => {
     }
   };
 
-  const handleAdd = () => {};
+  const handleEdit = () => {};
 
   return (
     <form>
@@ -181,7 +176,7 @@ const EditTeacherPage = ({ nameTitle }: EditTeacherPageProps) => {
       </div>
       {/* Button Add */}
       <div className="w-full flex justify-end items-center">
-        <ButtonAdd handleClick={handleAdd} />
+        <ButtonAdd text="تعديل" handleClick={handleEdit} />
       </div>
     </form>
   );

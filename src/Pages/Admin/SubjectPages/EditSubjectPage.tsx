@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { ButtonAdd, Switch, TextInput } from "../../../Components/Components";
-import { Obj } from "../../../types";
 import { useParams } from "react-router-dom";
 
 interface EditSubjectPageProps {
@@ -25,7 +24,7 @@ const EditSubjectPage = ({ nameTitle }: EditSubjectPageProps) => {
     }
   };
 
-  const handleAdd = () => {};
+  const handleEdit = () => {};
 
   return (
     <form>
@@ -54,7 +53,7 @@ const EditSubjectPage = ({ nameTitle }: EditSubjectPageProps) => {
       </div>
       {/* Button Add */}
       <div className="w-full flex justify-end items-center">
-        <ButtonAdd handleClick={handleAdd} />
+        <ButtonAdd text={'تعديل'} handleClick={handleEdit} />
       </div>
     </form>
   );

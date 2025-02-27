@@ -82,7 +82,7 @@ const EditStudentPage = ({ nameTitle }: EditStudentPageProps) => {
     }
   };
 
-  const handleAdd = () => {};
+  const handleEdit = () => {};
 
   return (
     <form>
@@ -174,7 +174,7 @@ const EditStudentPage = ({ nameTitle }: EditStudentPageProps) => {
       </div>
       {/* Button Add */}
       <div className="w-full flex justify-end items-center">
-        <ButtonAdd handleClick={handleAdd} />
+        <ButtonAdd text="تعديل" handleClick={handleEdit} />
       </div>
     </form>
   );

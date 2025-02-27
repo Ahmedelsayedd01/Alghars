@@ -1,70 +1,37 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ButtonAdd,
+  DateInput,
   DropDown,
-  EmailInput,
   NumberInput,
-  PasswordInput,
   Switch,
-  TextInput,
-  UploadInput,
 } from "../../../Components/Components";
 import { Obj } from "../../../types";
-
-interface HandleImageClickProps {
-  ref: React.RefObject<HTMLInputElement>;
-}
+import { useSelector } from "react-redux";
 
 const AddClassPage = () => {
-  const teacherPhoto = useRef<HTMLInputElement>(null!);
+  const teachers = useSelector((state: any) => state.teachers.data);
+  const students = useSelector((state: any) => state.students.data);
+  const subjects = useSelector((state: any) => state.subjects.data);
 
-  const [teacherName, setTeacherName] = useState("");
-  const [teacherPhone, setTeacherPhone] = useState("");
-  const [teacherAddress, setTeacherAddress] = useState("");
-
-  const [teacherPhotoName, setTeacherPhotoName] = useState("");
-  const [teacherPhotoFile, setTeacherPhotoFile] = useState<File | null>(null);
-
-  const [teacherEmail, setTeacherEmail] = useState("");
-  const [teacherPassword, setTeacherPassword] = useState("");
-
-  const [teacherStatus, setTeacherStatus] = useState(0);
-
+  const [selectedTeacher, setSelectedTeacher] = useState<Obj | null>(null);
+  const [selectedStudent, setSelectedStudent] = useState<Obj | null>(null);
   const [selectedSubject, setSelectedSubject] = useState<Obj | null>(null);
-  const subjects: Obj[] = [
-    { name: "لندن", id: 1 },
-    { name: "لاسان", id: 2 },
-    { name: "يوسكو", id: 3 },
-    { name: "صو", id: 4 },
-    { name: "بارس", id: 5 },
-  ];
+
+  const [classDate, setClassDate] = useState("");
+  const [classPrice, setClassPrice] = useState(0);
+  const [classStatus, setClassStatus] = useState(0);
 
   useEffect(() => {
+    console.log("selectedTeacher", selectedTeacher);
+    console.log("selectedStudent", selectedStudent);
     console.log("selectedSubject", selectedSubject);
-  }, [selectedSubject]);
+  }, [selectedTeacher, selectedStudent, selectedSubject]);
 
-  interface HandleImageChangeEvent extends React.ChangeEvent<HTMLInputElement> {
-    target: HTMLInputElement & EventTarget;
-  }
-
-  const handleImageChange = (e: HandleImageChangeEvent) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setTeacherPhotoFile(file);
-      setTeacherPhotoName(file.name);
-    }
-  };
-
-  const handleImageClick = ({ ref }: HandleImageClickProps) => {
-    if (ref.current) {
-      ref.current.click();
-    }
-  };
-
-  const handleTeacherStatus = () => {
-    const Active = teacherStatus;
+  const handleClassStatus = () => {
+    const Active = classStatus;
     {
-      Active === 0 ? setTeacherStatus(1) : setTeacherStatus(0);
+      Active === 0 ? setClassStatus(1) : setClassStatus(0);
     }
   };
 
@@ -74,50 +41,24 @@ const AddClassPage = () => {
     <form>
       <div className="w-full flex flex-wrap sm:flex-col lg:flex-row items-center justify-start gap-4 sm:mb-8 lg:mb-0">
         {/* Teacher Name */}
-        <TextInput
+        <DropDown
           title={"اسم المعلم:"}
-          value={teacherName}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setTeacherName(e.target.value)
-          }
-          placeholder="ادخل اسم المعلم"
+          value={selectedTeacher}
+          onChange={(e: { value: Obj }) => setSelectedTeacher(e.value)}
+          items={teachers}
+          placeholder={"اختر المعلم"}
         />
 
-        {/* Teacher Address */}
-        <TextInput
-          title={" العنوان:"}
-          value={teacherAddress}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setTeacherAddress(e.target.value)
-          }
-          placeholder="ادخل العنوان"
+        {/* Student Name */}
+        <DropDown
+          title={"اسم الطالب:"}
+          value={selectedStudent}
+          onChange={(e: { value: Obj }) => setSelectedStudent(e.value)}
+          items={students}
+          placeholder={"اختر الطالب"}
         />
 
-        {/* Teacher Phone */}
-        <NumberInput
-          title={"رقم الهاتف:"}
-          value={teacherPhone}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setTeacherPhone(e.target.value)
-          }
-          placeholder="ادخل رقم الهاتف"
-        />
-
-        {/* Teacher Photo */}
-        <div className="sm:w-full lg:w-[26%] flex flex-col items-start justify-center gap-y-2">
-          <span className="text-xl font-TextFontMedium text-thirdColor">
-            الصورة:
-          </span>
-          <UploadInput
-            value={teacherPhotoName}
-            uploadFileRef={teacherPhoto}
-            placeholder="اختر صورة"
-            handleFileChange={handleImageChange}
-            onClick={() => handleImageClick({ ref: teacherPhoto })}
-          />
-        </div>
-
-        {/* Teacher Subject*/}
+        {/*  Subject*/}
         <DropDown
           title={"المادة:"}
           value={selectedSubject}
@@ -126,44 +67,36 @@ const AddClassPage = () => {
           placeholder={"اختر المادة"}
         />
 
-        {/* Teacher Email && Password */}
-        <div className="sm:w-full lg:w-[26%] flex flex-col items-start justify-center gap-y-2">
-          <span className="text-xl font-TextFontMedium text-thirdColor">
-            البريد الالكتروني:
-          </span>
-          <EmailInput
-            isSign={false}
-            value={teacherEmail}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setTeacherEmail(e.target.value);
-            }}
-            placeholder="ادخل البريد الالكتروني"
-            backgound="white"
-          />
-        </div>
-        <div className="sm:w-full lg:w-[26%] flex flex-col items-start justify-center gap-y-1">
-          <span className="text-xl font-TextFontMedium text-thirdColor">
-            كلمة المرور:
-          </span>
-          <PasswordInput
-            isSign={false}
-            value={teacherPassword}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setTeacherPassword(e.target.value);
-            }}
-            placeholder="ادخل كلمة المرور"
-            backgound="bg-white"
-          />
-        </div>
+        {/* Date Class */}
+        <DateInput
+          title={"التاريخ:"}
+          value={classDate}
+          maxDate={false}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setClassDate(e.target.value);
+          }}
+          placeholder={"ادخل التاريخ"}
+        />
+
+        {/* Price Class */}
+        <NumberInput
+          title={"السعر:"}
+          value={classPrice.toString()}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setClassPrice(Number(e.target.value))
+          }
+          placeholder="ادخل السعر "
+        />
+
         <div className="sm:w-full lg:w-[26%] flex items-center justify-start gap-x-2 mt-7">
           <span className="text-2xl font-TextFontMedium text-thirdColor mt-2">
             الحالة:
           </span>
-          {/* Teacher Status */}
+          {/* Class Status */}
           <Switch
-          bgcolor={false}
-            checked={teacherStatus === 1}
-            handleClick={handleTeacherStatus}
+            bgcolor={false}
+            checked={classStatus === 1}
+            handleClick={handleClassStatus}
           />
         </div>
       </div>

@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { DeleteIcon, EditIcon, WarningIcon } from "../../../assets/Icons";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { useSelector } from "react-redux";
+import { Classes } from "../../../types";
 
 const ClassesPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
@@ -24,22 +25,8 @@ const ClassesPage = () => {
   const { changeState, loadingChange, responseChange } = useChangeState();
   const { deleteData, loadingDelete, responseDelete } = useDelete();
 
-  interface Classe {
-    id: number;
-    student: string;
-    teacher: string;
-    teacherPhone: string;
-    subject: string;
-    date: string;
-    start: string;
-    end: string;
-    price: number;
-    timing: string;
-    status: string;
-    active: number;
-  }
 
-  const [classes, setClasses] = useState<Classe[]>([]);
+  const [classes, setClasses] = useState<Classes[]>([]);
   const [openDelete, setOpenDelete] = useState<number | null>(null);
 
   const [currentPage, setCurrentPage] = useState(1); // Track the current page
@@ -119,10 +106,9 @@ const ClassesPage = () => {
     "هاتف المعلم",
     "اسم الطالب",
     "المادة",
-    "الميعاد",
+    "التاريخ",
     "ميعاد البدء",
     "ميعاد الانتهاء",
-    "المدة",
     "السعر",
     "الحالة",
     "النشاط",
@@ -170,50 +156,46 @@ const ClassesPage = () => {
                         className="w-full border-b-2 border-gray-300"
                         key={index}
                       >
-                        <td className="min-w-[80px] sm:min-w-[50px] sm:w-1/12 lg:w-1/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
+                        <td className="min-w-[80px] sm:min-w-[50px] py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
                           {(currentPage - 1) * ClassesPerPage + index + 1}
                         </td>
-                        {/* Name */}
+                        {/* Teacher Name */}
                         <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
                           {clas?.teacher || "-"}
                         </td>
-                        {/* Name */}
+                        {/* Teacher Phone */}
                         <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
                           {clas?.teacherPhone || "-"}
                         </td>
-                        {/* Name */}
-                        <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-1/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
+                        {/* Student Name */}
+                        <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
                           {clas?.student || "-"}
                         </td>
-                        {/* Phone */}
-                        <td className="min-w-[100px] sm:min-w-[100px] sm:w-2/12 lg:w-1/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
+                        {/* Subject Class */}
+                        <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
                           {clas?.subject || "-"}
                         </td>
-                        {/* Addrass */}
+                        {/* Date Class */}
                         <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
                           {clas?.date || "-"}
                         </td>
-                        {/* Addrass */}
+                        {/* Start Time Class */}
                         <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                          {clas?.start || "-"}
+                          {clas?.start || "لم تبدا"}
                         </td>
-                        {/* Email */}
+                        {/* End Time Class */}
                         <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                          {clas?.end || "-"}
+                          {clas?.end || "لم تنتهي"}
                         </td>
-                        {/* Count Class */}
+                        {/* Price Class */}
                         <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                          {clas?.timing || 0}
+                          {clas?.price || 0}
                         </td>
-                        {/* Subject */}
-                        <td className="min-w-[120px] sm:min-w-[80px] sm:w-2/12 lg:w-1/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                          {clas?.price || "-"}
-                        </td>
-                        {/* status */}
+                        {/* Status */}
                         <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
                           {clas?.status || 0}
                         </td>
-                        {/* Status */}
+                        {/* Active */}
                         <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
                           <Switch
                             checked={clas.active === 1}
@@ -257,7 +239,7 @@ const ClassesPage = () => {
                                         />
                                         <div className="flex items-center">
                                           <div className="text-center text-xl font-TextFontSemiBold text-gray-600">
-                                            سوف يتم حذف الحصة
+                                            سوف يتم حذف هذه الحصة
                                           </div>
                                         </div>
                                       </div>
