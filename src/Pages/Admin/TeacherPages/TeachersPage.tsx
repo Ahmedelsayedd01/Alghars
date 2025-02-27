@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { DeleteIcon, EditIcon, WarningIcon } from "../../../assets/Icons";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { useSelector } from "react-redux";
+import { Teachers } from "../../../types";
 
 const TeachersPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
@@ -24,20 +25,7 @@ const TeachersPage = () => {
   const { changeState, loadingChange, responseChange } = useChangeState();
   const { deleteData, loadingDelete, responseDelete } = useDelete();
 
-  interface Teacher {
-    id: number;
-    // index: number;
-    name: string;
-    email: string;
-    subject: string;
-    phone: string;
-    address: string;
-    countClass: number;
-    image_link: string;
-    status: number;
-  }
-
-  const [teachers, setTeachers] = useState<Teacher[]>([]);
+  const [teachers, setTeachers] = useState<Teachers[]>([]);
   const [openDelete, setOpenDelete] = useState<number | null>(null);
 
   const [currentPage, setCurrentPage] = useState(1); // Track the current page
@@ -249,7 +237,8 @@ const TeachersPage = () => {
                                         />
                                         <div className="flex items-center">
                                           <div className="text-center text-xl font-TextFontSemiBold text-gray-600">
-                                            سوف يتم حذف المعلم {teacher?.name || ""}
+                                            سوف يتم حذف المعلم{" "}
+                                            {teacher?.name || ""}
                                           </div>
                                         </div>
                                       </div>

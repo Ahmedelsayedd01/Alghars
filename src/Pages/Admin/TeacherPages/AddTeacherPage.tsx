@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ButtonAdd,
   DropDown,
@@ -10,6 +10,7 @@ import {
   UploadInput,
 } from "../../../Components/Components";
 import { Obj } from "../../../types";
+import { useSelector } from "react-redux";
 
 interface HandleImageClickProps {
   ref: React.RefObject<HTMLInputElement>;
@@ -31,13 +32,8 @@ const AddTeacherPage = () => {
   const [teacherStatus, setTeacherStatus] = useState(0);
 
   const [selectedSubject, setSelectedSubject] = useState<Obj | null>(null);
-  const subjects: Obj[] = [
-    { name: "لندن", id: 1 },
-    { name: "لاسان", id: 2 },
-    { name: "يوسكو", id: 3 },
-    { name: "صو", id: 4 },
-    { name: "بارس", id: 5 },
-  ];
+
+  const subjects=useSelector((state: any) => state.subjects.data);
 
   useEffect(() => {
     console.log("selectedSubject", selectedSubject);
