@@ -1,39 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Classes, Students, Subjects, Teachers } from "../types";
 
-interface student {
-  id: number;
-  name: string;
-  category: string;
-  parentPhone: string;
-  address: string;
-  countClass: number;
-  subscription: number;
-  image_link: string;
-  payment: string;
-  status: number;
-}
-interface Subject {
-  id: number;
-  name: string;
-  status: number;
-}
-interface Classe {
-  id: number;
-  student: string;
-  teacher: string;
-  date: string;
-  teacherPhone: string;
-  subject: string;
-  start: string;
-  end: string;
-  price: number;
-  timing: string;
-  status: string;
-  active: number;
-}
+
 
 const initialUserState = { data: null };
-const initialStudentsState: { data: student[] } = {
+const initialStudentsState: { data: Students[] } = {
   data: [
     {
       id: 1,
@@ -277,37 +248,32 @@ const initialStudentsState: { data: student[] } = {
     },
   ],
 };
-const initialTeachersState = {
+const initialTeachersState:{data:Teachers[]} = {
   data: [
     {
       id: 1,
-      index: 1,
       name: "Teacher 1",
       email: "teacher1@example.com",
       phone: "123456789",
       address: "Address 1",
       countClass: 5,
-      subscription: 5,
       image_link: "https://via.placeholder.com/150",
       subject: "Arabic",
       status: 1,
     },
     {
       id: 2,
-      index: 2,
       name: "Teacher 2",
       email: "teacher2@example.com",
       phone: "987654321",
       address: "Address 2",
       countClass: 4,
-      subscription: 4,
       image_link: "https://via.placeholder.com/150",
       subject: "Math",
       status: 1,
     },
     {
       id: 3,
-      index: 3,
       name: "Teacher 3",
       email: "teacher3@example.com",
       phone: "111222333",
@@ -319,7 +285,6 @@ const initialTeachersState = {
     },
     {
       id: 4,
-      index: 4,
       name: "Teacher 4",
       email: "teacher4@example.com",
       phone: "444555666",
@@ -331,7 +296,6 @@ const initialTeachersState = {
     },
     {
       id: 5,
-      index: 5,
       name: "Teacher 5",
       email: "teacher5@example.com",
       phone: "777888999",
@@ -343,7 +307,6 @@ const initialTeachersState = {
     },
     {
       id: 6,
-      index: 6,
       name: "Teacher 6",
       email: "teacher6@example.com",
       phone: "123123123",
@@ -355,7 +318,6 @@ const initialTeachersState = {
     },
     {
       id: 7,
-      index: 7,
       name: "Teacher 7",
       email: "teacher7@example.com",
       phone: "456456456",
@@ -367,7 +329,6 @@ const initialTeachersState = {
     },
     {
       id: 8,
-      index: 8,
       name: "Teacher 8",
       email: "teacher8@example.com",
       phone: "789789789",
@@ -379,7 +340,6 @@ const initialTeachersState = {
     },
     {
       id: 9,
-      index: 9,
       name: "Teacher 9",
       email: "teacher9@example.com",
       phone: "321321321",
@@ -391,7 +351,6 @@ const initialTeachersState = {
     },
     {
       id: 10,
-      index: 10,
       name: "Teacher 10",
       email: "teacher10@example.com",
       phone: "654654654",
@@ -403,7 +362,6 @@ const initialTeachersState = {
     },
     {
       id: 11,
-      index: 11,
       name: "Teacher 11",
       email: "teacher11@example.com",
       phone: "987987987",
@@ -415,7 +373,6 @@ const initialTeachersState = {
     },
     {
       id: 12,
-      index: 12,
       name: "Teacher 12",
       email: "teacher12@example.com",
       phone: "147258369",
@@ -427,7 +384,6 @@ const initialTeachersState = {
     },
     {
       id: 13,
-      index: 13,
       name: "Teacher 13",
       email: "teacher13@example.com",
       phone: "258369147",
@@ -439,7 +395,6 @@ const initialTeachersState = {
     },
     {
       id: 14,
-      index: 14,
       name: "Teacher 14",
       email: "teacher14@example.com",
       phone: "369147258",
@@ -451,7 +406,6 @@ const initialTeachersState = {
     },
     {
       id: 15,
-      index: 15,
       name: "Teacher 15",
       email: "teacher15@example.com",
       phone: "123654789",
@@ -463,7 +417,6 @@ const initialTeachersState = {
     },
     {
       id: 16,
-      index: 16,
       name: "Teacher 16",
       email: "teacher16@example.com",
       phone: "987321654",
@@ -475,7 +428,6 @@ const initialTeachersState = {
     },
     {
       id: 17,
-      index: 17,
       name: "Teacher 17",
       email: "teacher17@example.com",
       phone: "456789123",
@@ -487,7 +439,6 @@ const initialTeachersState = {
     },
     {
       id: 18,
-      index: 18,
       name: "Teacher 18",
       email: "teacher18@example.com",
       phone: "789123456",
@@ -499,7 +450,6 @@ const initialTeachersState = {
     },
     {
       id: 19,
-      index: 19,
       name: "Teacher 19",
       email: "teacher19@example.com",
       phone: "321654987",
@@ -511,7 +461,6 @@ const initialTeachersState = {
     },
     {
       id: 20,
-      index: 20,
       name: "Teacher 20",
       email: "teacher20@example.com",
       phone: "654987321",
@@ -523,7 +472,7 @@ const initialTeachersState = {
     },
   ],
 };
-const initialSubjectsState: { data: Subject[] } = {
+const initialSubjectsState: { data: Subjects[] } = {
   data: [
     {
       id: 1,
@@ -562,7 +511,7 @@ const initialSubjectsState: { data: Subject[] } = {
     },
   ],
 };
-const initialClassesState: { data: Classe[] } = {
+const initialClassesState: { data: Classes[] } = {
   data: [
     {
       id: 1,
@@ -571,10 +520,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "Math",
       date: "2023-01-01",
-      start: "2023-01-01",
-      end: "2023-01-31",
+      start: "",
+      end: "",
       price: 120,
-      timing: "09:00 AM - 11:00 AM",
       status: "pending",
       active: 1,
     },
@@ -585,10 +533,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "Science",
       date: "2023-02-01",
-      start: "2023-02-01",
-      end: "2023-02-28",
+      start: "11:00 AM",
+      end: "01:00 PM",
       price: 150,
-      timing: "11:00 AM - 01:00 PM",
       status: "processing",
       active: 1,
     },
@@ -599,10 +546,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "English",
       date: "2023-03-01",
-      start: "2023-03-01",
-      end: "2023-03-31",
+      start: "02:00 PM",
+      end: "04:00 PM",
       price: 110,
-      timing: "02:00 PM - 04:00 PM",
       status: "done",
       active: 1,
     },
@@ -613,10 +559,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "Arabic",
       date: "2023-04-01",
-      start: "2023-04-01",
-      end: "2023-04-30",
+      start: "10:00 AM",
+      end: "12:00 PM",
       price: 130,
-      timing: "10:00 AM - 12:00 PM",
       status: "pending",
       active: 1,
     },
@@ -627,10 +572,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "Physics",
       date: "2023-05-01",
-      start: "2023-05-01",
-      end: "2023-05-31",
+      start: "03:00 PM",
+      end: "05:00 PM",
       price: 160,
-      timing: "03:00 PM - 05:00 PM",
       status: "processing",
       active: 1,
     },
@@ -641,10 +585,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "Chemistry",
       date: "2023-06-01",
-      start: "2023-06-01",
-      end: "2023-06-30",
+      start: "11:00 AM",
+      end: "01:00 PM",
       price: 140,
-      timing: "11:00 AM - 01:00 PM",
       status: "done",
       active: 1,
     },
@@ -655,10 +598,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "History",
       date: "2023-07-01",
-      start: "2023-07-01",
-      end: "2023-07-31",
+      start: "09:00 AM",
+      end: "11:00 AM",
       price: 115,
-      timing: "09:00 AM - 11:00 AM",
       status: "pending",
       active: 1,
     },
@@ -669,10 +611,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "Geography",
       date: "2023-08-01",
-      start: "2023-08-01",
-      end: "2023-08-31",
+      start: "01:00 PM",
+      end: "03:00 PM",
       price: 125,
-      timing: "01:00 PM - 03:00 PM",
       status: "processing",
       active: 1,
     },
@@ -683,10 +624,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "Computer Science",
       date: "2023-09-01",
-      start: "2023-09-01",
-      end: "2023-09-30",
+      start: "02:00 PM",
+      end: "04:00 PM",
       price: 170,
-      timing: "02:00 PM - 04:00 PM",
       status: "done",
       active: 1,
     },
@@ -697,10 +637,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "Math",
       date: "2023-10-01",
-      start: "2023-10-01",
-      end: "2023-10-31",
+      start: "10:00 AM",
+      end: "12:00 PM",
       price: 120,
-      timing: "10:00 AM - 12:00 PM",
       status: "pending",
       active: 1,
     },
@@ -711,10 +650,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "Science",
       date: "2023-11-01",
-      start: "2023-11-01",
-      end: "2023-11-30",
+      start: "11:00 AM",
+      end: "01:00 PM",
       price: 150,
-      timing: "11:00 AM - 01:00 PM",
       status: "processing",
       active: 1,
     },
@@ -725,10 +663,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "English",
       date: "2023-12-01",
-      start: "2023-12-01",
-      end: "2023-12-31",
+      start: "02:00 PM",
+      end: "04:00 PM",
       price: 110,
-      timing: "02:00 PM - 04:00 PM",
       status: "done",
       active: 1,
     },
@@ -739,10 +676,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "Arabic",
       date: "2024-01-01",
-      start: "2024-01-01",
-      end: "2024-01-31",
+      start: "10:00 AM",
+      end: "12:00 PM",
       price: 130,
-      timing: "10:00 AM - 12:00 PM",
       status: "pending",
       active: 1,
     },
@@ -753,10 +689,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "Physics",
       date: "2024-02-01",
-      start: "2024-02-01",
-      end: "2024-02-28",
+      start: "03:00 PM",
+      end: "05:00 PM",
       price: 160,
-      timing: "03:00 PM - 05:00 PM",
       status: "processing",
       active: 1,
     },
@@ -767,10 +702,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "Chemistry",
       date: "2024-03-01",
-      start: "2024-03-01",
-      end: "2024-03-31",
+      start: "11:00 AM",
+      end: "01:00 PM",
       price: 140,
-      timing: "11:00 AM - 01:00 PM",
       status: "done",
       active: 1,
     },
@@ -781,10 +715,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "History",
       date: "2024-04-01",
-      start: "2024-04-01",
-      end: "2024-04-30",
+      start: "09:00 AM",
+      end: "11:00 AM",
       price: 115,
-      timing: "09:00 AM - 11:00 AM",
       status: "pending",
       active: 1,
     },
@@ -795,10 +728,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "Geography",
       date: "2024-05-01",
-      start: "2024-05-01",
-      end: "2024-05-31",
+      start: "01:00 PM",
+      end: "03:00 PM",
       price: 125,
-      timing: "01:00 PM - 03:00 PM",
       status: "processing",
       active: 1,
     },
@@ -809,10 +741,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "Computer Science",
       date: "2024-06-01",
-      start: "2024-06-01",
-      end: "2024-06-30",
+      start: "02:00 PM",
+      end: "04:00 PM",
       price: 170,
-      timing: "02:00 PM - 04:00 PM",
       status: "done",
       active: 1,
     },
@@ -823,10 +754,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "Math",
       date: "2024-07-01",
-      start: "2024-07-01",
-      end: "2024-07-31",
+      start: "10:00 AM",
+      end: "12:00 PM",
       price: 120,
-      timing: "10:00 AM - 12:00 PM",
       status: "pending",
       active: 1,
     },
@@ -837,10 +767,9 @@ const initialClassesState: { data: Classe[] } = {
       teacherPhone: "01556665556",
       subject: "Science",
       date: "2024-08-01",
-      start: "2024-08-01",
-      end: "2024-08-31",
+      start: "11:00 AM",
+      end: "01:00 PM",
       price: 150,
-      timing: "11:00 AM - 01:00 PM",
       status: "processing",
       active: 1,
     },
