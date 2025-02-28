@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Classes, Students, Subjects, Teachers } from "../types";
 
-
-
-const initialUserState = { data: null };
+const initialUserState:{data:{role:string} | null} = {
+  data: {
+    role: "teacher",
+  },
+};
 const initialStudentsState: { data: Students[] } = {
   data: [
     {
@@ -16,7 +18,7 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 5,
       image_link: "https://via.placeholder.com/150",
       payment: "تم الدفع",
-      status: 1,
+      status: "active",
     },
     {
       id: 2,
@@ -28,7 +30,7 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 4,
       image_link: "https://via.placeholder.com/150",
       payment: "لم يتم الدفع",
-      status: 1,
+      status: "active",
     },
     {
       id: 3,
@@ -40,7 +42,7 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 6,
       image_link: "https://via.placeholder.com/150",
       payment: "تقسيط",
-      status: 1,
+      status: "active",
     },
     {
       id: 4,
@@ -52,7 +54,7 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 3,
       image_link: "https://via.placeholder.com/150",
       payment: "تم الدفع",
-      status: 1,
+      status: "active",
     },
     {
       id: 5,
@@ -64,7 +66,7 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 7,
       image_link: "https://via.placeholder.com/150",
       payment: "لم يتم الدفع",
-      status: 1,
+      status: "active",
     },
     {
       id: 6,
@@ -76,7 +78,7 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 5,
       image_link: "https://via.placeholder.com/150",
       payment: "تقسيط",
-      status: 1,
+      status: "active",
     },
     {
       id: 7,
@@ -88,7 +90,7 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 4,
       image_link: "https://via.placeholder.com/150",
       payment: "تم الدفع",
-      status: 1,
+      status: "active",
     },
     {
       id: 8,
@@ -100,7 +102,7 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 6,
       image_link: "https://via.placeholder.com/150",
       payment: "لم يتم الدفع",
-      status: 1,
+      status: "active",
     },
     {
       id: 9,
@@ -112,7 +114,7 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 3,
       image_link: "https://via.placeholder.com/150",
       payment: "تقسيط",
-      status: 1,
+      status: "active",
     },
     {
       id: 10,
@@ -124,7 +126,7 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 5,
       image_link: "https://via.placeholder.com/150",
       payment: "تم الدفع",
-      status: 1,
+      status: "active",
     },
     {
       id: 11,
@@ -136,7 +138,7 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 4,
       image_link: "https://via.placeholder.com/150",
       payment: "لم يتم الدفع",
-      status: 1,
+      status: "active",
     },
     {
       id: 12,
@@ -148,7 +150,7 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 7,
       image_link: "https://via.placeholder.com/150",
       payment: "تقسيط",
-      status: 1,
+      status: "active",
     },
     {
       id: 13,
@@ -160,7 +162,7 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 6,
       image_link: "https://via.placeholder.com/150",
       payment: "تم الدفع",
-      status: 1,
+      status: "active",
     },
     {
       id: 14,
@@ -172,7 +174,7 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 5,
       image_link: "https://via.placeholder.com/150",
       payment: "لم يتم الدفع",
-      status: 1,
+      status: "active",
     },
     {
       id: 15,
@@ -184,7 +186,7 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 4,
       image_link: "https://via.placeholder.com/150",
       payment: "تقسيط",
-      status: 1,
+      status: "active",
     },
     {
       id: 16,
@@ -196,7 +198,7 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 3,
       image_link: "https://via.placeholder.com/150",
       payment: "تم الدفع",
-      status: 1,
+      status: "active",
     },
     {
       id: 17,
@@ -208,7 +210,7 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 5,
       image_link: "https://via.placeholder.com/150",
       payment: "لم يتم الدفع",
-      status: 1,
+      status: "active",
     },
     {
       id: 18,
@@ -220,7 +222,7 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 6,
       image_link: "https://via.placeholder.com/150",
       payment: "تقسيط",
-      status: 1,
+      status: "active",
     },
     {
       id: 19,
@@ -232,7 +234,7 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 4,
       image_link: "https://via.placeholder.com/150",
       payment: "تم الدفع",
-      status: 1,
+      status: "active",
     },
     {
       id: 20,
@@ -244,11 +246,11 @@ const initialStudentsState: { data: Students[] } = {
       subscription: 3,
       image_link: "https://via.placeholder.com/150",
       payment: "لم يتم الدفع",
-      status: 1,
+      status: "active",
     },
   ],
 };
-const initialTeachersState:{data:Teachers[]} = {
+const initialTeachersState: { data: Teachers[] } = {
   data: [
     {
       id: 1,
@@ -259,7 +261,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 5,
       image_link: "https://via.placeholder.com/150",
       subject: "Arabic",
-      status: 1,
+      status: "active",
     },
     {
       id: 2,
@@ -270,7 +272,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 4,
       image_link: "https://via.placeholder.com/150",
       subject: "Math",
-      status: 1,
+      status: "active",
     },
     {
       id: 3,
@@ -281,7 +283,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 6,
       image_link: "https://via.placeholder.com/150",
       subject: "Science",
-      status: 0,
+      status: "unactive",
     },
     {
       id: 4,
@@ -292,7 +294,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 3,
       image_link: "https://via.placeholder.com/150",
       subject: "English",
-      status: 1,
+      status: "active",
     },
     {
       id: 5,
@@ -303,7 +305,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 2,
       image_link: "https://via.placeholder.com/150",
       subject: "History",
-      status: 1,
+      status: "active",
     },
     {
       id: 6,
@@ -314,7 +316,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 7,
       image_link: "https://via.placeholder.com/150",
       subject: "Geography",
-      status: 0,
+      status: "unactive",
     },
     {
       id: 7,
@@ -325,7 +327,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 4,
       image_link: "https://via.placeholder.com/150",
       subject: "Physics",
-      status: 1,
+      status: "active",
     },
     {
       id: 8,
@@ -336,7 +338,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 5,
       image_link: "https://via.placeholder.com/150",
       subject: "Chemistry",
-      status: 1,
+      status: "active",
     },
     {
       id: 9,
@@ -347,7 +349,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 6,
       image_link: "https://via.placeholder.com/150",
       subject: "Biology",
-      status: 0,
+      status: "unactive",
     },
     {
       id: 10,
@@ -358,7 +360,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 3,
       image_link: "https://via.placeholder.com/150",
       subject: "Computer Science",
-      status: 1,
+      status: "active",
     },
     {
       id: 11,
@@ -369,7 +371,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 4,
       image_link: "https://via.placeholder.com/150",
       subject: "Economics",
-      status: 0,
+      status: "unactive",
     },
     {
       id: 12,
@@ -380,7 +382,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 5,
       image_link: "https://via.placeholder.com/150",
       subject: "Philosophy",
-      status: 1,
+      status: "active",
     },
     {
       id: 13,
@@ -391,7 +393,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 3,
       image_link: "https://via.placeholder.com/150",
       subject: "Music",
-      status: 1,
+      status: "active",
     },
     {
       id: 14,
@@ -402,7 +404,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 6,
       image_link: "https://via.placeholder.com/150",
       subject: "Art",
-      status: 0,
+      status: "unactive",
     },
     {
       id: 15,
@@ -413,7 +415,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 7,
       image_link: "https://via.placeholder.com/150",
       subject: "Physical Education",
-      status: 1,
+      status: "active",
     },
     {
       id: 16,
@@ -424,7 +426,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 4,
       image_link: "https://via.placeholder.com/150",
       subject: "Literature",
-      status: 1,
+      status: "active",
     },
     {
       id: 17,
@@ -435,7 +437,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 5,
       image_link: "https://via.placeholder.com/150",
       subject: "Drama",
-      status: 0,
+      status: "unactive",
     },
     {
       id: 18,
@@ -446,7 +448,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 6,
       image_link: "https://via.placeholder.com/150",
       subject: "Social Studies",
-      status: 1,
+      status: "active",
     },
     {
       id: 19,
@@ -457,7 +459,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 3,
       image_link: "https://via.placeholder.com/150",
       subject: "French",
-      status: 1,
+      status: "active",
     },
     {
       id: 20,
@@ -468,7 +470,7 @@ const initialTeachersState:{data:Teachers[]} = {
       countClass: 4,
       image_link: "https://via.placeholder.com/150",
       subject: "German",
-      status: 0,
+      status: "unactive",
     },
   ],
 };
@@ -477,37 +479,37 @@ const initialSubjectsState: { data: Subjects[] } = {
     {
       id: 1,
       name: "اللغة العربية",
-      status: 1,
+      status: "active",
     },
     {
       id: 2,
       name: "الرياضيات",
-      status: 0,
+      status: "unactive",
     },
     {
       id: 3,
       name: "العلوم",
-      status: 1,
+      status: "active",
     },
     {
       id: 4,
       name: "اللغة الإنجليزية",
-      status: 1,
+      status: "active",
     },
     {
       id: 5,
       name: "التاريخ",
-      status: 0,
+      status: "unactive",
     },
     {
       id: 6,
       name: "الجغرافيا",
-      status: 1,
+      status: "active",
     },
     {
       id: 7,
       name: "الحاسب الآلي",
-      status: 0,
+      status: "unactive",
     },
   ],
 };
@@ -524,7 +526,7 @@ const initialClassesState: { data: Classes[] } = {
       end: "",
       price: 120,
       status: "pending",
-      active: 1,
+      active: "active",
     },
     {
       id: 2,
@@ -537,7 +539,7 @@ const initialClassesState: { data: Classes[] } = {
       end: "01:00 PM",
       price: 150,
       status: "processing",
-      active: 1,
+      active: "active",
     },
     {
       id: 3,
@@ -550,7 +552,7 @@ const initialClassesState: { data: Classes[] } = {
       end: "04:00 PM",
       price: 110,
       status: "done",
-      active: 1,
+      active: "active",
     },
     {
       id: 4,
@@ -563,7 +565,7 @@ const initialClassesState: { data: Classes[] } = {
       end: "12:00 PM",
       price: 130,
       status: "pending",
-      active: 1,
+      active: "active",
     },
     {
       id: 5,
@@ -576,7 +578,7 @@ const initialClassesState: { data: Classes[] } = {
       end: "05:00 PM",
       price: 160,
       status: "processing",
-      active: 1,
+      active: "active",
     },
     {
       id: 6,
@@ -589,7 +591,7 @@ const initialClassesState: { data: Classes[] } = {
       end: "01:00 PM",
       price: 140,
       status: "done",
-      active: 1,
+      active: "active",
     },
     {
       id: 7,
@@ -602,7 +604,7 @@ const initialClassesState: { data: Classes[] } = {
       end: "11:00 AM",
       price: 115,
       status: "pending",
-      active: 1,
+      active: "active",
     },
     {
       id: 8,
@@ -615,7 +617,7 @@ const initialClassesState: { data: Classes[] } = {
       end: "03:00 PM",
       price: 125,
       status: "processing",
-      active: 1,
+      active: "active",
     },
     {
       id: 9,
@@ -628,7 +630,7 @@ const initialClassesState: { data: Classes[] } = {
       end: "04:00 PM",
       price: 170,
       status: "done",
-      active: 1,
+      active: "active",
     },
     {
       id: 10,
@@ -641,7 +643,7 @@ const initialClassesState: { data: Classes[] } = {
       end: "12:00 PM",
       price: 120,
       status: "pending",
-      active: 1,
+      active: "active",
     },
     {
       id: 11,
@@ -654,7 +656,7 @@ const initialClassesState: { data: Classes[] } = {
       end: "01:00 PM",
       price: 150,
       status: "processing",
-      active: 1,
+      active: "active",
     },
     {
       id: 12,
@@ -667,7 +669,7 @@ const initialClassesState: { data: Classes[] } = {
       end: "04:00 PM",
       price: 110,
       status: "done",
-      active: 1,
+      active: "active",
     },
     {
       id: 13,
@@ -680,7 +682,7 @@ const initialClassesState: { data: Classes[] } = {
       end: "12:00 PM",
       price: 130,
       status: "pending",
-      active: 1,
+      active: "active",
     },
     {
       id: 14,
@@ -693,7 +695,7 @@ const initialClassesState: { data: Classes[] } = {
       end: "05:00 PM",
       price: 160,
       status: "processing",
-      active: 1,
+      active: "active",
     },
     {
       id: 15,
@@ -706,7 +708,7 @@ const initialClassesState: { data: Classes[] } = {
       end: "01:00 PM",
       price: 140,
       status: "done",
-      active: 1,
+      active: "active",
     },
     {
       id: 16,
@@ -719,7 +721,7 @@ const initialClassesState: { data: Classes[] } = {
       end: "11:00 AM",
       price: 115,
       status: "pending",
-      active: 1,
+      active: "active",
     },
     {
       id: 17,
@@ -732,7 +734,7 @@ const initialClassesState: { data: Classes[] } = {
       end: "03:00 PM",
       price: 125,
       status: "processing",
-      active: 1,
+      active: "active",
     },
     {
       id: 18,
@@ -745,7 +747,7 @@ const initialClassesState: { data: Classes[] } = {
       end: "04:00 PM",
       price: 170,
       status: "done",
-      active: 1,
+      active: "active",
     },
     {
       id: 19,
@@ -758,7 +760,7 @@ const initialClassesState: { data: Classes[] } = {
       end: "12:00 PM",
       price: 120,
       status: "pending",
-      active: 1,
+      active: "active",
     },
     {
       id: 20,
@@ -771,12 +773,12 @@ const initialClassesState: { data: Classes[] } = {
       end: "01:00 PM",
       price: 150,
       status: "processing",
-      active: 1,
+      active: "active",
     },
   ],
 };
 
-const initialClassesTeacerState = { data: [] };
+const initialSessionsTeacerState = { data: [] };
 
 /* User */
 const userSlice = createSlice({
@@ -851,12 +853,12 @@ const subjectsSlice = createSlice({
     },
   },
 });
-/* Classes Teacher */
-const classesTeacherSlice = createSlice({
-  name: "classesTeacher",
-  initialState: initialClassesTeacerState,
+/* Sessions Teacher */
+const sessionTeacherSlice = createSlice({
+  name: "sessionsTeacher",
+  initialState: initialSessionsTeacerState,
   reducers: {
-    setClassesTeacher: (state, action) => {
+    setSessionsTeacher: (state, action) => {
       state.data = action.payload;
     },
     //     removeSubject: (state, action: PayloadAction<number>) => {
@@ -872,11 +874,11 @@ export const { setStudents, removeStudent } = studentsSlice.actions;
 export const { setTeachers, removeTeacher } = teachersSlice.actions;
 export const { setSubjects, removeSubject } = subjectsSlice.actions;
 export const { setClasses, removeClass } = classesSlice.actions;
-export const { setClassesTeacher } = classesTeacherSlice.actions;
+export const { setSessionsTeacher } = sessionTeacherSlice.actions;
 
 export const userReducer = userSlice.reducer;
 export const studentsReducer = studentsSlice.reducer;
 export const teachersReducer = teachersSlice.reducer;
 export const subjectsReducer = subjectsSlice.reducer;
 export const classesReducer = classesSlice.reducer;
-export const classesTeacherReducer = classesTeacherSlice.reducer;
+export const sessionsTeacherReducer = sessionTeacherSlice.reducer;

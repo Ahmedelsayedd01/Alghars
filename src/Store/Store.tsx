@@ -4,7 +4,7 @@ import storage from "redux-persist/lib/storage";
 
 import {
   classesReducer,
-  classesTeacherReducer,
+  sessionsTeacherReducer,
   studentsReducer,
   subjectsReducer,
   teachersReducer,
@@ -20,7 +20,7 @@ const reducers = combineReducers({
   teachers: teachersReducer,
   subjects: subjectsReducer,
   classes: classesReducer,
-  classesTeacher: classesTeacherReducer,
+  sessionsTeacher: sessionsTeacherReducer,
 });
 
 // Persist configuration
