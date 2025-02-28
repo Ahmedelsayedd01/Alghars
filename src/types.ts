@@ -18,7 +18,7 @@ interface AuthContextType {
         countClass: number;
         image_link: string;
         subject: string;
-        status: number;
+        status: string;
     }
 
      interface Students {
@@ -31,12 +31,12 @@ interface AuthContextType {
       subscription: number;
       image_link: string;
       payment: string;
-      status: number;
+      status: string;
     }
     interface Subjects {
       id: number;
       name: string;
-      status: number;
+      status: string;
     }
     interface Classes {
       id: number;
@@ -49,7 +49,7 @@ interface AuthContextType {
       end: string;
       price: number;
       status: string;
-      active: number;
+      active: string;
     }
 
      interface PostOptions {
@@ -60,7 +60,7 @@ interface AuthContextType {
      interface ChangeStateOptions {
       url: string;
       message: string;
-      data: number;
+      data: string;
     }
 
      interface LogoProps {
