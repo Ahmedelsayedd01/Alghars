@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import ProtectedLogin from "./ProtectedAuth/ProtectedLogin";
-import { LoginPage } from "./Pages/Pages";
+import { LoginPage, SessionPage } from "./Pages/Pages";
 import ProtectedRoute from "./ProtectedAuth/ProtectedRoute";
 import {
   AddClassLayout,
@@ -15,6 +14,7 @@ import {
   EditTeacherLayout,
   StudentsLayout,
   SubjectsLayout,
+  TeacherSessionsLayout,
   TeachersLayout,
 } from "./Layouts/Layouts";
 
@@ -24,102 +24,60 @@ export const router = createBrowserRouter(
     {
       path: "/login",
       element: (
-        <ProtectedLogin>
+        <ProtectedRoute isLogin>
           <LoginPage />
-        </ProtectedLogin>
+        </ProtectedRoute>
       ),
-      children: [{ path: "", element: <LoginPage /> }],
     },
     {
       path: "/",
       element: (
-        <>
-          <ProtectedLogin>
-            <App />
-          </ProtectedLogin>
-        </>
+        <ProtectedRoute>
+          <App />
+        </ProtectedRoute>
       ),
       children: [
-        /* Admin */
         {
-          path: "/dashboard",
-          // element: <ProtectedRoute />,
+          path: "dashboard",
+          element: <ProtectedRoute role="admin" />,
           children: [
+            { path: "teachers", element: <TeachersLayout /> },
+            { path: "teachers/add", element: <AddTeacherLayout /> },
             {
-              path: "teachers",
-              children: [
-                {
-                  path: "",
-                  element: <TeachersLayout />,
-                },
-                {
-                  path: "add",
-                  element: <AddTeacherLayout />,
-                },
-                {
-                  path: "edit/:teacherId",
-                  element: <EditTeacherLayout />,
-                },
-              ],
+              path: "teachers/edit/:teacherId",
+              element: <EditTeacherLayout />,
             },
+            { path: "students", element: <StudentsLayout /> },
+            { path: "students/add", element: <AddStudentLayout /> },
             {
-              path: "students",
-              children: [
-                {
-                  path: "",
-                  element: <StudentsLayout />,
-                },
-                {
-                  path: "add",
-                  element: <AddStudentLayout />,
-                },
-                {
-                  path: "edit/:studentId",
-                  element: <EditStudentLayout />,
-                },
-              ],
+              path: "students/edit/:studentId",
+              element: <EditStudentLayout />,
             },
+            { path: "subjects", element: <SubjectsLayout /> },
+            { path: "subjects/add", element: <AddSubjectLayout /> },
             {
-              path: "subjects",
-              children: [
-                {
-                  path: "",
-                  element: <SubjectsLayout />,
-                },
-                {
-                  path: "add",
-                  element: <AddSubjectLayout />,
-                },
-                {
-                  path: "edit/:subjectId",
-                  element: <EditSubjectLayout />,
-                },
-              ],
+              path: "subjects/edit/:subjectId",
+              element: <EditSubjectLayout />,
             },
-            {
-              path: "classes",
-              children: [
-                {
-                  path: "",
-                  element: <ClassesLayout />,
-                },
-                {
-                  path: "add",
-                  element: <AddClassLayout />,
-                },
-                {
-                  path: "edit/:classId",
-                  element: <EditClassLayout />,
-                },
-              ],
-            },
+            { path: "classes", element: <ClassesLayout /> },
+            { path: "classes/add", element: <AddClassLayout /> },
+            { path: "classes/edit/:classId", element: <EditClassLayout /> },
           ],
         },
-        /* Teacher */
-        // {
-        //   path:'',
-        //   element:<TeacerClasses/>
-        // }
+        {
+          path: "sessions",
+          children: [
+            {
+              index: true,
+              element: (
+                <ProtectedRoute role="teacher">
+                  <TeacherSessionsLayout />
+                </ProtectedRoute>
+              ),
+            },
+            { path: "session/:sessionId", element: <SessionPage /> },
+          ],
+        },
       ],
     },
   ],
