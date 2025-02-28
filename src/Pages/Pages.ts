@@ -20,3 +20,5 @@ export { default as AddClassPage } from "./Admin/ClassPages/AddClassPage";
 export { default as EditClassPage } from "./Admin/ClassPages/EditClassPage";
 
 /* Teacher */
+export { default as TeacerSessionsPage} from "./Teacher/Sessions/TeacherSessionsPage";
+export { default as SessionPage } from "./Teacher/Sessions/SessionPage";
