@@ -15,4 +15,6 @@ export {default as EditSubjectLayout} from './Admin/Subjects/EditSubjectLayout'
 export {default as ClassesLayout} from './Admin/Classes/ClassesLayout'
 export {default as AddClassLayout} from './Admin/Classes/AddClassLayout'
 export {default as EditClassLayout} from './Admin/Classes/EditClassLayout'
+
 /* Teacher */
+export {default as TeacherSessionsLayout} from './Teacher/Sessions/TeacherSessionsLayout'
