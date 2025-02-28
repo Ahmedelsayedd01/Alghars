@@ -62,7 +62,7 @@ const ClassesPage = () => {
   };
 
   // Change Classe active
-  const handleChangeStaus = async (id: number, active: number) => {
+  const handleChangeStaus = async (id: number, active: string) => {
     const response = await changeState({
       url: `${apiUrl}/admin/class/status/${id}`,
       message: "activeChange",
@@ -198,12 +198,12 @@ const ClassesPage = () => {
                         {/* Active */}
                         <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
                           <Switch
-                            checked={clas.active === 1}
+                            checked={clas.active === 'active'}
                             bgcolor={true}
                             handleClick={() => {
                               handleChangeStaus(
                                 clas.id,
-                                clas.active === 1 ? 0 : 1
+                                clas.active === 'active' ? 'unactive' : 'active'
                               );
                             }}
                           />

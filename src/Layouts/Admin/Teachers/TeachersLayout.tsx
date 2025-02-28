@@ -17,7 +17,7 @@ const TeachersLayout = () => {
     phone: string;
     address: string;
     countClass: number;
-    status: number;
+    status: string;
   }
 
   const handleShare = () => {

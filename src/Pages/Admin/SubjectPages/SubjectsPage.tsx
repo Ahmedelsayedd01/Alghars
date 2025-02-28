@@ -25,7 +25,6 @@ const SubjectsPage = () => {
   const { changeState, loadingChange, responseChange } = useChangeState();
   const { deleteData, loadingDelete, responseDelete } = useDelete();
 
-
   const [subjects, setSubjects] = useState<Subjects[]>([]);
   const [openDelete, setOpenDelete] = useState<number | null>(null);
 
@@ -62,7 +61,7 @@ const SubjectsPage = () => {
   };
 
   // Change subject status
-  const handleChangeStaus = async (id: number, status: number) => {
+  const handleChangeStaus = async (id: number, status: string) => {
     const response = await changeState({
       url: `${apiUrl}/admin/subject/status/${id}`,
       message: "statusChange",
@@ -156,12 +155,12 @@ const SubjectsPage = () => {
                         {/* Status */}
                         <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
                           <Switch
-                            checked={subject.status === 1}
+                            checked={subject.status === 'active'}
                             bgcolor={true}
                             handleClick={() => {
                               handleChangeStaus(
                                 subject.id,
-                                subject.status === 1 ? 0 : 1
+                                subject.status === 'active' ? 'unactive' : 'active'
                               );
                             }}
                           />
@@ -198,7 +197,8 @@ const SubjectsPage = () => {
                                         />
                                         <div className="flex items-center">
                                           <div className="text-center text-xl font-TextFontSemiBold text-gray-600">
-                                            سوف يتم حذف المادة {subject?.name || ""}
+                                            سوف يتم حذف المادة{" "}
+                                            {subject?.name || ""}
                                           </div>
                                         </div>
                                       </div>

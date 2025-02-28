@@ -18,7 +18,7 @@ const StudentsLayout = () => {
     countClass: number;
     image_link: string;
     payment: string;
-    status: number;
+    status: string;
   }
 
   const handleShare = () => {
@@ -30,7 +30,7 @@ const StudentsLayout = () => {
       Address: `${student?.address || "-"}`,
       Classes: `${student?.countClass || "-"}`,
       Payment: `${student?.payment || "-"}`,
-      Status: student.status === 1 ? "يعمل" : "متوقف",
+      Status: student.status === 'active' ? "يعمل" : "متوقف",
     }));
 
     // Create a new workbook and add the data

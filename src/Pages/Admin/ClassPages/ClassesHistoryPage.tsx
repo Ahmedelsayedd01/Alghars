@@ -34,7 +34,7 @@ const ClassesHistoryPage = () => {
     address: string;
     countClass: number;
     image_link: string;
-    status: number;
+    status: string;
   }
 
   const [teachers, setTeachers] = useState<Teacher[]>([]);
@@ -73,7 +73,7 @@ const ClassesHistoryPage = () => {
   };
 
   // Change Teacher status
-  const handleChangeStaus = async (id: number, status: number) => {
+  const handleChangeStaus = async (id: number, status: string) => {
     const response = await changeState({
       url: `${apiUrl}/admin/teacher/status/${id}`,
       message: "statusChange",
@@ -208,12 +208,12 @@ const ClassesHistoryPage = () => {
                         {/* Status */}
                         <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
                           <Switch
-                            checked={teacher.status === 1}
+                            checked={teacher.status === 'active'}
                             bgcolor={true}
                             handleClick={() => {
                               handleChangeStaus(
                                 teacher.id,
-                                teacher.status === 1 ? 0 : 1
+                                teacher.status === 'active' ? 'unactive' : 'active'
                               );
                             }}
                           />
@@ -249,7 +249,8 @@ const ClassesHistoryPage = () => {
                                         />
                                         <div className="flex items-center">
                                           <div className="text-center text-xl font-TextFontSemiBold text-gray-600">
-                                            سوف يتم حذف المعلم {teacher?.name || ""}
+                                            سوف يتم حذف المعلم{" "}
+                                            {teacher?.name || ""}
                                           </div>
                                         </div>
                                       </div>
