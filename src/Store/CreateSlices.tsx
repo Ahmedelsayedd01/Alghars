@@ -1,7 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Classes, Students, Subjects, Teachers } from "../types";
+import {
+  Classes,
+  ScheduleSessions,
+  Students,
+  Subjects,
+  Teachers,
+} from "../types";
 
-const initialUserState:{data:{role:string} | null} = {
+const initialUserState: { data: { role: string } | null } = {
   data: {
     role: "teacher",
   },
@@ -778,7 +784,83 @@ const initialClassesState: { data: Classes[] } = {
   ],
 };
 
-const initialSessionsTeacerState = { data: [] };
+const initialSessionsTeacerState: { data: ScheduleSessions[] } = {
+  data: [
+    {
+      id: 1,
+      day: "01/03/2025",
+      sessions: [
+        { id: 1, name: "Morning Yoga", start: "", end: "", status: "unactive" },
+        { id: 2, name: "Tech Conference", start: "", end: "", status: "unactive" },
+        { id: 3, name: "Networking Session", start: "", end: "", status: "unactive" }
+      ]
+    },
+    {
+      id: 2,
+      day: "02/03/2025",
+      sessions: [
+        { id: 1, name: "AI Workshop", start: "", end: "", status: "unactive" },
+        { id: 2, name: "Lunch Break", start: "", end: "", status: "unactive" },
+        { id: 3, name: "Coding Challenge", start: "", end: "", status: "unactive" }
+      ]
+    },
+    {
+      id: 3,
+      day: "03/03/2025",
+      sessions: [
+        { id: 1, name: "Cybersecurity Talk", start: "", end: "", status: "unactive" },
+        { id: 2, name: "Machine Learning Basics", start: "", end: "", status: "unactive" },
+        { id: 3, name: "Evening Meditation", start: "", end: "", status: "unactive" }
+      ]
+    },
+    {
+      id: 4,
+      day: "04/03/2025",
+      sessions: [
+        { id: 1, name: "Web Development Bootcamp", start: "", end: "", status: "unactive" },
+        { id: 2, name: "Data Science Intro", start: "", end: "", status: "unactive" },
+        { id: 3, name: "Live Q&A", start: "", end: "", status: "unactive" }
+      ]
+    },
+    {
+      id: 5,
+      day: "05/03/2025",
+      sessions: [
+        { id: 1, name: "Marketing Strategy", start: "", end: "", status: "unactive" },
+        { id: 2, name: "Social Media Growth", start: "", end: "", status: "unactive" },
+        { id: 3, name: "Personal Branding", start: "", end: "", status: "unactive" }
+      ]
+    },
+    {
+      id: 6,
+      day: "06/03/2025",
+      sessions: [
+        { id: 1, name: "Blockchain Basics", start: "", end: "", status: "unactive" },
+        { id: 2, name: "Cryptocurrency Panel", start: "", end: "", status: "unactive" },
+        { id: 3, name: "DeFi and NFTs", start: "", end: "", status: "unactive" }
+      ]
+    },
+    {
+      id: 7,
+      day: "07/03/2025",
+      sessions: [
+        { id: 1, name: "UI/UX Design Trends", start: "", end: "", status: "unactive" },
+        { id: 2, name: "Product Management Insights", start: "", end: "", status: "unactive" },
+        { id: 3, name: "Startup Pitch Session", start: "", end: "", status: "unactive" }
+      ]
+    },
+    {
+      id: 8,
+      day: "08/03/2025",
+      sessions: [
+        { id: 1, name: "Game Development 101", start: "", end: "", status: "unactive" },
+        { id: 2, name: "Unity vs Unreal Engine", start: "", end: "", status: "unactive" },
+        { id: 3, name: "VR & AR Future", start: "", end: "", status: "unactive" }
+      ]
+    }
+  ]
+  ,
+};
 
 /* User */
 const userSlice = createSlice({
