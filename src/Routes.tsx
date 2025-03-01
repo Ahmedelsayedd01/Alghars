@@ -12,6 +12,7 @@ import {
   EditStudentLayout,
   EditSubjectLayout,
   EditTeacherLayout,
+  SchedulesLayout,
   StudentsLayout,
   SubjectsLayout,
   TeacherSessionsLayout,
@@ -65,17 +66,21 @@ export const router = createBrowserRouter(
           ],
         },
         {
-          path: "sessions",
+          // path: "schedule_sessions",
+          path: "",
+          element: (
+            <ProtectedRoute role="teacher">
+              <SchedulesLayout />
+            </ProtectedRoute>
+          ),
           children: [
             {
-              index: true,
-              element: (
-                <ProtectedRoute role="teacher">
-                  <TeacherSessionsLayout />
-                </ProtectedRoute>
-              ),
+              path: "sessions",
+              children: [
+                { index: true, element: <TeacherSessionsLayout /> },
+                { path: "session/:sessionId", element: <SessionPage /> },
+              ],
             },
-            { path: "session/:sessionId", element: <SessionPage /> },
           ],
         },
       ],
