@@ -72,4 +72,16 @@ interface AuthContextType {
       id: number;
     }
 
-     export type { AuthContextType, Teachers, Students, Subjects, Classes , PostOptions, ChangeStateOptions,LogoProps,Obj };
+    interface ScheduleSessions {
+      id: number;
+      day: string;
+      sessions: {
+        id: number;
+        name: string;
+        start: string;
+        end: string;
+        status: string;
+      }[];
+    }
+
+     export type { AuthContextType, Teachers, Students, Subjects, Classes , PostOptions, ChangeStateOptions,LogoProps,Obj, ScheduleSessions };
