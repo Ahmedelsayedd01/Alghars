@@ -16,11 +16,11 @@ import { Teachers } from "../../../types";
 const TeachersPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const teachersStore = useSelector((state: any) => state.teachers.data);
-  // const {
-  //   refetch: refetchTeachers,
-  //   loading: loadingTeachers,
-  //   data: dataTeachers,
-  // } = useGet(`${apiUrl}/admin/teachers`);
+  const {
+    refetch: refetchTeachers,
+    loading: loadingTeachers,
+    data: dataTeachers,
+  } = useGet(`${apiUrl}/admin/teacher/show`);
 
   const { changeState, loadingChange, responseChange } = useChangeState();
   const { deleteData, loadingDelete, responseDelete } = useDelete();
@@ -47,11 +47,17 @@ const TeachersPage = () => {
 
   // Fetch Teachers when the component mounts or when refetch is called
   useEffect(() => {
-    // refetchTeachers();
+    refetchTeachers();
     setTeachers(teachersStore);
-  }, [teachersStore]); // Empty dependency array to only call refetch once on mount
+  }, [refetchTeachers]); // Empty dependency array to only call refetch once on mount
 
-  // View supp category
+    // Update Teachers when `data` changes
+    useEffect(() => {
+      // if ((dataTeachers as any).teachers) {
+      //   setTeachers((dataTeachers as any).teachers);
+      // }
+      console.log('dataTeachers',dataTeachers)
+    }, [dataTeachers]); // Only run this effect when `data` changes
 
   const handleOpenDelete = (id: number) => {
     setOpenDelete(id);
@@ -64,7 +70,7 @@ const TeachersPage = () => {
   const handleChangeStaus = async (id: number, status: string) => {
     const response = await changeState({
       url: `${apiUrl}/admin/teacher/status/${id}`,
-      message: "statusChange",
+      message: "تم تغير حالة المعلم",
       data: status,
     });
 
@@ -81,8 +87,8 @@ const TeachersPage = () => {
   // Delete Category
   const handleDelete = async (id: number, name: string) => {
     const success = await deleteData(
-      `${apiUrl}/admin/teacher/${id}`,
-      `${name} Deleted Success.`
+      `${apiUrl}/admin/teacher/delete/${id}`,
+      `${name} تم حذف المعلم.`
     );
 
     if (success) {
@@ -94,12 +100,6 @@ const TeachersPage = () => {
     }
   };
 
-  // Update Teachers when `data` changes
-  // useEffect(() => {
-  //   if ((dataTeachers as any).teachers) {
-  //     setTeachers((dataTeachers as any).teachers);
-  //   }
-  // }, [dataTeachers]); // Only run this effect when `data` changes
 
   const headers = [
     "#",
@@ -130,7 +130,7 @@ const TeachersPage = () => {
             </tr>
           </thead>
           {
-            /* loadingTeachers || */ loadingChange || loadingDelete ? (
+            loadingTeachers || loadingChange || loadingDelete ? (
               <div className="w-full h-56 flex justify-center items-center">
                 <StaticLoader />
               </div>

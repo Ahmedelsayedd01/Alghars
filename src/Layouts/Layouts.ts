@@ -19,3 +19,4 @@ export {default as EditClassLayout} from './Admin/Classes/EditClassLayout'
 /* Teacher */
 export {default as SchedulesLayout} from './Teacher/ScheduleTeacher/SchedulesLayout'
 export {default as TeacherSessionsLayout} from './Teacher/Sessions/TeacherSessionsLayout'
+export {default as TeacherSessionLayout} from './Teacher/Session/SessionLayout'

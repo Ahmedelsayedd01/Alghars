@@ -5,6 +5,7 @@ export {default as Sidebar } from "./AnotherComponents/Sidebar";
 export {default as LinksSidebar } from "./AnotherComponents/LinksSidebar";
 
 export {default as TitleSection } from "./AnotherComponents/TitleSection";
+export {default as Titlepage } from "./AnotherComponents/TitilePage";
 export {default as Switch } from "./AnotherComponents/Switch";
 
 export {default as TextInput } from "./Inputs/TextInput";

@@ -18,7 +18,7 @@ const LoginPage = () => {
 
   const { postData, loadingPost, response } = usePost({
     url: `${apiUrl}/api/auth/login`,
-  }); // Destructure as an object
+  }); 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -44,11 +44,13 @@ const LoginPage = () => {
   useEffect(() => {
     if (response) {
       console.log("response", response);
-
+      if (response.data.user.role === "admin") {
+        navigate("/dashboard/teachers", { replace: true });
+      } else if (response.data.user.role === "teacher") {
+        navigate("/schedule_sessions", { replace: true });
+      }
       auth.loginUser(response.data.user);
 
-      /* navigate depending on user role */
-      navigate("/", { replace: true });
     }
   }, [response]);
   return (

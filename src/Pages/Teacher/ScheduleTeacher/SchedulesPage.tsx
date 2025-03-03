@@ -17,14 +17,18 @@ const schedulesPage = () => {
   }, [scheduleTeacherStore]);
   return (
     <>
-      <div className="w-full flex flex-wrap gap-2">
+      <div className="w-full flex flex-wrap items-center justify-start gap-4">
         {scheduleTeacher.map((item: ScheduleSessions, index: number) => (
           <Link
-            to={`/session/${item.id}`}
+            to={`sessions`}
+            state={item.id}
             key={index}
-            className="flex items-center justify-center p-3 bg-white rounded-lg shadow-md"
+            className="sm:w-[10%] flex items-center justify-center py-4 bg-thirdColor text-white text-3xl 
+            hover:bg-transparent hover:text-thirdColor border-2 border-thirdColor
+            tranition duration-300 ease-in-out
+            font-medium rounded-xl hover:shadow-md hover:-translate-y-2 active:scale-95"
           >
-            <h1 className="text-lg font-semibold">{index + 1}</h1>
+            {index + 1}
           </Link>
         ))}
       </div>

@@ -15,6 +15,7 @@ const ProtectedRoute = ({ role, isLogin, children }: ProtectedRouteProps) => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  console.log("location", location);
   console.log("roleUser", roleUser);
   console.log("roleProp", roleProp);
 
@@ -37,12 +38,14 @@ const ProtectedRoute = ({ role, isLogin, children }: ProtectedRouteProps) => {
 
   // If role specified and user has the correct role, render child routes
   if (roleProp === roleUser && roleProp === "admin") {
-    return <Navigate to="/dashboard/teachers" replace />;
+    <Navigate to="/dashboard/teachers" replace />;
+    // return children ? <>{children}</> : <Outlet />;
   }
-
+  
   // No redirect for teacher; just allow the component to render
   if (roleProp === roleUser && roleUser === "teacher") {
-    return children ? <>{children}</> : <Outlet />;
+    <Navigate to="/schedule_sessions" replace />;
+    // return children ? <>{children}</> : <Outlet />;
   }
 
   // If children are provided, render them
