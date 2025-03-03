@@ -1,6 +1,11 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import App from "./App";
-import { LoginPage, SessionPage } from "./Pages/Pages";
+import {
+  LoginPage,
+  SchedulesPage,
+  SessionPage,
+  TeacherSessionsPage,
+} from "./Pages/Pages";
 import ProtectedRoute from "./ProtectedAuth/ProtectedRoute";
 import {
   AddClassLayout,
@@ -15,6 +20,7 @@ import {
   SchedulesLayout,
   StudentsLayout,
   SubjectsLayout,
+  TeacherSessionLayout,
   TeacherSessionsLayout,
   TeachersLayout,
 } from "./Layouts/Layouts";
@@ -66,21 +72,19 @@ export const router = createBrowserRouter(
           ],
         },
         {
-          // path: "schedule_sessions",
-          path: "",
+          path: "schedule_sessions",
           element: (
             <ProtectedRoute role="teacher">
-              <SchedulesLayout />
+              <Outlet />
             </ProtectedRoute>
           ),
           children: [
+            { index: true, element: <SchedulesLayout /> },
             {
               path: "sessions",
-              children: [
-                { index: true, element: <TeacherSessionsLayout /> },
-                { path: "session/:sessionId", element: <SessionPage /> },
-              ],
+              element: <TeacherSessionsLayout />,
             },
+            { path: "sessions/session/:sessionId", element: <TeacherSessionLayout /> },
           ],
         },
       ],
