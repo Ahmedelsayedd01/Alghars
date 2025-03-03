@@ -78,10 +78,30 @@ interface AuthContextType {
       sessions: {
         id: number;
         name: string;
+        location: string;
         start: string;
         end: string;
         status: string;
       }[];
     }
+    interface Sessions {
+      id: number;
+      sessions: Array<{
+        id: number;
+        name: string;
+        location: string;
+        start: string;
+        end: string;
+        status: string;
+      }>;
+    }
+    interface Session {
+      id: number;
+      name: string;
+      location: string;
+      start: string;
+      end: string;
+      status: string;
+    }
 
-     export type { AuthContextType, Teachers, Students, Subjects, Classes , PostOptions, ChangeStateOptions,LogoProps,Obj, ScheduleSessions };
+     export type { AuthContextType, Teachers, Students, Subjects, Classes , PostOptions, ChangeStateOptions,LogoProps,Obj, ScheduleSessions,Sessions, Session };
