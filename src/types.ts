@@ -73,23 +73,30 @@ interface AuthContextType {
     }
 
     interface ScheduleSessions {
-      id: number;
       day: string;
-      sessions: {
+      sessions: Array<{
         id: number;
-        name: string;
-        location: string;
+        student: {
+          id: number;
+          name: string;
+          subject: string;
+          address: string;
+        };
         start: string;
         end: string;
         status: string;
-      }[];
+      }>;
     }
     interface Sessions {
-      id: number;
+      day: string;
       sessions: Array<{
         id: number;
-        name: string;
-        location: string;
+        student: {
+          id: number;
+          name: string;
+          subject: string;
+          address: string;
+        };
         start: string;
         end: string;
         status: string;
@@ -97,8 +104,12 @@ interface AuthContextType {
     }
     interface Session {
       id: number;
-      name: string;
-      location: string;
+      student:{
+        id: number;
+          name: string;
+          subject: string;
+          address: string;
+      };
       start: string;
       end: string;
       status: string;
