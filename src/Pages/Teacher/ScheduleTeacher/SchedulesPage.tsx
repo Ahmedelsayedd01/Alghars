@@ -21,7 +21,7 @@ const schedulesPage = () => {
         {scheduleTeacher.map((item: ScheduleSessions, index: number) => (
           <Link
             to={`sessions`}
-            state={item.id}
+            state={item.day}
             key={index}
             className="sm:w-[10%] flex items-center justify-center py-4 bg-thirdColor text-white text-3xl 
             hover:bg-transparent hover:text-thirdColor border-2 border-thirdColor
