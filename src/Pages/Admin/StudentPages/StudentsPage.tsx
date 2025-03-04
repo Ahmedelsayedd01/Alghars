@@ -197,6 +197,9 @@ const StudentsPage = () => {
                         {/* Payment */}
                         <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
                           {student?.payment || 0}
+                          {/* 0 === تقسيط */}
+                          {/* 1 === لم يتم الدفع */}
+                          {/* 2 === تم الدفع */}
                         </td>
                         {/* Status */}
                         <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
