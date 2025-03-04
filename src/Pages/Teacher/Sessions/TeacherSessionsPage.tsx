@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const TeacherSessionsPage = () => {
   const location = useLocation();
-  const dayId = location.state;
+  const day = location.state;
 
   const scheduleTeacherStore = useSelector(
     (state: any) => state.sessionsTeacher.data
@@ -15,11 +15,11 @@ const TeacherSessionsPage = () => {
 
   useEffect(() => {
     const selectedSessions =
-      scheduleTeacherStore.find((item: ScheduleSessions) => item.id === dayId)
+      scheduleTeacherStore.find((item: ScheduleSessions) => item.day === day)
         ?.sessions || [];
 
     setSessionsTeacher(selectedSessions);
-  }, [scheduleTeacherStore, dayId]);
+  }, [scheduleTeacherStore, day]);
 
   return (
     <>
@@ -34,7 +34,7 @@ const TeacherSessionsPage = () => {
             tranition duration-300 ease-in-out
             font-medium rounded-xl hover:shadow-md hover:-translate-y-2  active:scale-95"
           >
-            {index + 1}- {session.name}
+            {index + 1}- {session.student.name}
           </Link>
         ))}
       </div>
