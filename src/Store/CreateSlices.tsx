@@ -8,7 +8,7 @@ import {
 } from "../types";
 
 const initialUserState: { data: { role: string } | null } = {
-  data: null,
+  data:null,
 };
 const initialStudentsState: { data: Students[] } = {
   data: [
@@ -783,412 +783,60 @@ const initialClassesState: { data: Classes[] } = {
 };
 
 const initialSessionsTeacerState: { data: ScheduleSessions[] } = {
-  data: [
+  data : [
     {
       day: "01/03/2025",
       sessions: [
-        {
-          id: 1,
-          student: {
-            id: 1,
-            name: "John Doe",
-            address: "123 Main St",
-            subject: "Math",
-          },
-          start: "16:59:00",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 2,
-          student: {
-            id: 2,
-            name: "Jane Smith",
-            address: "456 Elm St",
-            subject: "Science",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 3,
-          student: {
-            id: 3,
-            name: "Alice Johnson",
-            address: "789 Oak St",
-            subject: "History",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 4,
-          student: {
-            id: 4,
-            name: "Bob Brown",
-            address: "321 Pine St",
-            subject: "Physics",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 5,
-          student: {
-            id: 5,
-            name: "Charlie Davis",
-            address: "654 Cedar St",
-            subject: "Chemistry",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 6,
-          student: {
-            id: 6,
-            name: "David Wilson",
-            address: "987 Birch St",
-            subject: "Biology",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 7,
-          student: {
-            id: 7,
-            name: "Emma Thomas",
-            address: "741 Willow St",
-            subject: "English",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 8,
-          student: {
-            id: 8,
-            name: "Liam Harris",
-            address: "852 Maple St",
-            subject: "Geography",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-      ],
+        { id: 1, student: { id: 1, name: 'John Doe', address: '123 Main St', subject: 'Math' }, start: "", end: "", status: "pending" },
+        { id: 2, student: { id: 2, name: 'Jane Smith', address: '456 Elm St', subject: 'Science' }, start: "18:00:00", end: "", status: "processing" },
+        { id: 3, student: { id: 3, name: 'Alice Johnson', address: '789 Oak St', subject: 'History' }, start: "13:00:00", end: "14:00:00", status: "done" },
+        { id: 4, student: { id: 4, name: 'Bob Brown', address: '321 Pine St', subject: 'Physics' }, start: "", end: "", status: "pending" },
+        { id: 5, student: { id: 5, name: 'Charlie Davis', address: '654 Cedar St', subject: 'Chemistry' }, start: "", end: "", status: "pending" },
+        { id: 6, student: { id: 6, name: 'David Wilson', address: '987 Birch St', subject: 'Biology' }, start: "", end: "", status: "pending" },
+        { id: 7, student: { id: 7, name: 'Emma Thomas', address: '741 Willow St', subject: 'English' }, start: "", end: "", status: "pending" },
+        { id: 8, student: { id: 8, name: 'Liam Harris', address: '852 Maple St', subject: 'Geography' }, start: "", end: "", status: "pending" },
+      ]
     },
     {
       day: "02/03/2025",
       sessions: [
-        {
-          id: 9,
-          student: {
-            id: 9,
-            name: "Sophia White",
-            address: "369 Cherry St",
-            subject: "Music",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 10,
-          student: {
-            id: 10,
-            name: "Noah Walker",
-            address: "258 Walnut St",
-            subject: "Art",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 11,
-          student: {
-            id: 11,
-            name: "Olivia Hall",
-            address: "147 Ash St",
-            subject: "Philosophy",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 12,
-          student: {
-            id: 12,
-            name: "Ethan Young",
-            address: "951 Spruce St",
-            subject: "Psychology",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 13,
-          student: {
-            id: 13,
-            name: "Ava Scott",
-            address: "753 Redwood St",
-            subject: "Sociology",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 14,
-          student: {
-            id: 14,
-            name: "James King",
-            address: "159 Beech St",
-            subject: "Economics",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 15,
-          student: {
-            id: 15,
-            name: "Isabella Martinez",
-            address: "357 Cypress St",
-            subject: "Politics",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 16,
-          student: {
-            id: 16,
-            name: "Mason Garcia",
-            address: "951 Poplar St",
-            subject: "Computer Science",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-      ],
+        { id: 9, student: { id: 9, name: 'Sophia White', address: '369 Cherry St', subject: 'Music' }, start: "", end: "", status: "pending" },
+        { id: 10, student: { id: 10, name: 'Noah Walker', address: '258 Walnut St', subject: 'Art' }, start: "", end: "", status: "pending" },
+        { id: 11, student: { id: 11, name: 'Olivia Hall', address: '147 Ash St', subject: 'Philosophy' }, start: "", end: "", status: "pending" },
+        { id: 12, student: { id: 12, name: 'Ethan Young', address: '951 Spruce St', subject: 'Psychology' }, start: "", end: "", status: "pending" },
+        { id: 13, student: { id: 13, name: 'Ava Scott', address: '753 Redwood St', subject: 'Sociology' }, start: "", end: "", status: "pending" },
+        { id: 14, student: { id: 14, name: 'James King', address: '159 Beech St', subject: 'Economics' }, start: "", end: "", status: "pending" },
+        { id: 15, student: { id: 15, name: 'Isabella Martinez', address: '357 Cypress St', subject: 'Politics' }, start: "", end: "", status: "pending" },
+        { id: 16, student: { id: 16, name: 'Mason Garcia', address: '951 Poplar St', subject: 'Computer Science' }, start: "", end: "", status: "pending" },
+      ]
     },
     {
       day: "03/03/2025",
       sessions: [
-        {
-          id: 17,
-          student: {
-            id: 17,
-            name: "Lucas Wright",
-            address: "248 Birch St",
-            subject: "Engineering",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 18,
-          student: {
-            id: 18,
-            name: "Mia Roberts",
-            address: "369 Oak St",
-            subject: "Law",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 19,
-          student: {
-            id: 19,
-            name: "Benjamin Clark",
-            address: "471 Pine St",
-            subject: "Finance",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 20,
-          student: {
-            id: 20,
-            name: "Emily Adams",
-            address: "582 Spruce St",
-            subject: "Medicine",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 21,
-          student: {
-            id: 21,
-            name: "Matthew Carter",
-            address: "693 Willow St",
-            subject: "Statistics",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 22,
-          student: {
-            id: 22,
-            name: "Sophie Turner",
-            address: "704 Maple St",
-            subject: "Data Science",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 23,
-          student: {
-            id: 23,
-            name: "Daniel Lewis",
-            address: "815 Cherry St",
-            subject: "AI & Robotics",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 24,
-          student: {
-            id: 24,
-            name: "Ella Walker",
-            address: "926 Cedar St",
-            subject: "Astronomy",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-      ],
+        { id: 17, student: { id: 17, name: 'Lucas Wright', address: '248 Birch St', subject: 'Engineering' }, start: "", end: "", status: "pending" },
+        { id: 18, student: { id: 18, name: 'Mia Roberts', address: '369 Oak St', subject: 'Law' }, start: "", end: "", status: "pending" },
+        { id: 19, student: { id: 19, name: 'Benjamin Clark', address: '471 Pine St', subject: 'Finance' }, start: "", end: "", status: "pending" },
+        { id: 20, student: { id: 20, name: 'Emily Adams', address: '582 Spruce St', subject: 'Medicine' }, start: "", end: "", status: "pending" },
+        { id: 21, student: { id: 21, name: 'Matthew Carter', address: '693 Willow St', subject: 'Statistics' }, start: "", end: "", status: "pending" },
+        { id: 22, student: { id: 22, name: 'Sophie Turner', address: '704 Maple St', subject: 'Data Science' }, start: "", end: "", status: "pending" },
+        { id: 23, student: { id: 23, name: 'Daniel Lewis', address: '815 Cherry St', subject: 'AI & Robotics' }, start: "", end: "", status: "pending" },
+        { id: 24, student: { id: 24, name: 'Ella Walker', address: '926 Cedar St', subject: 'Astronomy' }, start: "", end: "", status: "pending" },
+      ]
     },
     {
       day: "04/03/2025",
       sessions: [
-        {
-          id: 25,
-          student: {
-            id: 25,
-            name: "Michael Robinson",
-            address: "112 Beech St",
-            subject: "Literature",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 26,
-          student: {
-            id: 26,
-            name: "Grace Thompson",
-            address: "223 Redwood St",
-            subject: "Anthropology",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 27,
-          student: {
-            id: 27,
-            name: "William Hall",
-            address: "334 Ash St",
-            subject: "Linguistics",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 28,
-          student: {
-            id: 28,
-            name: "Chloe Evans",
-            address: "445 Walnut St",
-            subject: "Environmental Science",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 29,
-          student: {
-            id: 29,
-            name: "James Harris",
-            address: "556 Poplar St",
-            subject: "Artificial Intelligence",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 30,
-          student: {
-            id: 30,
-            name: "Mia Foster",
-            address: "667 Birch St",
-            subject: "Machine Learning",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 31,
-          student: {
-            id: 31,
-            name: "Alexander Reed",
-            address: "778 Spruce St",
-            subject: "Quantum Physics",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-        {
-          id: 32,
-          student: {
-            id: 32,
-            name: "Lily Parker",
-            address: "889 Oak St",
-            subject: "Neuroscience",
-          },
-          start: "",
-          end: "",
-          status: "pending",
-        },
-      ],
-    },
-  ],
+        { id: 25, student: { id: 25, name: 'Michael Robinson', address: '112 Beech St', subject: 'Literature' }, start: "", end: "", status: "pending" },
+        { id: 26, student: { id: 26, name: 'Grace Thompson', address: '223 Redwood St', subject: 'Anthropology' }, start: "", end: "", status: "pending" },
+        { id: 27, student: { id: 27, name: 'William Hall', address: '334 Ash St', subject: 'Linguistics' }, start: "", end: "", status: "pending" },
+        { id: 28, student: { id: 28, name: 'Chloe Evans', address: '445 Walnut St', subject: 'Environmental Science' }, start: "", end: "", status: "pending" },
+        { id: 29, student: { id: 29, name: 'James Harris', address: '556 Poplar St', subject: 'Artificial Intelligence' }, start: "", end: "", status: "pending" },
+        { id: 30, student: { id: 30, name: 'Mia Foster', address: '667 Birch St', subject: 'Machine Learning' }, start: "", end: "", status: "pending" },
+        { id: 31, student: { id: 31, name: 'Alexander Reed', address: '778 Spruce St', subject: 'Quantum Physics' }, start: "", end: "", status: "pending" },
+        { id: 32, student: { id: 32, name: 'Lily Parker', address: '889 Oak St', subject: 'Neuroscience' }, start: "", end: "", status: "pending" },
+      ]
+    }
+  ]
 };
 
 /* User */
@@ -1198,6 +846,7 @@ const userSlice = createSlice({
   reducers: {
     login: (state, action) => {
       state.data = action.payload;
+    
     },
     logOut: (state) => {
       state.data = null;
