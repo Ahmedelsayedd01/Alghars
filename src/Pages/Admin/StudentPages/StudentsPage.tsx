@@ -8,7 +8,7 @@ import {
   Switch,
 } from "../../../Components/Components";
 import { Link } from "react-router-dom";
-import { DeleteIcon, EditIcon, WarningIcon } from "../../../Assets/Icons";
+import { DeleteIcon, EditIcon, WarningIcon } from "../../../Assets/IconsEx";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { useSelector } from "react-redux";
 import { Students } from "../../../types";
@@ -22,8 +22,8 @@ const StudentsPage = () => {
   //   data: dataStudents,
   // } = useGet(`${apiUrl}/admin/students`);
 
-  const { changeState, loadingChange, /* responseChange */ } = useChangeState();
-  const { deleteData, loadingDelete, /* responseDelete */ } = useDelete();
+  const { changeState, loadingChange /* responseChange */ } = useChangeState();
+  const { deleteData, loadingDelete /* responseDelete */ } = useDelete();
 
   const [students, setStudents] = useState<Students[]>([]);
   const [openDelete, setOpenDelete] = useState<number | null>(null);
@@ -204,12 +204,14 @@ const StudentsPage = () => {
                         {/* Status */}
                         <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
                           <Switch
-                            checked={student.status === 'active'}
+                            checked={student.status === "active"}
                             bgcolor={true}
                             handleClick={() => {
                               handleChangeStaus(
                                 student.id,
-                                student.status === 'active' ? 'unactive' : 'active'
+                                student.status === "active"
+                                  ? "unactive"
+                                  : "active"
                               );
                             }}
                           />

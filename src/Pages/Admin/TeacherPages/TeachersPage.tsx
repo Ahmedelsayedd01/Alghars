@@ -8,7 +8,7 @@ import {
   Switch,
 } from "../../../Components/Components";
 import { Link } from "react-router-dom";
-import { DeleteIcon, EditIcon, WarningIcon } from "../../../Assets/Icons";
+import { DeleteIcon, EditIcon, WarningIcon } from "../../../Assets/IconsEx";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { useSelector } from "react-redux";
 import { Teachers } from "../../../types";
@@ -22,8 +22,8 @@ const TeachersPage = () => {
     data: dataTeachers,
   } = useGet(`${apiUrl}/admin/teacher/show`);
 
-  const { changeState, loadingChange, /* responseChange */ } = useChangeState();
-  const { deleteData, loadingDelete, /* responseDelete */ } = useDelete();
+  const { changeState, loadingChange /* responseChange */ } = useChangeState();
+  const { deleteData, loadingDelete /* responseDelete */ } = useDelete();
 
   const [teachers, setTeachers] = useState<Teachers[]>([]);
   const [openDelete, setOpenDelete] = useState<number | null>(null);
@@ -51,13 +51,13 @@ const TeachersPage = () => {
     setTeachers(teachersStore);
   }, [refetchTeachers]); // Empty dependency array to only call refetch once on mount
 
-    // Update Teachers when `data` changes
-    useEffect(() => {
-      // if ((dataTeachers as any).teachers) {
-      //   setTeachers((dataTeachers as any).teachers);
-      // }
-      console.log('dataTeachers',dataTeachers)
-    }, [dataTeachers]); // Only run this effect when `data` changes
+  // Update Teachers when `data` changes
+  useEffect(() => {
+    // if ((dataTeachers as any).teachers) {
+    //   setTeachers((dataTeachers as any).teachers);
+    // }
+    console.log("dataTeachers", dataTeachers);
+  }, [dataTeachers]); // Only run this effect when `data` changes
 
   const handleOpenDelete = (id: number) => {
     setOpenDelete(id);
@@ -100,7 +100,6 @@ const TeachersPage = () => {
     }
   };
 
-
   const headers = [
     "#",
     "الصورة",
@@ -129,154 +128,151 @@ const TeachersPage = () => {
               ))}
             </tr>
           </thead>
-          {
-            loadingTeachers || loadingChange || loadingDelete ? (
-              <div className="w-full h-56 flex justify-center items-center">
-                <StaticLoader />
-              </div>
-            ) : (
-              <tbody className="w-full">
-                {teachers.length === 0 ? (
-                  <tr>
-                    <td
-                      colSpan={12}
-                      className="pt-2 text-center text-xl text-mainColor font-TextFontMedium  "
+          {loadingTeachers || loadingChange || loadingDelete ? (
+            <div className="w-full h-56 flex justify-center items-center">
+              <StaticLoader />
+            </div>
+          ) : (
+            <tbody className="w-full">
+              {teachers.length === 0 ? (
+                <tr>
+                  <td
+                    colSpan={12}
+                    className="pt-2 text-center text-xl text-mainColor font-TextFontMedium  "
+                  >
+                    لا يوجد معلمين
+                  </td>
+                </tr>
+              ) : (
+                currentTeachers.map(
+                  (
+                    teacher,
+                    index // Example with two rows
+                  ) => (
+                    <tr
+                      className="w-full border-b-2 border-gray-300"
+                      key={index}
                     >
-                      لا يوجد معلمين
-                    </td>
-                  </tr>
-                ) : (
-                  currentTeachers.map(
-                    (
-                      teacher,
-                      index // Example with two rows
-                    ) => (
-                      <tr
-                        className="w-full border-b-2 border-gray-300"
-                        key={index}
-                      >
-                        <td className="min-w-[80px] sm:min-w-[50px] sm:w-1/12 lg:w-1/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                          {(currentPage - 1) * TeachersPerPage + index + 1}
-                        </td>
-                        {/* Photo */}
-                        <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 overflow-hidden">
-                          <div className="flex justify-center">
-                            <img
-                              src={teacher?.image_link || "-"}
-                              className="bg-mainColor border-2 border-mainColor rounded-full min-w-14 min-h-14 max-w-14 max-h-14"
-                              loading="lazy"
-                              alt="Photo"
-                            />
-                          </div>
-                        </td>
-                        {/* Name */}
-                        <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                          {teacher?.name || "-"}
-                        </td>
-                        {/* Phone */}
-                        <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                          {teacher?.phone || "-"}
-                        </td>
-                        {/* Addrass */}
-                        <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                          {teacher?.address || "-"}
-                        </td>
-                        {/* Email */}
-                        <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                          {teacher?.email || "-"}
-                        </td>
-                        {/* Subject */}
-                        <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                          {teacher?.subject || "-"}
-                        </td>
-                        {/* Count Class */}
-                        <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                          {teacher?.countClass || 0}
-                        </td>
-                        {/* Status */}
-                        <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                          <Switch
-                            checked={teacher.status === 'active'}
-                            bgcolor={true}
-                            handleClick={() => {
-                              handleChangeStaus(
-                                teacher.id,
-                                teacher.status === 'active' ? 'unactive' : 'active'
-                              );
-                            }}
+                      <td className="min-w-[80px] sm:min-w-[50px] sm:w-1/12 lg:w-1/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
+                        {(currentPage - 1) * TeachersPerPage + index + 1}
+                      </td>
+                      {/* Photo */}
+                      <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 overflow-hidden">
+                        <div className="flex justify-center">
+                          <img
+                            src={teacher?.image_link || "-"}
+                            className="bg-mainColor border-2 border-mainColor rounded-full min-w-14 min-h-14 max-w-14 max-h-14"
+                            loading="lazy"
+                            alt="Photo"
                           />
-                        </td>
-                        {/* Tools */}
-                        <td className="px-4 py-3 text-center">
-                          <div className="flex items-center justify-center gap-2">
-                            <Link to={`edit/${teacher.id}`}>
-                              <EditIcon />
-                            </Link>
-                            <button
-                              type="button"
-                              className="cursor-pointer"
-                              onClick={() => handleOpenDelete(teacher.id)}
+                        </div>
+                      </td>
+                      {/* Name */}
+                      <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
+                        {teacher?.name || "-"}
+                      </td>
+                      {/* Phone */}
+                      <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
+                        {teacher?.phone || "-"}
+                      </td>
+                      {/* Addrass */}
+                      <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
+                        {teacher?.address || "-"}
+                      </td>
+                      {/* Email */}
+                      <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
+                        {teacher?.email || "-"}
+                      </td>
+                      {/* Subject */}
+                      <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
+                        {teacher?.subject || "-"}
+                      </td>
+                      {/* Count Class */}
+                      <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
+                        {teacher?.countClass || 0}
+                      </td>
+                      {/* Status */}
+                      <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
+                        <Switch
+                          checked={teacher.status === "active"}
+                          bgcolor={true}
+                          handleClick={() => {
+                            handleChangeStaus(
+                              teacher.id,
+                              teacher.status === "active"
+                                ? "unactive"
+                                : "active"
+                            );
+                          }}
+                        />
+                      </td>
+                      {/* Tools */}
+                      <td className="px-4 py-3 text-center">
+                        <div className="flex items-center justify-center gap-2">
+                          <Link to={`edit/${teacher.id}`}>
+                            <EditIcon />
+                          </Link>
+                          <button
+                            type="button"
+                            className="cursor-pointer"
+                            onClick={() => handleOpenDelete(teacher.id)}
+                          >
+                            <DeleteIcon />
+                          </button>
+                          {openDelete === teacher.id && (
+                            <Dialog
+                              open={true}
+                              onClose={handleCloseDelete}
+                              className="relative z-10"
                             >
-                              <DeleteIcon />
-                            </button>
-                            {openDelete === teacher.id && (
-                              <Dialog
-                                open={true}
-                                onClose={handleCloseDelete}
-                                className="relative z-10"
-                              >
-                                <DialogBackdrop className="fixed inset-0 bg-gray-500 opacity-30 transition-opacity" />
-                                <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-                                  <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                                    <DialogPanel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                                      <div className="flex  flex-col items-center justify-center bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                                        <WarningIcon
-                                          width="28"
-                                          height="28"
-                                          aria-hidden="true"
-                                        />
-                                        <div className="flex items-center">
-                                          <div className="text-center text-xl font-TextFontSemiBold text-gray-600">
-                                            سوف يتم حذف المعلم{" "}
-                                            {teacher?.name || ""}
-                                          </div>
+                              <DialogBackdrop className="fixed inset-0 bg-gray-500 opacity-30 transition-opacity" />
+                              <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+                                <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                                  <DialogPanel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                                    <div className="flex  flex-col items-center justify-center bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                                      <WarningIcon
+                                        width="28"
+                                        height="28"
+                                        aria-hidden="true"
+                                      />
+                                      <div className="flex items-center">
+                                        <div className="text-center text-xl font-TextFontSemiBold text-gray-600">
+                                          سوف يتم حذف المعلم{" "}
+                                          {teacher?.name || ""}
                                         </div>
                                       </div>
-                                      <div className="px-4 py-3 sm:flex sm:flex-row sm:px-6">
-                                        <button
-                                          className="inline-flex w-full justify-center rounded-md bg-red-500 hover:bg-red-600 cursor-pointer transition duration-300 px-6 py-3 text-sm font-TextFontSemiBold text-white shadow-sm sm:ml-3 sm:w-auto"
-                                          onClick={() =>
-                                            handleDelete(
-                                              teacher.id,
-                                              teacher.name
-                                            )
-                                          }
-                                        >
-                                          حذف
-                                        </button>
-                                        <button
-                                          type="button"
-                                          data-autofocus
-                                          onClick={handleCloseDelete}
-                                          className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-6 py-3 cursor-pointer text-sm font-TextFontMedium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:mt-0 sm:w-auto"
-                                        >
-                                          إلغاء
-                                        </button>
-                                      </div>
-                                    </DialogPanel>
-                                  </div>
+                                    </div>
+                                    <div className="px-4 py-3 sm:flex sm:flex-row sm:px-6">
+                                      <button
+                                        className="inline-flex w-full justify-center rounded-md bg-red-500 hover:bg-red-600 cursor-pointer transition duration-300 px-6 py-3 text-sm font-TextFontSemiBold text-white shadow-sm sm:ml-3 sm:w-auto"
+                                        onClick={() =>
+                                          handleDelete(teacher.id, teacher.name)
+                                        }
+                                      >
+                                        حذف
+                                      </button>
+                                      <button
+                                        type="button"
+                                        data-autofocus
+                                        onClick={handleCloseDelete}
+                                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-6 py-3 cursor-pointer text-sm font-TextFontMedium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:mt-0 sm:w-auto"
+                                      >
+                                        إلغاء
+                                      </button>
+                                    </div>
+                                  </DialogPanel>
                                 </div>
-                              </Dialog>
-                            )}
-                          </div>
-                        </td>
-                      </tr>
-                    )
+                              </div>
+                            </Dialog>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
                   )
-                )}
-              </tbody>
-            )
-          }
+                )
+              )}
+            </tbody>
+          )}
         </table>
         {teachers.length > 10 && (
           <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4">

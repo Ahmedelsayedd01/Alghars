@@ -8,7 +8,7 @@ import {
   Switch,
 } from "../../../Components/Components";
 import { Link } from "react-router-dom";
-import { DeleteIcon, EditIcon, WarningIcon } from "../../../Assets/Icons";
+import { DeleteIcon, EditIcon, WarningIcon } from "../../../Assets/IconsEx";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { useSelector } from "react-redux";
 import { Classes } from "../../../types";
@@ -22,9 +22,8 @@ const ClassesPage = () => {
   //   data: dataClasses,
   // } = useGet(`${apiUrl}/admin/classes`);
 
-  const { changeState, loadingChange, /* responseChange */ } = useChangeState();
-  const { deleteData, loadingDelete, /* responseDelete */ } = useDelete();
-
+  const { changeState, loadingChange /* responseChange */ } = useChangeState();
+  const { deleteData, loadingDelete /* responseDelete */ } = useDelete();
 
   const [classes, setClasses] = useState<Classes[]>([]);
   const [openDelete, setOpenDelete] = useState<number | null>(null);
@@ -198,12 +197,12 @@ const ClassesPage = () => {
                         {/* Active */}
                         <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
                           <Switch
-                            checked={clas.active === 'active'}
+                            checked={clas.active === "active"}
                             bgcolor={true}
                             handleClick={() => {
                               handleChangeStaus(
                                 clas.id,
-                                clas.active === 'active' ? 'unactive' : 'active'
+                                clas.active === "active" ? "unactive" : "active"
                               );
                             }}
                           />

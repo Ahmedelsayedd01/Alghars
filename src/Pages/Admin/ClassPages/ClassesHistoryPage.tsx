@@ -8,7 +8,7 @@ import {
   Switch,
 } from "../../../Components/Components";
 import { Link } from "react-router-dom";
-import { DeleteIcon, EditIcon, WarningIcon } from "../../../Assets/Icons";
+import { DeleteIcon, EditIcon, WarningIcon } from "../../../Assets/IconsEx";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { useSelector } from "react-redux";
 
