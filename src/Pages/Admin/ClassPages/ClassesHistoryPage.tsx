@@ -8,7 +8,7 @@ import {
   Switch,
 } from "../../../Components/Components";
 import { Link } from "react-router-dom";
-import { DeleteIcon, EditIcon, WarningIcon } from "../../../Assets/IconsEx";
+import { DeleteIcon, EditIcon, WarningIcon } from "../../../Assets/Assets";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { useSelector } from "react-redux";
 
@@ -21,8 +21,8 @@ const ClassesHistoryPage = () => {
   //   data: dataTeachers,
   // } = useGet(`${apiUrl}/admin/teachers`);
 
-  const { changeState, loadingChange, /* responseChange */ } = useChangeState();
-  const { deleteData, loadingDelete, /* responseDelete */ } = useDelete();
+  const { changeState, loadingChange /* responseChange */ } = useChangeState();
+  const { deleteData, loadingDelete /* responseDelete */ } = useDelete();
 
   interface Teacher {
     id: number;
@@ -208,12 +208,14 @@ const ClassesHistoryPage = () => {
                         {/* Status */}
                         <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
                           <Switch
-                            checked={teacher.status === 'active'}
+                            checked={teacher.status === "active"}
                             bgcolor={true}
                             handleClick={() => {
                               handleChangeStaus(
                                 teacher.id,
-                                teacher.status === 'active' ? 'unactive' : 'active'
+                                teacher.status === "active"
+                                  ? "unactive"
+                                  : "active"
                               );
                             }}
                           />
