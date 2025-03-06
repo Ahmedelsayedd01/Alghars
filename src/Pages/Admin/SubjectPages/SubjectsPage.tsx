@@ -8,7 +8,9 @@ import {
   Switch,
 } from "../../../Components/Components";
 import { Link } from "react-router-dom";
-import { DeleteIcon, EditIcon, WarningIcon } from "../../../Assets/Assets";
+import { MdDeleteOutline } from "react-icons/md";
+import { CiEdit } from "react-icons/ci";
+import { RiErrorWarningLine } from "react-icons/ri";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { useSelector } from "react-redux";
 import { Subjects } from "../../../types";
@@ -172,14 +174,14 @@ const SubjectsPage = () => {
                         <td className="px-4 py-3 text-center">
                           <div className="flex items-center justify-center gap-2">
                             <Link to={`edit/${subject.id}`}>
-                              <EditIcon />
+                              <CiEdit color="green" size={25} />
                             </Link>
                             <button
                               type="button"
                               className="cursor-pointer"
                               onClick={() => handleOpenDelete(subject.id)}
                             >
-                              <DeleteIcon />
+                              <MdDeleteOutline color="red" size={25} />
                             </button>
                             {openDelete === subject.id && (
                               <Dialog
@@ -192,10 +194,9 @@ const SubjectsPage = () => {
                                   <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                                     <DialogPanel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                                       <div className="flex  flex-col items-center justify-center bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                                        <WarningIcon
-                                          width="28"
-                                          height="28"
-                                          aria-hidden="true"
+                                        <RiErrorWarningLine
+                                          color="red"
+                                          size={200}
                                         />
                                         <div className="flex items-center">
                                           <div className="text-center text-xl font-TextFontSemiBold text-gray-600">
