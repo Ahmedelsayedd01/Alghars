@@ -789,7 +789,7 @@ const initialSessionsTeacerState: { data: ScheduleSessions[] } = {
     {
       day: "01/03/2025",
       sessions: [
-        { id: 1, student: { id: 1, name: 'John Doe', address: '123 Main St', subject: 'Math' }, start: "16:59:00", end: "", status: "done" },
+        { id: 1, student: { id: 1, name: 'John Doe', address: '123 Main St', subject: 'Math' }, start: "16:59:00", end: "", status: "pending" },
         { id: 2, student: { id: 2, name: 'Jane Smith', address: '456 Elm St', subject: 'Science' }, start: "", end: "", status: "pending" },
         { id: 3, student: { id: 3, name: 'Alice Johnson', address: '789 Oak St', subject: 'History' }, start: "", end: "", status: "pending" },
         { id: 4, student: { id: 4, name: 'Bob Brown', address: '321 Pine St', subject: 'Physics' }, start: "", end: "", status: "pending" },
