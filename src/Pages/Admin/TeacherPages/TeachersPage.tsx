@@ -8,10 +8,12 @@ import {
   Switch,
 } from "../../../Components/Components";
 import { Link } from "react-router-dom";
-import { DeleteIcon, EditIcon, WarningIcon } from "../../../Assets/Assets";
+import WarningIcon from "../../../Assets/Icons/WarningIcon";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { useSelector } from "react-redux";
 import { Teachers } from "../../../types";
+import { MdDeleteOutline } from "react-icons/md";
+import { CiEdit } from "react-icons/ci";
 
 const TeachersPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
@@ -210,14 +212,14 @@ const TeachersPage = () => {
                       <td className="px-4 py-3 text-center">
                         <div className="flex items-center justify-center gap-2">
                           <Link to={`edit/${teacher.id}`}>
-                            <EditIcon />
+                            <CiEdit color="green" size={25} />
                           </Link>
                           <button
                             type="button"
                             className="cursor-pointer"
                             onClick={() => handleOpenDelete(teacher.id)}
                           >
-                            <DeleteIcon />
+                            <MdDeleteOutline color="red" size={25} />
                           </button>
                           {openDelete === teacher.id && (
                             <Dialog
