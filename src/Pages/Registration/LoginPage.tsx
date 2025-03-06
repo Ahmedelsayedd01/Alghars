@@ -19,10 +19,18 @@ const LoginPage = () => {
 
   const { postData, loadingPost, response } = usePost({
     url: `${apiUrl}/api/auth/login`,
-  }); 
+  });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleLogTeacher = () => {
+    auth.loginUser({ username: "معلم ذياد", role: "teacher" });
+    navigate("/schedule_sessions", { replace: true });
+  };
+  const handleLogAdmin = () => {
+    auth.loginUser({ username: "ذياد باشا", role: "admin" });
+    navigate("/dashboard/teachers", { replace: true });
+  };
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Use uppercase "D"
 
@@ -51,7 +59,6 @@ const LoginPage = () => {
         navigate("/schedule_sessions", { replace: true });
       }
       auth.loginUser(response.data.user);
-
     }
   }, [response]);
   return (
@@ -98,7 +105,27 @@ const LoginPage = () => {
                     </div>
                   </div>
 
-                  <div className="w-11/12 mx-auto">
+                  <div className="w-11/12 mx-auto flex gap-2">
+                    <SubmitButton
+                      bgColor="thirdColor"
+                      width="w-full"
+                      type="button"
+                      withIcon={false}
+                      withShare={false}
+                      text={"تسجيل كمعلم"}
+                      handleClick={handleLogTeacher}
+                    />
+                    <SubmitButton
+                      bgColor="thirdColor"
+                      width="w-full"
+                      type="button"
+                      withIcon={false}
+                      withShare={false}
+                      text={"تسجيل كمسؤول"}
+                      handleClick={handleLogAdmin}
+                    />
+                  </div>
+                  {/* <div className="w-11/12 mx-auto">
                     <SubmitButton
                       bgColor="thirdColor"
                       width="w-full"
@@ -108,7 +135,7 @@ const LoginPage = () => {
                       text={"تسجيل الدخول"}
                       handleClick={() => handleLogin}
                     />
-                  </div>
+                  </div> */}
                 </div>
               </>
             )}

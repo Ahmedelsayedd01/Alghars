@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/Auth";
 import { LiaChalkboardTeacherSolid } from "react-icons/lia";
 import { PiStudent } from "react-icons/pi";
@@ -8,6 +8,9 @@ import { FaRev } from "react-icons/fa";
 
 const LinksSidebar = () => {
   const auth = useAuth();
+  const location = useLocation();
+  const path = location.pathname;
+  const navigate = useNavigate();
   const hideSide = auth.hideSidebar;
 
   // State to hold computed values
@@ -43,24 +46,48 @@ const LinksSidebar = () => {
     setIsActiveTeachers(true);
     setIsActiveTeachersIcon(true);
   };
+  useEffect(() => {
+    if (path === "/") {
+      handleClickTeachers();
+      navigate("/dashboard/teachers", { replace: true });
+    }
+  }, [path]);
   /* Students */
   const handleClickStudents = () => {
     handleStateLinks();
     setIsActiveStudents(true);
     setIsActiveStudentsIcon(true);
   };
+  useEffect(() => {
+    if (path === "/dashboard/students") {
+      handleClickStudents();
+      // navigate("/dashboard/teachers", { replace: true });
+    }
+  }, [path]);
   /* Subjects */
   const handleClickSubjects = () => {
     handleStateLinks();
     setIsActiveSubjects(true);
     setIsActiveSubjectsIcon(true);
   };
+  useEffect(() => {
+    if (path === "/dashboard/subjects") {
+      handleClickSubjects();
+      // navigate("/dashboard/subjects", { replace: true });
+    }
+  }, [path]);
   /* Classes */
   const handleClickClasses = () => {
     handleStateLinks();
     setIsActiveClasses(true);
     setIsActiveClassesIcon(true);
   };
+  useEffect(() => {
+    if (path === "/dashboard/classes") {
+      handleClickClasses();
+      // navigate("/dashboard/classes", { replace: true });
+    }
+  }, [path]);
 
   return (
     <>
@@ -165,7 +192,7 @@ const LinksSidebar = () => {
                                     group`}
         >
           <div className="flex items-center gap-x-2">
-            <ImBook 
+            <ImBook
               className={`${
                 isActiveSubjectsIcon ? "text-white" : "text-white"
               } text-2xl group-hover:text-white transition-all ease-in-out duration-300`}
@@ -205,7 +232,7 @@ const LinksSidebar = () => {
                                     group`}
         >
           <div className="flex items-center gap-x-2">
-            <FaRev  
+            <FaRev
               className={`${
                 isActiveClassesIcon ? "text-white" : "text-white"
               } text-2xl group-hover:text-white transition-all ease-in-out duration-300`}
