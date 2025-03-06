@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useChangeState } from "../../../Hooks/useChangeState";
 import { useDelete } from "../../../Hooks/useDelete";
-import { useGet } from "../../../Hooks/useGet";
+// import { useGet } from "../../../Hooks/useGet";
 import {
   StaticLoader,
   SubmitButton,
@@ -22,8 +22,8 @@ const StudentsPage = () => {
   //   data: dataStudents,
   // } = useGet(`${apiUrl}/admin/students`);
 
-  const { changeState, loadingChange, responseChange } = useChangeState();
-  const { deleteData, loadingDelete, responseDelete } = useDelete();
+  const { changeState, loadingChange, /* responseChange */ } = useChangeState();
+  const { deleteData, loadingDelete, /* responseDelete */ } = useDelete();
 
   const [students, setStudents] = useState<Students[]>([]);
   const [openDelete, setOpenDelete] = useState<number | null>(null);

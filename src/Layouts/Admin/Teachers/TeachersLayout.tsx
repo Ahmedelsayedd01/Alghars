@@ -29,7 +29,7 @@ const TeachersLayout = () => {
       Phone: `${teacher?.phone || "-"}`,
       Address: `${teacher?.address || "-"}`,
       CountClass: `${teacher?.countClass || "-"}`,
-      Status: teacher.status === 1 ? "يعمل" : "متوقف",
+      Status: teacher.status === 'active' ? "يعمل" : "متوقف",
     }));
 
     // Create a new workbook and add the data

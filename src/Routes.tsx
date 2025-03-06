@@ -2,9 +2,9 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import App from "./App";
 import {
   LoginPage,
-  SchedulesPage,
-  SessionPage,
-  TeacherSessionsPage,
+  // SchedulesPage,
+  // SessionPage,
+  // TeacherSessionsPage,
 } from "./Pages/Pages";
 import ProtectedRoute from "./ProtectedAuth/ProtectedRoute";
 import {

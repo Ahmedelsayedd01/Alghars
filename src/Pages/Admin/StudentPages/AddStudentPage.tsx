@@ -38,7 +38,7 @@ const AddStudentPage = () => {
   ]);
 
   const [studentPhotoName, setstudentPhotoName] = useState("");
-  const [studentPhotoFile, setstudentPhotoFile] = useState<File | null>(null);
+  const [/* studentPhotoFile */, setstudentPhotoFile] = useState<File | null>(null);
 
   const [studentStatus, setStudentStatus] = useState(0);
 

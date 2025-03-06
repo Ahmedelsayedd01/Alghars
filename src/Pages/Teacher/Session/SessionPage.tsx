@@ -69,6 +69,7 @@ const SessionPage = () => {
 
   const handleStartSession = (sessionId: number | undefined) => {
     // Add your logic here
+    console.log(sessionId)
   };
   return (
     <>

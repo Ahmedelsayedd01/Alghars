@@ -22,8 +22,8 @@ const TeachersPage = () => {
     data: dataTeachers,
   } = useGet(`${apiUrl}/admin/teacher/show`);
 
-  const { changeState, loadingChange, responseChange } = useChangeState();
-  const { deleteData, loadingDelete, responseDelete } = useDelete();
+  const { changeState, loadingChange, /* responseChange */ } = useChangeState();
+  const { deleteData, loadingDelete, /* responseDelete */ } = useDelete();
 
   const [teachers, setTeachers] = useState<Teachers[]>([]);
   const [openDelete, setOpenDelete] = useState<number | null>(null);
