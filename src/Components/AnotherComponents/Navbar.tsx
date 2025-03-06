@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useAuth } from "../../Context/Auth.jsx";
-import Logo from "../../Assets/Images/logo.png";
+import Logo from "../../assets/Images/logo.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../Store/CreateSlices.tsx";

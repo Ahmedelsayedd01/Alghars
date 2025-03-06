@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { LinksSidebar } from "../Components";
-// import Logo from "../../Assets/Images/logo.png";
+// import Logo from "../../assets/Images/logo.png";
 import { useAuth } from "../../Context/Auth";
 
 const Sidebar = () => {

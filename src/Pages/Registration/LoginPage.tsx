@@ -5,7 +5,8 @@ import {
   PasswordInput,
   SubmitButton,
 } from "../../Components/Components";
-import photo from "../../Assets/Images/image1.png";
+// Make sure the file path is correct and the image exists in the specified location
+import photo from "../../assets/Images/image1.png";
 import { useAuth } from "../../Context/Auth";
 import { useNavigate } from "react-router-dom";
 import { usePost } from "../../Hooks/usePost";
