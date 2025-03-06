@@ -20,7 +20,7 @@ const TeachersPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const teachersStore = useSelector((state: any) => state.teachers.data);
   const {
-    refetch: refetchTeachers,
+    // refetch: refetchTeachers,
     loading: loadingTeachers,
     data: dataTeachers,
   } = useGet(`${apiUrl}/admin/teacher/show`);
@@ -50,9 +50,9 @@ const TeachersPage = () => {
 
   // Fetch Teachers when the component mounts or when refetch is called
   useEffect(() => {
-    refetchTeachers();
+    // refetchTeachers();
     setTeachers(teachersStore);
-  }, [refetchTeachers]); // Empty dependency array to only call refetch once on mount
+  }, [/* refetchTeachers */]); // Empty dependency array to only call refetch once on mount
 
   // Update Teachers when `data` changes
   useEffect(() => {
