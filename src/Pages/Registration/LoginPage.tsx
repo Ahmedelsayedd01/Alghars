@@ -5,7 +5,7 @@ import {
   PasswordInput,
   SubmitButton,
 } from "../../Components/Components";
-import photo from "../../Assets/Images/image1.png";
+import photo from "../../assets/Images/logo.png";
 import { useAuth } from "../../Context/Auth";
 import { useNavigate } from "react-router-dom";
 import { usePost } from "../../Hooks/usePost";
