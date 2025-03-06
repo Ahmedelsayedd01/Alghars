@@ -9,7 +9,7 @@ import {
 
 const initialUserState: { data: { role: string } | null } = {
   data: {
-    role: "teacher",
+    role: "admin",
   },
 };
 const initialStudentsState: { data: Students[] } = {
