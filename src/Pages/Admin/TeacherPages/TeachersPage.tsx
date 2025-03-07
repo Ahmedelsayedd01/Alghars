@@ -12,9 +12,6 @@ import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { useSelector } from "react-redux";
 import { Teachers } from "../../../types";
 import { DeleteIcon, EditIcon, WarningIcon } from "../../../assets/Assets";
-// import { MdDeleteOutline } from "react-icons/md";
-// import { CiEdit } from "react-icons/ci";
-// import { RiErrorWarningLine } from "react-icons/ri";
 
 const TeachersPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;

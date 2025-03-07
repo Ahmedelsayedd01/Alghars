@@ -11,9 +11,7 @@ import { Link } from "react-router-dom";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { useSelector } from "react-redux";
 import { Classes } from "../../../types";
-import { MdDeleteOutline } from "react-icons/md";
-import { CiEdit } from "react-icons/ci";
-import { RiErrorWarningLine } from "react-icons/ri";
+import { DeleteIcon, EditIcon, WarningIcon } from "../../../assets/Assets";
 
 const ClassesPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
@@ -213,14 +211,14 @@ const ClassesPage = () => {
                         <td className="px-4 py-3 text-center">
                           <div className="flex items-center justify-center gap-2">
                             <Link to={`edit/${clas.id}`}>
-                              <CiEdit color="green" size={25} />
+                              <EditIcon />
                             </Link>
                             <button
                               type="button"
                               className="cursor-pointer"
                               onClick={() => handleOpenDelete(clas.id)}
                             >
-                              <MdDeleteOutline color="red" size={25} />
+                              <DeleteIcon />
                             </button>
                             {openDelete === clas.id && (
                               <Dialog
@@ -233,10 +231,7 @@ const ClassesPage = () => {
                                   <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                                     <DialogPanel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                                       <div className="flex  flex-col items-center justify-center bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                                        <RiErrorWarningLine
-                                          color="red"
-                                          size={200}
-                                        />
+                                        <WarningIcon />
                                         <div className="flex items-center">
                                           <div className="text-center text-xl font-TextFontSemiBold text-gray-600">
                                             سوف يتم حذف هذه الحصة
