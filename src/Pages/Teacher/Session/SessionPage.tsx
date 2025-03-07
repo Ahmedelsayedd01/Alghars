@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ScheduleSessions, Session } from "../../../types";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -18,8 +18,44 @@ const SessionPage = () => {
   const [timeNow, setTimeNow] = useState<string>("");
   const [endSession, setEndSession] = useState<boolean>(false);
 
+  const [sessionUnDone, setSessionUnDone] = useState<number | null>(null);
+  const [checkSessionStatus, setCheckSessionStatus] = useState<boolean>(false);
+
   useEffect(() => {
-    console.log("timeNow", timeNow);
+    const selectedSession = scheduleTeacherStore
+      .map((item: ScheduleSessions) => item.sessions)
+      .flat()
+      .find((session: Session) => session.id === sessionId);
+
+    setSession(selectedSession || null);
+    console.log("selectedSession", selectedSession);
+  }, [scheduleTeacherStore, sessionId]);
+
+  useEffect(() => {
+    const checkStatus = scheduleTeacherStore
+      .map((item: ScheduleSessions) => item.sessions)
+      .flat()
+      .some((session: Session) => session.status === "processing");
+
+    if (checkStatus === true) {
+      setCheckSessionStatus(true);
+    } else {
+      setCheckSessionStatus(false);
+    }
+
+    const sessionUnDoneId = scheduleTeacherStore
+      .map((item: ScheduleSessions) => item.sessions)
+      .flat()
+      .find((item: Session) => item.status === "processing");
+
+    setSessionUnDone(sessionUnDoneId?.id || null);
+
+    console.log("sessionUnDone", sessionUnDone);
+    console.log("checkStatus", checkStatus);
+  }, []);
+
+  useEffect(() => {
+    // console.log("timeNow", timeNow);
   }, [timeNow]);
 
   useEffect(() => {
@@ -57,19 +93,9 @@ const SessionPage = () => {
     return () => clearInterval(intervalId);
   }, [timeNow]);
 
-  useEffect(() => {
-    const selectedSession = scheduleTeacherStore
-      .map((item: ScheduleSessions) => item.sessions)
-      .flat()
-      .find((session: Session) => session.id === sessionId);
-
-    setSession(selectedSession || null);
-    console.log("selectedSession", selectedSession);
-  }, [scheduleTeacherStore, sessionId]);
-
   const handleStartSession = (sessionId: number | undefined) => {
     // Add your logic here
-    console.log(sessionId)
+    console.log(sessionId);
   };
   return (
     <>
@@ -98,21 +124,44 @@ const SessionPage = () => {
             </span>
           </p>
         </div>
-        {/* teacher/session/start/${session?.id} */}
       </div>
+
       <div className="w-full h-[52vh] flex items-center justify-center">
         <div className="p-8 rounded-full bg-gray-200 shadow-lg">
-          {session?.status === "pending" && (
-            <motion.button
-              type="button"
-              className="w-60 h-60 flex items-center justify-center text-3xl font-TextFontMedium text-white bg-mainColor border-4 border-mainColor rounded-full cursor-pointer shadow-xl hover:bg-transparent hover:text-mainColor"
-              onClick={() => handleStartSession(session?.id)}
-              animate={{ scale: [1, 1.2, 1] }} // Pulsating effect with opacity change
-              transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
-            >
-              البدء
-            </motion.button>
-          )}
+          {/* session is pending */}
+          {session?.status === "pending" &&
+            session?.start === "" &&
+            !checkSessionStatus && (
+              <motion.button
+                type="button"
+                className="w-60 h-60 flex items-center justify-center text-3xl font-TextFontMedium text-white bg-mainColor border-4 border-mainColor rounded-full cursor-pointer shadow-xl hover:bg-transparent hover:text-mainColor"
+                onClick={() => handleStartSession(session?.id)}
+                animate={{ scale: [1, 1.2, 1] }} // Pulsating effect with opacity change
+                transition={{
+                  duration: 1,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                البدء
+              </motion.button>
+            )}
+          {/* session is pending but the anoter session is processing */}
+          {session?.status === "pending" &&
+            session?.start === "" &&
+            checkSessionStatus && (
+              <p className="flex items-end gap-x-2 text-3xl font-TextFontMedium text-thirdColor">
+                لم تنتهي من الحصة التى بداتها{" "}
+                <Link
+                  to={`/schedule_sessions/sessions/session/${sessionUnDone}`}
+                  state={sessionUnDone}
+                  className="font-TextFontBold text-secondColor border-b-2 border-secondColor hover:text-thirdColor hover:border-thirdColor duration-300 ease-in-out"
+                >
+                  الحصة
+                </Link>
+              </p>
+            )}
+          {/* session is processing */}
           {session?.status === "processing" && endSession === false && (
             <p className="flex items-end gap-x-2 text-3xl font-TextFontMedium text-thirdColor">
               لم تنتهي بعد وقت الحصة
@@ -131,25 +180,26 @@ const SessionPage = () => {
               </motion.span>
             </p>
           )}
-          {session?.status === "done" ||
-            (endSession === true && (
-              <motion.button
-                type="button"
-                className="w-60 h-60 flex items-center justify-center text-3xl font-TextFontMedium text-white bg-red-400 border-4 border-red-400 rounded-full cursor-pointer shadow-xl hover:bg-transparent hover:text-red-400"
-                onClick={() => handleStartSession(session?.id)}
-                animate={{ scale: [1, 1.2, 1] }} // Pulsating effect with opacity change
-                transition={{
-                  duration: 1,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                الانتهاء
-              </motion.button>
-            ))}
-          {session?.status === "done" && (
+          {/* session is done */}
+          {session?.status === "processing" && endSession && (
+            <motion.button
+              type="button"
+              className="w-60 h-60 flex items-center justify-center text-3xl font-TextFontMedium text-white bg-red-400 border-4 border-red-400 rounded-full cursor-pointer shadow-xl hover:bg-transparent hover:text-red-400"
+              onClick={() => handleStartSession(session?.id)}
+              animate={{ scale: [1, 1.2, 1] }} // Pulsating effect with opacity change
+              transition={{
+                duration: 1,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              الانتهاء
+            </motion.button>
+          )}
+          {/* session is done */}
+          {session?.status === "done" && session?.end !== "" && (
             <p className="flex items-end gap-x-2 text-3xl font-TextFontMedium text-thirdColor">
-              تم انهاء الحصة.
+              تم الانتهاء من الحصة.
             </p>
           )}
         </div>
