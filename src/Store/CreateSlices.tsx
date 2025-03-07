@@ -841,7 +841,7 @@ const initialSessionsTeacerState: { data: ScheduleSessions[] } = {
     {
       "day": "09/03/2025",
       "sessions": [
-        { id: 15, student: { id: 15, name: "لينا حسن", address: "٢ شارع العروبة", subject: "البرمجة" }, start: "10:30:00", end: "11:30:00", status: "pending" },
+        { id: 15, student: { id: 15, name: "لينا حسن", address: "٢ شارع العروبة", subject: "البرمجة" }, start: "10:30:00", end: "11:30:00", status: "done" },
         { id: 16, student: { id: 16, name: "كريم علاء", address: "١٠ شارع الفجالة", subject: "الإحصاء" }, start: "12:00:00", end: "13:00:00", status: "done" },
         { id: 17, student: { id: 17, name: "هدى طارق", address: "٢٣ شارع مصدق", subject: "الهندسة" }, start: "14:00:00", end: "15:00:00", status: "pending" },
       ]
@@ -849,7 +849,7 @@ const initialSessionsTeacerState: { data: ScheduleSessions[] } = {
     {
       "day": "10/03/2025",
       "sessions": [
-        { id: 18, student: { id: 18, name: "أيمن شعبان", address: "٧ شارع عبد الخالق", subject: "اللغات الأجنبية" }, start: "15:30:00", end: "16:30:00", status: "pending" },
+        { id: 18, student: { id: 18, name: "أيمن شعبان", address: "٧ شارع عبد الخالق", subject: "اللغات الأجنبية" }, start: "15:30:00", end: "16:30:00", status: "done" },
         { id: 19, student: { id: 19, name: "نور حسن", address: "٤ شارع الجيش", subject: "التصميم الجرافيكي" }, start: "", end: "", status: "pending" }
       ]
     },
@@ -857,14 +857,14 @@ const initialSessionsTeacerState: { data: ScheduleSessions[] } = {
       "day": "11/03/2025",
       "sessions": [
         { id: 20, student: { id: 8, name: "خالد شريف", address: "١٢ شارع النصر", subject: "الجغرافيا" }, start: "10:00:00", end: "11:00:00", status: "done" },
-        { id: 21, student: { id: 9, name: "هند عبد الله", address: "٤٤ شارع القومية", subject: "الموسيقى" }, start: "11:30:00", end: "12:30:00", status: "pending" },
+        { id: 21, student: { id: 9, name: "هند عبد الله", address: "٤٤ شارع القومية", subject: "الموسيقى" }, start: "11:30:00", end: "12:30:00", status: "done" },
         { id: 22, student: { id: 10, name: "حسن إبراهيم", address: "٩ شارع الأزهر", subject: "الفن" }, start: "13:00:00", end: "14:00:00", status: "done" },
       ]
     },
     {
       "day": "12/03/2025",
       "sessions": [
-        { id: 23, student: { id: 11, name: "لمياء أشرف", address: "١٥ شارع رمسيس", subject: "الفلسفة" }, start: "14:30:00", end: "15:30:00", status: "pending" },
+        { id: 23, student: { id: 11, name: "لمياء أشرف", address: "١٥ شارع رمسيس", subject: "الفلسفة" }, start: "14:30:00", end: "15:30:00", status: "done" },
         { id: 24, student: { id: 12, name: "ماهر توفيق", address: "٦ شارع الشهداء", subject: "علم النفس" }, start: "", end: "", status: "pending" },
         { id: 25, student: { id: 13, name: "رنا ياسر", address: "٨ شارع بورسعيد", subject: "علم الاجتماع" }, start: "", end: "", status: "pending" }
       ]
@@ -873,7 +873,7 @@ const initialSessionsTeacerState: { data: ScheduleSessions[] } = {
       "day": "13/03/2025",
       "sessions": [
         { id: 26, student: { id: 1, name: "محمد علي", address: "٢١ شارع النيل", subject: "الرياضيات" }, start: "", end: "", status: "pending" },
-        { id: 27, student: { id: 2, name: "سارة محمود", address: "٥٠ شارع الجامعة", subject: "العلوم" }, start: "12:00:00", end: "", status: "pending" },
+        { id: 27, student: { id: 2, name: "سارة محمود", address: "٥٠ شارع الجامعة", subject: "العلوم" }, start: "12:00:00", end: "", status: "processing" },
       ]
     },
     {
@@ -892,14 +892,14 @@ const initialSessionsTeacerState: { data: ScheduleSessions[] } = {
     {
       "day": "16/03/2025",
       "sessions": [
-        { id: 31, student: { id: 6, name: "ندى عمر", address: "٧ شارع الهرم", subject: "الأحياء" }, start: "17:30:00", end: "18:30:00", status: "pending" },
+        { id: 31, student: { id: 6, name: "ندى عمر", address: "٧ شارع الهرم", subject: "الأحياء" }, start: "17:30:00", end: "18:30:00", status: "done" },
       ]
     },
     {
       "day": "17/03/2025",
       "sessions": [
         { id: 32, student: { id: 1, name: "محمد علي", address: "٢١ شارع النيل", subject: "الرياضيات" }, start: "", end: "", status: "pending" },
-        { id: 33, student: { id: 2, name: "سارة محمود", address: "٥٠ شارع الجامعة", subject: "العلوم" }, start: "12:00:00", end: "", status: "pending" },
+        { id: 33, student: { id: 2, name: "سارة محمود", address: "٥٠ شارع الجامعة", subject: "العلوم" }, start: "12:00:00", end: "", status: "processing" },
       ]
     },
     {
@@ -952,15 +952,15 @@ const initialSessionsTeacerState: { data: ScheduleSessions[] } = {
     {
       "day": "25/03/2025",
       "sessions": [
-        { id: 45, student: { id: 15, name: "لينا حسن", address: "٢ شارع العروبة", subject: "البرمجة" }, start: "10:30:00", end: "11:30:00", status: "pending" },
+        { id: 45, student: { id: 15, name: "لينا حسن", address: "٢ شارع العروبة", subject: "البرمجة" }, start: "10:30:00", end: "11:30:00", status: "done" },
         { id: 46, student: { id: 16, name: "كريم علاء", address: "١٠ شارع الفجالة", subject: "الإحصاء" }, start: "12:00:00", end: "13:00:00", status: "done" },
-        { id: 47, student: { id: 17, name: "هدى طارق", address: "٢٣ شارع مصدق", subject: "الهندسة" }, start: "14:00:00", end: "15:00:00", status: "pending" },
+        { id: 47, student: { id: 17, name: "هدى طارق", address: "٢٣ شارع مصدق", subject: "الهندسة" }, start: "14:00:00", end: "15:00:00", status: "done" },
       ]
     },
     {
       "day": "26/03/2025",
       "sessions": [
-        { id: 48, student: { id: 18, name: "أيمن شعبان", address: "٧ شارع عبد الخالق", subject: "اللغات الأجنبية" }, start: "15:30:00", end: "16:30:00", status: "pending" },
+        { id: 48, student: { id: 18, name: "أيمن شعبان", address: "٧ شارع عبد الخالق", subject: "اللغات الأجنبية" }, start: "15:30:00", end: "16:30:00", status: "done" },
         { id: 49, student: { id: 19, name: "نور حسن", address: "٤ شارع الجيش", subject: "التصميم الجرافيكي" }, start: "", end: "", status: "pending" }
       ]
     },
@@ -968,14 +968,14 @@ const initialSessionsTeacerState: { data: ScheduleSessions[] } = {
       "day": "27/03/2025",
       "sessions": [
         { id: 50, student: { id: 8, name: "خالد شريف", address: "١٢ شارع النصر", subject: "الجغرافيا" }, start: "10:00:00", end: "11:00:00", status: "done" },
-        { id: 51, student: { id: 9, name: "هند عبد الله", address: "٤٤ شارع القومية", subject: "الموسيقى" }, start: "11:30:00", end: "12:30:00", status: "pending" },
+        { id: 51, student: { id: 9, name: "هند عبد الله", address: "٤٤ شارع القومية", subject: "الموسيقى" }, start: "11:30:00", end: "12:30:00", status: "done" },
         { id: 52, student: { id: 10, name: "حسن إبراهيم", address: "٩ شارع الأزهر", subject: "الفن" }, start: "13:00:00", end: "14:00:00", status: "done" },
       ]
     },
     {
       "day": "28/03/2025",
       "sessions": [
-        { id: 53, student: { id: 11, name: "لمياء أشرف", address: "١٥ شارع رمسيس", subject: "الفلسفة" }, start: "14:30:00", end: "15:30:00", status: "pending" },
+        { id: 53, student: { id: 11, name: "لمياء أشرف", address: "١٥ شارع رمسيس", subject: "الفلسفة" }, start: "14:30:00", end: "15:30:00", status: "done" },
         { id: 54, student: { id: 12, name: "ماهر توفيق", address: "٦ شارع الشهداء", subject: "علم النفس" }, start: "", end: "", status: "pending" },
         { id: 55, student: { id: 13, name: "رنا ياسر", address: "٨ شارع بورسعيد", subject: "علم الاجتماع" }, start: "", end: "", status: "pending" }
       ]
@@ -984,7 +984,7 @@ const initialSessionsTeacerState: { data: ScheduleSessions[] } = {
       "day": "29/03/2025",
       "sessions": [
         { id: 56, student: { id: 1, name: "محمد علي", address: "٢١ شارع النيل", subject: "الرياضيات" }, start: "", end: "", status: "pending" },
-        { id: 57, student: { id: 2, name: "سارة محمود", address: "٥٠ شارع الجامعة", subject: "العلوم" }, start: "12:00:00", end: "", status: "pending" },
+        { id: 57, student: { id: 2, name: "سارة محمود", address: "٥٠ شارع الجامعة", subject: "العلوم" }, start: "12:00:00", end: "", status: "processing" },
       ]
     },
     {
