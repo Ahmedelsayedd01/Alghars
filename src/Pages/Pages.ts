@@ -4,6 +4,7 @@ export { default as LoginPage } from "./Registration/LoginPage";
 // Admin-> Teachers
 export { default as TeachersPage } from "./Admin/TeacherPages/TeachersPage";
 export { default as AddTeacherPage } from "./Admin/TeacherPages/AddTeacherPage";
+export { default as SessionsTeacherPage } from "./Admin/TeacherPages/SessionsTeacherPage";
 export { default as EditTeacherPage } from "./Admin/TeacherPages/EditTeacherPage";
 // Admin-> Students
 export { default as StudentsPage } from "./Admin/StudentPages/StudentsPage";
