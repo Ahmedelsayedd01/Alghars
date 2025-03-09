@@ -105,7 +105,7 @@ const LoginPage = () => {
                     </div>
                   </div>
 
-                  <div className="w-11/12 mx-auto flex gap-2">
+                  {/* <div className="w-11/12 mx-auto flex gap-2">
                     <SubmitButton
                       bgColor="thirdColor"
                       width="w-full"
@@ -124,8 +124,8 @@ const LoginPage = () => {
                       text={"تسجيل كمسؤول"}
                       handleClick={handleLogAdmin}
                     />
-                  </div>
-                  {/* <div className="w-11/12 mx-auto">
+                  </div> */}
+                  <div className="w-11/12 mx-auto">
                     <SubmitButton
                       bgColor="thirdColor"
                       width="w-full"
@@ -135,7 +135,7 @@ const LoginPage = () => {
                       text={"تسجيل الدخول"}
                       handleClick={() => handleLogin}
                     />
-                  </div> */}
+                  </div>
                 </div>
               </>
             )}
