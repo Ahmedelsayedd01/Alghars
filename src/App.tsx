@@ -13,7 +13,9 @@ const App = () => {
   const isSidebarVisible = useMemo(() => user.role === "admin", [user.role]);
 
   useEffect(() => {
-    console.log(JSON.stringify(user));
+
+    const userData=JSON.stringify(user);
+    console.log(JSON.parse(userData));
   }, [user]);
 
   // Helper function for dynamic padding
