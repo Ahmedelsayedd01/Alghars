@@ -23,14 +23,14 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogTeacher = () => {
-    auth.loginUser({ username: "معلم ذياد", role: "teacher" });
-    navigate("/schedule_sessions", { replace: true });
-  };
-  const handleLogAdmin = () => {
-    auth.loginUser({ username: "ذياد باشا", role: "admin" });
-    navigate("/dashboard/teachers", { replace: true });
-  };
+  // const handleLogTeacher = () => {
+  //   auth.loginUser({ username: "معلم ذياد", role: "teacher" });
+  //   navigate("/schedule_sessions", { replace: true });
+  // };
+  // const handleLogAdmin = () => {
+  //   auth.loginUser({ username: "ذياد باشا", role: "admin" });
+  //   navigate("/dashboard/teachers", { replace: true });
+  // };
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Use uppercase "D"
 
