@@ -18,6 +18,7 @@ import {
   EditSubjectLayout,
   EditTeacherLayout,
   SchedulesLayout,
+  SessionsTeacherLayout,
   StudentsLayout,
   SubjectsLayout,
   TeacherSessionLayout,
@@ -50,6 +51,10 @@ export const router = createBrowserRouter(
           children: [
             { path: "teachers", element: <TeachersLayout /> },
             { path: "teachers/add", element: <AddTeacherLayout /> },
+            {
+              path: "teachers/sessions/:teacherId",
+              element: <SessionsTeacherLayout />,
+            },
             {
               path: "teachers/edit/:teacherId",
               element: <EditTeacherLayout />,
@@ -84,7 +89,10 @@ export const router = createBrowserRouter(
               path: "sessions",
               element: <TeacherSessionsLayout />,
             },
-            { path: "sessions/session/:sessionId", element: <TeacherSessionLayout /> },
+            {
+              path: "sessions/session/:sessionId",
+              element: <TeacherSessionLayout />,
+            },
           ],
         },
       ],
