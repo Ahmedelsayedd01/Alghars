@@ -18,7 +18,56 @@ interface AuthContextType {
         countClass: number;
         image_link: string;
         subject: string;
+        sessions:Array<{
+            id: number;
+            student: {
+              id: number;
+              name:string;
+              parentPhone:string;
+              subject:string;
+              address:string;
+            };
+            date: string;
+            start: string;
+            end: string;
+            status: string;
+
+        }>;
         status: string;
+    }
+
+    interface TeacherSessions {
+      sessions: Array<{
+        id: number;
+        student: {
+          id: number;
+          name:string;
+          parentPhone:string;
+          subject:string;
+          address:string;
+        };
+        date: string;
+        start: string;
+        end: string;
+        status: string;
+
+      }>;
+    }
+
+    interface TeacherSession{
+        id: number;
+        student: {
+            id: number;
+            name:string;
+            subject:string;
+            parentPhone:string;
+            address:string;
+        };
+        date: string;
+        start: string;
+        end: string;
+        status: string;
+
     }
 
      interface Students {
@@ -115,4 +164,4 @@ interface AuthContextType {
       status: string;
     }
 
-     export type { AuthContextType, Teachers, Students, Subjects, Classes , PostOptions, ChangeStateOptions,LogoProps,Obj, ScheduleSessions,Sessions, Session };
+     export type { AuthContextType, Teachers, TeacherSessions, TeacherSession, Students, Subjects, Classes , PostOptions, ChangeStateOptions,LogoProps,Obj, ScheduleSessions,Sessions, Session };
