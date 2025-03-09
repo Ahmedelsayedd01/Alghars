@@ -3,6 +3,7 @@ export {default as StaticLoader } from "./Loaders/StaticLoading";
 export {default as Navbar } from "./AnotherComponents/Navbar";
 export {default as Sidebar } from "./AnotherComponents/Sidebar";
 export {default as LinksSidebar } from "./AnotherComponents/LinksSidebar";
+export {default as SearchBar } from "./AnotherComponents/SearchBar";
 
 export {default as TitleSection } from "./AnotherComponents/TitleSection";
 export {default as Titlepage } from "./AnotherComponents/TitilePage";
