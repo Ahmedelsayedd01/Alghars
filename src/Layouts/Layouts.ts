@@ -2,6 +2,7 @@
 // Admin->Teachers
 export {default as TeachersLayout} from './Admin/Teachers/TeachersLayout'
 export {default as AddTeacherLayout} from './Admin/Teachers/AddTeacherLayout'
+export {default as SessionsTeacherLayout} from './Admin/Teachers/SessionsTeacherLayout'
 export {default as EditTeacherLayout} from './Admin/Teachers/EditTeacherLayout'
 // Admin->Students
 export {default as StudentsLayout} from './Admin/Students/StudentsLayout'
