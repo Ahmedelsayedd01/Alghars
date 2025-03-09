@@ -265,6 +265,64 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 5,
       image_link: "https://via.placeholder.com/150",
       subject: "Arabic",
+      sessions:[
+        {
+          id: 1,
+          student: {
+            id: 1,
+            name: "الطالب 1",
+            parentPhone: "123456789",
+            subject: "اللغة العربية",
+            address: "عنوان 1",
+          },
+          date: "01/03/2025",
+          start: "",
+          end: "",
+          status: "pending",
+        },
+        {
+          id: 11,
+          student: {
+            id: 11,
+            name: "الطالب 11",
+            parentPhone: "123456789",
+            subject: "علم النفس",
+            address: "حي الزهراء",
+          },
+          date: "11/03/2025",
+          start: "12:00:00",
+          end: "",
+          status: "processing",
+        },
+        {
+          id: 12,
+          student: {
+            id: 12,
+            name: "الطالب 12",
+            parentPhone: "123456789",
+            subject: "الاقتصاد",
+            address: "شارع الكرامة",
+          },
+          date: "12/03/2025",
+          start: "02:00:00",
+          end: "03:10:00",
+          status: "done",
+        },
+        {
+          id: 13,
+          student: {
+            id: 13,
+            name: "الطالب 13",
+            parentPhone: "123456789",
+            subject: "العلوم السياسية",
+            address: "حي التعاون",
+          },
+          date: "13/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "active",
     },
     {
@@ -276,6 +334,22 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 4,
       image_link: "https://via.placeholder.com/150",
       subject: "Math",
+      sessions:[
+        {
+          id: 2,
+          student: {
+            id: 2,
+            name: "الطالب 2",
+            parentPhone: "123456789",
+            subject: "الرياضيات",
+            address: "شارع النصر",
+          },
+          date: "02/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "active",
     },
     {
@@ -287,6 +361,22 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 6,
       image_link: "https://via.placeholder.com/150",
       subject: "Science",
+      sessions:[
+        {
+          id: 3,
+          student: {
+            id: 3,
+            name: "الطالب 3",
+            parentPhone: "123456789",
+            subject: "الفيزياء",
+            address: "حي الزهور",
+          },
+          date: "03/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "unactive",
     },
     {
@@ -298,6 +388,22 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 3,
       image_link: "https://via.placeholder.com/150",
       subject: "English",
+      sessions:[
+        {
+          id: 4,
+          student: {
+            id: 4,
+            name: "الطالب 4",
+            parentPhone: "123456789",
+            subject: "الكيمياء",
+            address: "شارع القادسية",
+          },
+          date: "04/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "active",
     },
     {
@@ -309,6 +415,22 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 2,
       image_link: "https://via.placeholder.com/150",
       subject: "History",
+      sessions:[
+        {
+          id: 5,
+          student: {
+            id: 5,
+            name: "الطالب 5",
+            parentPhone: "123456789",
+            subject: "الأحياء",
+            address: "حي الأمل",
+          },
+          date: "05/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "active",
     },
     {
@@ -320,6 +442,22 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 7,
       image_link: "https://via.placeholder.com/150",
       subject: "Geography",
+      sessions:[
+        {
+          id: 6,
+          student: {
+            id: 6,
+            name: "الطالب 6",
+            parentPhone: "123456789",
+            subject: "التاريخ",
+            address: "شارع الحرية",
+          },
+          date: "06/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "unactive",
     },
     {
@@ -331,6 +469,22 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 4,
       image_link: "https://via.placeholder.com/150",
       subject: "Physics",
+      sessions:[
+        {
+          id: 7,
+          student: {
+            id: 7,
+            name: "الطالب 7",
+            parentPhone: "123456789",
+            subject: "الجغرافيا",
+            address: "حي النور",
+          },
+          date: "07/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "active",
     },
     {
@@ -342,6 +496,22 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 5,
       image_link: "https://via.placeholder.com/150",
       subject: "Chemistry",
+      sessions:[
+        {
+          id: 8,
+          student: {
+            id: 8,
+            name: "الطالب 8",
+            parentPhone: "123456789",
+            subject: "اللغة الإنجليزية",
+            address: "شارع السلام",
+          },
+          date: "08/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "active",
     },
     {
@@ -353,6 +523,22 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 6,
       image_link: "https://via.placeholder.com/150",
       subject: "Biology",
+      sessions:[
+        {
+          id: 9,
+          student: {
+            id: 9,
+            name: "الطالب 9",
+            parentPhone: "123456789",
+            subject: "الفرنسية",
+            address: "حي الشروق",
+          },
+          date: "09/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "unactive",
     },
     {
@@ -364,6 +550,22 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 3,
       image_link: "https://via.placeholder.com/150",
       subject: "Computer Science",
+      sessions:[
+        {
+          id: 10,
+          student: {
+            id: 10,
+            name: "الطالب 10",
+            parentPhone: "123456789",
+            subject: "الفلسفة",
+            address: "شارع الطموح",
+          },
+          date: "10/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "active",
     },
     {
@@ -375,6 +577,22 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 4,
       image_link: "https://via.placeholder.com/150",
       subject: "Economics",
+      sessions:[
+        {
+          id: 1,
+          student: {
+            id: 1,
+            name: "الطالب 1",
+            parentPhone: "123456789",
+            subject: "اللغة العربية",
+            address: "عنوان 1",
+          },
+          date: "01/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "unactive",
     },
     {
@@ -386,6 +604,22 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 5,
       image_link: "https://via.placeholder.com/150",
       subject: "Philosophy",
+      sessions:[
+        {
+          id: 1,
+          student: {
+            id: 1,
+            name: "الطالب 1",
+            parentPhone: "123456789",
+            subject: "اللغة العربية",
+            address: "عنوان 1",
+          },
+          date: "01/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "active",
     },
     {
@@ -397,6 +631,22 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 3,
       image_link: "https://via.placeholder.com/150",
       subject: "Music",
+      sessions:[
+        {
+          id: 1,
+          student: {
+            id: 1,
+            name: "الطالب 1",
+            parentPhone: "123456789",
+            subject: "اللغة العربية",
+            address: "عنوان 1",
+          },
+          date: "01/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "active",
     },
     {
@@ -408,6 +658,22 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 6,
       image_link: "https://via.placeholder.com/150",
       subject: "Art",
+      sessions:[
+        {
+          id: 1,
+          student: {
+            id: 1,
+            name: "الطالب 1",
+            parentPhone: "123456789",
+            subject: "اللغة العربية",
+            address: "عنوان 1",
+          },
+          date: "01/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "unactive",
     },
     {
@@ -419,6 +685,22 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 7,
       image_link: "https://via.placeholder.com/150",
       subject: "Physical Education",
+      sessions:[
+        {
+          id: 1,
+          student: {
+            id: 1,
+            name: "الطالب 1",
+            parentPhone: "123456789",
+            subject: "اللغة العربية",
+            address: "عنوان 1",
+          },
+          date: "01/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "active",
     },
     {
@@ -430,6 +712,22 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 4,
       image_link: "https://via.placeholder.com/150",
       subject: "Literature",
+      sessions:[
+        {
+          id: 1,
+          student: {
+            id: 1,
+            name: "الطالب 1",
+            parentPhone: "123456789",
+            subject: "اللغة العربية",
+            address: "عنوان 1",
+          },
+          date: "01/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "active",
     },
     {
@@ -441,6 +739,22 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 5,
       image_link: "https://via.placeholder.com/150",
       subject: "Drama",
+      sessions:[
+        {
+          id: 1,
+          student: {
+            id: 1,
+            name: "الطالب 1",
+            parentPhone: "123456789",
+            subject: "اللغة العربية",
+            address: "عنوان 1",
+          },
+          date: "01/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "unactive",
     },
     {
@@ -452,6 +766,22 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 6,
       image_link: "https://via.placeholder.com/150",
       subject: "Social Studies",
+      sessions:[
+        {
+          id: 1,
+          student: {
+            id: 1,
+            name: "الطالب 1",
+            parentPhone: "123456789",
+            subject: "اللغة العربية",
+            address: "عنوان 1",
+          },
+          date: "01/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "active",
     },
     {
@@ -463,6 +793,22 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 3,
       image_link: "https://via.placeholder.com/150",
       subject: "French",
+      sessions:[
+        {
+          id: 1,
+          student: {
+            id: 1,
+            name: "الطالب 1",
+            parentPhone: "123456789",
+            subject: "اللغة العربية",
+            address: "عنوان 1",
+          },
+          date: "01/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "active",
     },
     {
@@ -474,6 +820,22 @@ const initialTeachersState: { data: Teachers[] } = {
       countClass: 4,
       image_link: "https://via.placeholder.com/150",
       subject: "German",
+      sessions:[
+        {
+          id: 1,
+          student: {
+            id: 1,
+            name: "الطالب 1",
+            parentPhone: "123456789",
+            subject: "اللغة العربية",
+            address: "عنوان 1",
+          },
+          date: "01/03/2025",
+          start: "",
+          end: "",
+          status: "cancelled",
+        },
+      ],
       status: "unactive",
     },
   ],
@@ -788,7 +1150,7 @@ const initialSessionsTeacerState: { data: ScheduleSessions[] } = {
       "day": "01/03/2025",
       "sessions": [
         { id: 1, student: { id: 1, name: "محمد علي", address: "٢١ شارع النيل", subject: "الرياضيات" }, start: "", end: "", status: "pending" },
-        { id: 2, student: { id: 2, name: "سارة محمود", address: "٥٠ شارع الجامعة", subject: "العلوم" }, start: "12:00:00", end: "", status: "pending" },
+        { id: 2, student: { id: 2, name: "سارة محمود", address: "٥٠ شارع الجامعة", subject: "العلوم" }, start: "", end: "", status: "pending" },
       ]
     },
     {
@@ -826,13 +1188,13 @@ const initialSessionsTeacerState: { data: ScheduleSessions[] } = {
       ]
     },
     {
-      "day": "08/03/2025",
+      "day": "07/03/2025",
       "sessions": [
         { id: 12, student: { id: 12, name: "ماهر توفيق", address: "٦ شارع الشهداء", subject: "علم النفس" }, start: "", end: "", status: "pending" },
       ]
     },
     {
-      "day": "07/03/2025",
+      "day": "08/03/2025",
       "sessions": [
         { id: 13, student: { id: 13, name: "رنا ياسر", address: "٨ شارع بورسعيد", subject: "علم الاجتماع" }, start: "", end: "", status: "pending" },
         { id: 14, student: { id: 14, name: "سامي يوسف", address: "٣ شارع الفسطاط", subject: "الاقتصاد" }, start: "", end: "", status: "pending" }
@@ -843,7 +1205,7 @@ const initialSessionsTeacerState: { data: ScheduleSessions[] } = {
       "sessions": [
         { id: 15, student: { id: 15, name: "لينا حسن", address: "٢ شارع العروبة", subject: "البرمجة" }, start: "10:30:00", end: "11:30:00", status: "done" },
         { id: 16, student: { id: 16, name: "كريم علاء", address: "١٠ شارع الفجالة", subject: "الإحصاء" }, start: "12:00:00", end: "13:00:00", status: "done" },
-        { id: 17, student: { id: 17, name: "هدى طارق", address: "٢٣ شارع مصدق", subject: "الهندسة" }, start: "14:00:00", end: "15:00:00", status: "pending" },
+        { id: 17, student: { id: 17, name: "هدى طارق", address: "٢٣ شارع مصدق", subject: "الهندسة" }, start: "14:00:00", end: "15:00:00", status: "done" },
       ]
     },
     {
@@ -873,7 +1235,7 @@ const initialSessionsTeacerState: { data: ScheduleSessions[] } = {
       "day": "13/03/2025",
       "sessions": [
         { id: 26, student: { id: 1, name: "محمد علي", address: "٢١ شارع النيل", subject: "الرياضيات" }, start: "", end: "", status: "pending" },
-        { id: 27, student: { id: 2, name: "سارة محمود", address: "٥٠ شارع الجامعة", subject: "العلوم" }, start: "12:00:00", end: "", status: "processing" },
+        { id: 27, student: { id: 2, name: "سارة محمود", address: "٥٠ شارع الجامعة", subject: "العلوم" }, start: "", end: "", status: "pending" },
       ]
     },
     {
@@ -899,7 +1261,7 @@ const initialSessionsTeacerState: { data: ScheduleSessions[] } = {
       "day": "17/03/2025",
       "sessions": [
         { id: 32, student: { id: 1, name: "محمد علي", address: "٢١ شارع النيل", subject: "الرياضيات" }, start: "", end: "", status: "pending" },
-        { id: 33, student: { id: 2, name: "سارة محمود", address: "٥٠ شارع الجامعة", subject: "العلوم" }, start: "12:00:00", end: "", status: "processing" },
+        { id: 33, student: { id: 2, name: "سارة محمود", address: "٥٠ شارع الجامعة", subject: "العلوم" }, start: "", end: "", status: "pending" },
       ]
     },
     {
@@ -984,7 +1346,7 @@ const initialSessionsTeacerState: { data: ScheduleSessions[] } = {
       "day": "29/03/2025",
       "sessions": [
         { id: 56, student: { id: 1, name: "محمد علي", address: "٢١ شارع النيل", subject: "الرياضيات" }, start: "", end: "", status: "pending" },
-        { id: 57, student: { id: 2, name: "سارة محمود", address: "٥٠ شارع الجامعة", subject: "العلوم" }, start: "12:00:00", end: "", status: "processing" },
+        { id: 57, student: { id: 2, name: "سارة محمود", address: "٥٠ شارع الجامعة", subject: "العلوم" }, start: "", end: "", status: "pending" },
       ]
     },
     {
