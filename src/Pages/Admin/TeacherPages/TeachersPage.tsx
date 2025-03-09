@@ -3,21 +3,24 @@ import { useChangeState } from "../../../Hooks/useChangeState";
 import { useDelete } from "../../../Hooks/useDelete";
 import { useGet } from "../../../Hooks/useGet";
 import {
+  SearchBar,
   StaticLoader,
   SubmitButton,
   Switch,
 } from "../../../Components/Components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { useSelector } from "react-redux";
 import { Teachers } from "../../../types";
 import { DeleteIcon, EditIcon, WarningIcon } from "../../../assets/Assets";
+import * as XLSX from "xlsx";
 
 const TeachersPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
+  const navigate = useNavigate();
   const teachersStore = useSelector((state: any) => state.teachers.data);
   const {
-    // refetch: refetchTeachers,
+    refetch: refetchTeachers,
     loading: loadingTeachers,
     data: dataTeachers,
   } = useGet(`${apiUrl}/admin/teacher/show`);
@@ -26,16 +29,18 @@ const TeachersPage = () => {
   const { deleteData, loadingDelete /* responseDelete */ } = useDelete();
 
   const [teachers, setTeachers] = useState<Teachers[]>([]);
+  const [filterTeachers, setFilterTeachers] = useState<Teachers[]>([]);
+  const [filterText, setFilterText] = useState<string>("");
+
   const [openDelete, setOpenDelete] = useState<number | null>(null);
 
   const [currentPage, setCurrentPage] = useState(1); // Track the current page
   const TeachersPerPage = 10; // Limit to 10 Teachers per page
-
   // Calculate total number of pages
-  const totalPages = Math.ceil(teachers.length / TeachersPerPage);
+  const totalPages = Math.ceil(filterTeachers.length / TeachersPerPage);
 
   // Get the Teachers for the current page
-  const currentTeachers = teachers.slice(
+  const currentTeachers = filterTeachers.slice(
     (currentPage - 1) * TeachersPerPage,
     currentPage * TeachersPerPage
   );
@@ -45,22 +50,67 @@ const TeachersPage = () => {
     setCurrentPage(pageNumber);
   };
 
+  const handleShare = () => {
+    const data = filterTeachers.map((teacher: Teachers, index: number) => ({
+      "#": index + 1,
+      Name: `${teacher?.name || "-"}`,
+      Email: `${teacher?.email || "-"}`,
+      Subject: `${teacher?.subject || "-"}`,
+      Phone: `${teacher?.phone || "-"}`,
+      Address: `${teacher?.address || "-"}`,
+      CountClass: `${teacher?.countClass || "-"}`,
+      Status: teacher.status === "active" ? "يعمل" : "متوقف",
+    }));
+
+    // Create a new workbook and add the data
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.json_to_sheet(data);
+
+    // Define custom column widths
+    worksheet["!cols"] = [
+      { wch: 5 }, // Column for "#"
+      { wch: 20 }, // Column for "Name"
+      { wch: 25 }, // Column for "Email"
+      { wch: 20 }, // Column for "Subject"
+      { wch: 20 }, // Column for "Phone"
+      { wch: 30 }, // Column for "Address"
+      { wch: 5 }, // Column for "CountClass"
+      { wch: 10 }, // Column for "Status"
+    ];
+
+    // Append the customized worksheet
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Teachers");
+
+    // Export the file
+    XLSX.writeFile(workbook, "teachers_data.xlsx");
+  };
+
   // Fetch Teachers when the component mounts or when refetch is called
-  useEffect(
-    () => {
-      // refetchTeachers();
-      setTeachers(teachersStore);
-    },
-    [
-      /* refetchTeachers */
-    ]
-  ); // Empty dependency array to only call refetch once on mount
+  useEffect(() => {
+    // refetchTeachers();
+    setTeachers(teachersStore);
+    setFilterTeachers(teachersStore);
+  }, [refetchTeachers]); // Empty dependency array to only call refetch once on mount
+
+  const handleFilterTeachers = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const text = e.target.value.toLowerCase();
+
+    const filteredTeachers = teachers.filter(
+      (teacher: Teachers) => teacher.name.toLowerCase().includes(text) // Allows partial matching
+    );
+
+    console.log("text", text);
+    console.log("teachers", teachers);
+    console.log("filteredTeachers", filteredTeachers);
+    setFilterText(text);
+    setFilterTeachers(text === " " ? teachers : filteredTeachers);
+  };
 
   // Update Teachers when `data` changes
   useEffect(() => {
-    // if ((dataTeachers as any).teachers) {
-    //   setTeachers((dataTeachers as any).teachers);
-    // }
+    if (dataTeachers) {
+      setTeachers(dataTeachers);
+    }
     console.log("dataTeachers", dataTeachers);
   }, [dataTeachers]); // Only run this effect when `data` changes
 
@@ -119,112 +169,144 @@ const TeachersPage = () => {
   ];
   return (
     <div className="w-full flex items-start justify-start">
-      <div className="w-full flex flex-col">
-        <table className="w-full sm:min-w-0 block ">
-          <thead className="w-full">
-            <tr className="w-full border-b-2 border-mainColor">
-              {headers.map((name, index) => (
-                <th
-                  className="min-w-[120px] sm:w-[8%] lg:w-[5%] text-mainColor text-center font-TextFontLight sm:text-sm lg:text-base xl:text-lg pb-3"
-                  key={index}
-                >
-                  {name}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          {loadingTeachers || loadingChange || loadingDelete ? (
-            <div className="w-full h-56 flex justify-center items-center">
-              <StaticLoader />
-            </div>
-          ) : (
-            <tbody className="w-full">
-              {teachers.length === 0 ? (
+      <div className="w-full flex flex-col gap-3">
+        <div className="w-full flex sm:flex-col lg:flex-row items-center justify-between gap-3">
+          <div className="sm:w-full lg:w-1/3">
+            <SearchBar
+              value={filterText}
+              handleChange={handleFilterTeachers}
+              placeholder="ابحث عن معلم"
+            />
+          </div>
+          <div className="sm:w-full lg:w-2/3 flex sm:flex-wrap items-center sm:justify-between lg:justify-end gap-3">
+            <SubmitButton
+              type="button"
+              text={"مشاركة"}
+              handleClick={handleShare}
+              withIcon={false}
+              withShare={true}
+              px="px-0"
+              width="w-48"
+              bgColor={"secondColor"}
+              rounded="rounded-xl"
+            />
+            <SubmitButton
+              type="button"
+              text={"اضافة معلم"}
+              handleClick={() => {
+                navigate("/dashboard/teachers/add");
+              }}
+              withIcon={true}
+              withShare={false}
+              px="px-0"
+              width="w-48"
+              bgColor={"secondColor"}
+              rounded="rounded-xl"
+            />
+          </div>
+        </div>
+        <div className="overflow-auto rounded-lg shadow-lg">
+          <table className="w-full border-collapse min-w-max">
+            <thead className="bg-mainColor text-white">
+              <tr>
+                {headers.map((name, index) => (
+                  <th
+                    key={index}
+                    className="px-4 py-3 text-center text-xl sm:text-base md:text-lg lg:text-xl whitespace-nowrap"
+                  >
+                    {name}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {loadingTeachers || loadingChange || loadingDelete ? (
+                <tr>
+                  <td colSpan={headers.length} className="py-4 text-center">
+                    <StaticLoader />
+                  </td>
+                </tr>
+              ) : filterTeachers.length === 0 ? (
                 <tr>
                   <td
-                    colSpan={12}
-                    className="pt-2 text-center text-xl text-mainColor font-TextFontMedium  "
+                    colSpan={headers.length}
+                    className="py-4 text-center text-lg text-gray-600"
                   >
                     لا يوجد معلمين
                   </td>
                 </tr>
               ) : (
-                currentTeachers.map(
-                  (
-                    teacher,
-                    index // Example with two rows
-                  ) => (
-                    <tr
-                      className="w-full border-b-2 border-gray-300"
-                      key={index}
-                    >
-                      <td className="min-w-[80px] sm:min-w-[50px] sm:w-1/12 lg:w-1/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                        {(currentPage - 1) * TeachersPerPage + index + 1}
-                      </td>
-                      {/* Photo */}
-                      <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 overflow-hidden">
-                        <div className="flex justify-center">
-                          <img
-                            src={teacher?.image_link || "-"}
-                            className="bg-mainColor border-2 border-mainColor rounded-full min-w-14 min-h-14 max-w-14 max-h-14"
-                            loading="lazy"
-                            alt="Photo"
-                          />
-                        </div>
-                      </td>
-                      {/* Name */}
-                      <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                        {teacher?.name || "-"}
-                      </td>
-                      {/* Phone */}
-                      <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                        {teacher?.phone || "-"}
-                      </td>
-                      {/* Addrass */}
-                      <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                        {teacher?.address || "-"}
-                      </td>
-                      {/* Email */}
-                      <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                        {teacher?.email || "-"}
-                      </td>
-                      {/* Subject */}
-                      <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                        {teacher?.subject || "-"}
-                      </td>
-                      {/* Count Class */}
-                      <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                        {teacher?.countClass || 0}
-                      </td>
-                      {/* Status */}
-                      <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                        <Switch
-                          checked={teacher.status === "active"}
-                          bgcolor={true}
-                          handleClick={() => {
-                            handleChangeStaus(
-                              teacher.id,
-                              teacher.status === "active"
-                                ? "unactive"
-                                : "active"
-                            );
-                          }}
+                currentTeachers.map((teacher, index) => (
+                  <tr key={index} className="hover:bg-gray-50">
+                    <td className="px-4 py-3 text-center text-mainColor text-xl sm:text-base">
+                      {(currentPage - 1) * TeachersPerPage + index + 1}
+                    </td>
+                    {/* Teacher Photo */}
+                    <td className="px-4 py-3 text-center">
+                      <div className="flex justify-center">
+                        <img
+                          src={teacher?.image_link || "-"}
+                          className="w-14 h-14 rounded-full border-2 border-mainColor"
+                          loading="lazy"
+                          alt="Photo"
                         />
-                      </td>
-                      {/* Tools */}
-                      <td className="px-4 py-3 text-center">
-                        <div className="flex items-center justify-center gap-2">
-                          <Link to={`edit/${teacher.id}`}>
-                            <EditIcon />
-                          </Link>
-                          <button
-                            type="button"
-                            className="cursor-pointer"
-                            onClick={() => handleOpenDelete(teacher.id)}
-                          >
-                            <DeleteIcon />
-                          </button>
-                          {openDelete === teacher.id && (
+                      </div>
+                    </td>
+                    {/* Name */}
+                    <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                      {teacher?.name || "-"}
+                    </td>
+                    {/* Phone */}
+                    <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                      {teacher?.phone || "-"}
+                    </td>
+                    {/* Address */}
+                    <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                      {teacher?.address || "-"}
+                    </td>
+                    {/* Email */}
+                    <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                      {teacher?.email || "-"}
+                    </td>
+                    {/* Subject */}
+                    <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                      {teacher?.subject || "-"}
+                    </td>
+                    {/* Count Class */}
+                    <td className="px-4 py-3 text-center">
+                      <Link
+                        to={`sessions/${teacher.id}`}
+                        className="text-xl text-mainColor border-b-2 font-TextFontSemiBold hover:text-thirdColor"
+                      >
+                        {teacher?.countClass || 0}
+                      </Link>
+                    </td>
+                    {/* Status */}
+                    <td className="px-4 py-3 text-center">
+                      <Switch
+                        checked={teacher.status === "active"}
+                        bgcolor={true}
+                        handleClick={() =>
+                          handleChangeStaus(
+                            teacher.id,
+                            teacher.status === "active" ? "unactive" : "active"
+                          )
+                        }
+                      />
+                    </td>
+                    {/* Tools */}
+                    <td className="px-4 py-3 text-center">
+                      <div className="flex items-center justify-center gap-2">
+                        <Link to={`edit/${teacher.id}`}>
+                          <EditIcon />
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={() => handleOpenDelete(teacher.id)}
+                        >
+                          <DeleteIcon />
+                        </button>
+                        {openDelete === teacher.id && (
                             <Dialog
                               open={true}
                               onClose={handleCloseDelete}
@@ -245,7 +327,7 @@ const TeachersPage = () => {
                                     </div>
                                     <div className="px-4 py-3 sm:flex sm:flex-row sm:px-6">
                                       <button
-                                        className="inline-flex w-full justify-center rounded-md bg-red-500 hover:bg-red-600 cursor-pointer transition duration-300 px-6 py-3 text-sm font-TextFontSemiBold text-white shadow-sm sm:ml-3 sm:w-auto"
+                                        className="inline-flex w-full justify-center rounded-md bg-red-500 hover:bg-red-600 cursor-pointer transition duration-300 px-6 py-3 text-xl font-TextFontSemiBold text-white shadow-sm sm:ml-3 sm:w-auto"
                                         onClick={() =>
                                           handleDelete(teacher.id, teacher.name)
                                         }
@@ -256,7 +338,7 @@ const TeachersPage = () => {
                                         type="button"
                                         data-autofocus
                                         onClick={handleCloseDelete}
-                                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-6 py-3 cursor-pointer text-sm font-TextFontMedium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:mt-0 sm:w-auto"
+                                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-6 py-3 cursor-pointer text-xl font-TextFontMedium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:mt-0 sm:w-auto"
                                       >
                                         إلغاء
                                       </button>
@@ -266,17 +348,17 @@ const TeachersPage = () => {
                               </div>
                             </Dialog>
                           )}
-                        </div>
-                      </td>
-                    </tr>
-                  )
-                )
+                      </div>
+                    </td>
+                  </tr>
+                ))
               )}
             </tbody>
-          )}
-        </table>
-        {teachers.length > 10 && (
-          <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4">
+          </table>
+        </div>
+
+        {filterTeachers.length > 10 && (
+          <div className="flex flex-wrap items-center justify-center gap-x-4">
             {totalPages !== currentPage && (
               <SubmitButton
                 text="التالي"
