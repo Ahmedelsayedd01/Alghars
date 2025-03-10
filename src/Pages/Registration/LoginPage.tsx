@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   EmailInput,
-  Loading,
   PasswordInput,
   StaticLoader,
   SubmitButton,
