@@ -4,7 +4,7 @@ import { AddStudentPage } from "../../../Pages/Pages";
 const AddStudentLayout = () => {
   return (
     <>
-      <TitleSection text={"اضافة الطالب"} navIcon={true} />
+      <TitleSection text={"اضافة طالب"} navIcon={true} />
       <AddStudentPage />
     </>
   );
