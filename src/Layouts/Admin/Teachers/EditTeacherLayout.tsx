@@ -8,7 +8,7 @@ const EditTeacherLayout = () => {
     <>
       <TitleSection text={`تعديل المعلم ${nameTec}`} navIcon={true} />
       <EditTeacherPage
-        nameTitle={(id: number | undefined) => setNameTec(id?.toString() || "")}
+        nameTitle={(name: string | undefined) => setNameTec(name || "")}
       />
     </>
   );
