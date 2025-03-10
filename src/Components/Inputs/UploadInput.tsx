@@ -31,7 +31,7 @@ const UploadInput = ({
           type="text"
           placeholder={placeholder}
           className={`w-full border-2 rounded-2xl border-${borderColor}  bg-white
-                       outline-none p-2  shadow cursor-pointer   ${
+                       outline-none p-2 pl-12 shadow cursor-pointer   ${
             placeholderSize ? "text-lg" : "text-2xl"
           } font-TextFontRegular text-InputColor cursor-pointer eleValueInput`}
           value={value}
