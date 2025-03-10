@@ -10,15 +10,15 @@ export { default as EditTeacherPage } from "./Admin/TeacherPages/EditTeacherPage
 export { default as StudentsPage } from "./Admin/StudentPages/StudentsPage";
 export { default as AddStudentPage } from "./Admin/StudentPages/AddStudentPage";
 export { default as EditStudentPage } from "./Admin/StudentPages/EditStudentPage";
-// Admin-> Subjects
-export { default as SubjectsPage } from "./Admin/SubjectPages/SubjectsPage";
-export { default as AddSubjectPage } from "./Admin/SubjectPages/AddSubjectPage";
-export { default as EditSubjectPage } from "./Admin/SubjectPages/EditSubjectPage";
-// Admin-> Classes
-export { default as ClassesPage } from "./Admin/ClassPages/ClassesPage";
-export { default as ClassesHistoryPage } from "./Admin/ClassPages/ClassesPage";
-export { default as AddClassPage } from "./Admin/ClassPages/AddClassPage";
-export { default as EditClassPage } from "./Admin/ClassPages/EditClassPage";
+// Admin-> Subscriptions
+export { default as SubscriptionsPage } from "./Admin/SubscriptionPages/SubscriptionsPage";
+export { default as AddSubscriptionPage } from "./Admin/SubscriptionPages/AddSubscriptionPage";
+export { default as EditSubscriptionPage } from "./Admin/SubscriptionPages/EditSubscriptionPage";
+// Admin-> Sessions
+export { default as SessionsPage } from "./Admin/SessionPages/SessionsPage";
+export { default as ClassesHistoryPage } from "./Admin/SessionPages/SessionsPage";
+export { default as AddClassPage } from "./Admin/SessionPages/AddClassPage";
+export { default as EditClassPage } from "./Admin/SessionPages/EditClassPage";
 
 /* Teacher */
 export { default as SchedulesPage} from "./Teacher/ScheduleTeacher/SchedulesPage";
