@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
   ButtonAdd,
-  DropDown,
   EmailInput,
   NumberInput,
   PasswordInput,
@@ -10,24 +9,25 @@ import {
   TextInput,
   UploadInput,
 } from "../../../Components/Components";
-import { Obj } from "../../../types";
+
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { usePost } from "../../../Hooks/usePost";
 import { useAuth } from "../../../Context/Auth";
+import { useSelector } from "react-redux";
 
 interface HandleImageClickProps {
   ref: React.RefObject<HTMLInputElement>;
 }
 
 interface EditTeacherPageProps {
-  nameTitle: (id: number | undefined) => void;
+  nameTitle: (name: string | undefined) => void;
 }
 
 const EditTeacherPage = ({ nameTitle }: EditTeacherPageProps) => {
   const auth = useAuth();
   const navigate = useNavigate();
   const { teacherId } = useParams();
+  const teachersStore = useSelector((state: any) => state.teachers.data);
   const teacherPhoto = useRef<HTMLInputElement>(null!);
 
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
@@ -48,17 +48,24 @@ const EditTeacherPage = ({ nameTitle }: EditTeacherPageProps) => {
 
   const [teacherStatus, setTeacherStatus] = useState(0);
 
-  const [selectedSubject, setSelectedSubject] = useState<Obj | null>(null);
-  const subjects = useSelector((state: any) => state.subjects.data);
-
   useEffect(() => {
-    console.log("teacherId", teacherId);
-    nameTitle(teacherId ? parseInt(teacherId) : undefined);
+    if (teacherId) {
+      const teacher = teachersStore.find(
+        (t: any) => t.id === parseInt(teacherId)
+      );
+      if (teacher) {
+        nameTitle(teacher.name);
+        setTeacherName(teacher.name);
+        setTeacherPhone(teacher.phone);
+        setTeacherAddress(teacher.address);
+        setTeacherPhotoName(teacher.image_link);
+        setTeacherPhotoFile(teacher.image_link);
+        setTeacherEmail(teacher.email);
+        setTeacherStatus(teacher.status === "active" ? 1 : 0);
+      }
+    }
   }, [teacherId]);
 
-  useEffect(() => {
-    console.log("selectedSubject", selectedSubject);
-  }, [selectedSubject]);
 
   interface HandleImageChangeEvent extends React.ChangeEvent<HTMLInputElement> {
     target: HTMLInputElement & EventTarget;
@@ -121,7 +128,6 @@ const EditTeacherPage = ({ nameTitle }: EditTeacherPageProps) => {
       phone: teacherPhone,
       address: teacherAddress,
       avatar: teacherPhotoFile ? teacherPhotoFile.name : "",
-      subject: selectedSubject?.id?.toString() || "",
       email: teacherEmail,
       password: teacherPassword,
       status: teacherStatus === 1 ? "active" : "inactive",
@@ -133,7 +139,7 @@ const EditTeacherPage = ({ nameTitle }: EditTeacherPageProps) => {
   return (
     <>
       {loadingPost ? (
-        <div className="w-full h-56 flex justify-center items-center">
+        <div className="w-full h-92 flex justify-center items-center">
           <StaticLoader />
         </div>
       ) : (
@@ -182,15 +188,6 @@ const EditTeacherPage = ({ nameTitle }: EditTeacherPageProps) => {
                 onClick={() => handleImageClick({ ref: teacherPhoto })}
               />
             </div>
-
-            {/* Teacher Subject*/}
-            <DropDown
-              title={"المادة:"}
-              value={selectedSubject}
-              onChange={(e: { value: Obj }) => setSelectedSubject(e.value)}
-              items={subjects}
-              placeholder={"اختر المادة"}
-            />
 
             {/* Teacher Email && Password */}
             <div className="sm:w-full lg:w-[26%] flex flex-col items-start justify-center gap-y-2">

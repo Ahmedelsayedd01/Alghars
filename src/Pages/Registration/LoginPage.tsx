@@ -3,6 +3,7 @@ import {
   EmailInput,
   Loading,
   PasswordInput,
+  StaticLoader,
   SubmitButton,
 } from "../../Components/Components";
 // Make sure the file path is correct and the image exists in the specified location
@@ -71,8 +72,11 @@ const LoginPage = () => {
           <div className="sm:w-full xl:w-5/12 flex flex-col items-start justify-start gap-y-8 h-full">
             {loadingPost ? (
               <>
-                <div className="w-full h-full">
+                {/* <div className="w-full h-full">
                   <Loading width={100} height={100} />
+                </div> */}
+                <div className="w-full h-screen flex justify-center items-center">
+                  <StaticLoader/>
                 </div>
               </>
             ) : (

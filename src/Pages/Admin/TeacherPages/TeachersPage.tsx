@@ -53,13 +53,12 @@ const TeachersPage = () => {
   const handleShare = () => {
     const data = filterTeachers.map((teacher: Teachers, index: number) => ({
       "#": index + 1,
-      Name: `${teacher?.name || "-"}`,
-      Email: `${teacher?.email || "-"}`,
-      Subject: `${teacher?.subject || "-"}`,
-      Phone: `${teacher?.phone || "-"}`,
-      Address: `${teacher?.address || "-"}`,
-      CountClass: `${teacher?.countClass || "-"}`,
-      Status: teacher.status === "active" ? "يعمل" : "متوقف",
+      الاسم: `${teacher?.name || "-"}`,
+      العنوان: `${teacher?.address || "-"}`,
+      الهاتف: `${teacher?.phone || "-"}`,
+      الايميل: `${teacher?.email || "-"}`,
+      "عدد الحصص	": `${teacher?.countClass || "-"}`,
+      الحالة: teacher.status === "active" ? "يعمل" : "متوقف",
     }));
 
     // Create a new workbook and add the data
@@ -70,10 +69,9 @@ const TeachersPage = () => {
     worksheet["!cols"] = [
       { wch: 5 }, // Column for "#"
       { wch: 20 }, // Column for "Name"
-      { wch: 25 }, // Column for "Email"
-      { wch: 20 }, // Column for "Subject"
-      { wch: 20 }, // Column for "Phone"
       { wch: 30 }, // Column for "Address"
+      { wch: 20 }, // Column for "Phone"
+      { wch: 25 }, // Column for "Email"
       { wch: 5 }, // Column for "CountClass"
       { wch: 10 }, // Column for "Status"
     ];
@@ -103,7 +101,7 @@ const TeachersPage = () => {
     console.log("teachers", teachers);
     console.log("filteredTeachers", filteredTeachers);
     setFilterText(text);
-    setFilterTeachers(text === " " ? teachers : filteredTeachers);
+    setFilterTeachers(!text ? teachers : filteredTeachers);
   };
 
   // Update Teachers when `data` changes
@@ -162,7 +160,6 @@ const TeachersPage = () => {
     "الهاتف",
     "العنوان",
     "الايميل",
-    "المادة",
     "عدد الحصص",
     "الحالة",
     "ادوات",
@@ -230,7 +227,7 @@ const TeachersPage = () => {
                 <tr>
                   <td
                     colSpan={headers.length}
-                    className="py-4 text-center text-lg text-gray-600"
+                    className="py-4 text-center text-xl text-gray-600 font-TextFontMedium"
                   >
                     لا يوجد معلمين
                   </td>
@@ -268,10 +265,6 @@ const TeachersPage = () => {
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
                       {teacher?.email || "-"}
                     </td>
-                    {/* Subject */}
-                    <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
-                      {teacher?.subject || "-"}
-                    </td>
                     {/* Count Class */}
                     <td className="px-4 py-3 text-center">
                       <Link
@@ -307,47 +300,46 @@ const TeachersPage = () => {
                           <DeleteIcon />
                         </button>
                         {openDelete === teacher.id && (
-                            <Dialog
-                              open={true}
-                              onClose={handleCloseDelete}
-                              className="relative z-10"
-                            >
-                              <DialogBackdrop className="fixed inset-0 bg-gray-500 opacity-30 transition-opacity" />
-                              <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-                                <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                                  <DialogPanel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                                    <div className="flex  flex-col items-center justify-center bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                                      <WarningIcon />
-                                      <div className="flex items-center">
-                                        <div className="text-center text-xl font-TextFontSemiBold text-gray-600">
-                                          سوف يتم حذف المعلم{" "}
-                                          {teacher?.name || ""}
-                                        </div>
+                          <Dialog
+                            open={true}
+                            onClose={handleCloseDelete}
+                            className="relative z-10"
+                          >
+                            <DialogBackdrop className="fixed inset-0 bg-gray-500 opacity-30 transition-opacity" />
+                            <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+                              <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                                <DialogPanel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                                  <div className="flex  flex-col items-center justify-center bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                                    <WarningIcon />
+                                    <div className="flex items-center">
+                                      <div className="text-center text-xl font-TextFontSemiBold text-gray-600">
+                                        سوف يتم حذف المعلم {teacher?.name || ""}
                                       </div>
                                     </div>
-                                    <div className="px-4 py-3 sm:flex sm:flex-row sm:px-6">
-                                      <button
-                                        className="inline-flex w-full justify-center rounded-md bg-red-500 hover:bg-red-600 cursor-pointer transition duration-300 px-6 py-3 text-xl font-TextFontSemiBold text-white shadow-sm sm:ml-3 sm:w-auto"
-                                        onClick={() =>
-                                          handleDelete(teacher.id, teacher.name)
-                                        }
-                                      >
-                                        حذف
-                                      </button>
-                                      <button
-                                        type="button"
-                                        data-autofocus
-                                        onClick={handleCloseDelete}
-                                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-6 py-3 cursor-pointer text-xl font-TextFontMedium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:mt-0 sm:w-auto"
-                                      >
-                                        إلغاء
-                                      </button>
-                                    </div>
-                                  </DialogPanel>
-                                </div>
+                                  </div>
+                                  <div className="px-4 py-3 sm:flex sm:flex-row sm:px-6">
+                                    <button
+                                      className="inline-flex w-full justify-center rounded-md bg-red-500 hover:bg-red-600 cursor-pointer transition duration-300 px-6 py-3 text-xl font-TextFontSemiBold text-white shadow-sm sm:ml-3 sm:w-auto"
+                                      onClick={() =>
+                                        handleDelete(teacher.id, teacher.name)
+                                      }
+                                    >
+                                      حذف
+                                    </button>
+                                    <button
+                                      type="button"
+                                      data-autofocus
+                                      onClick={handleCloseDelete}
+                                      className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-6 py-3 cursor-pointer text-xl font-TextFontMedium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:mt-0 sm:w-auto"
+                                    >
+                                      إلغاء
+                                    </button>
+                                  </div>
+                                </DialogPanel>
                               </div>
-                            </Dialog>
-                          )}
+                            </div>
+                          </Dialog>
+                        )}
                       </div>
                     </td>
                   </tr>

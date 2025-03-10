@@ -3,10 +3,10 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 import {
-  classesReducer,
+  sessionsSecReducer,
   sessionsTeacherReducer,
   studentsReducer,
-  subjectsReducer,
+  subscriptionsReducer,
   teachersReducer,
   userReducer,
 } from "./CreateSlices";
@@ -18,8 +18,8 @@ const reducers = combineReducers({
   user: userReducer,
   students: studentsReducer,
   teachers: teachersReducer,
-  subjects: subjectsReducer,
-  classes: classesReducer,
+  subscriptions: subscriptionsReducer,
+  sessions: sessionsSecReducer,
   sessionsTeacher: sessionsTeacherReducer,
 });
 

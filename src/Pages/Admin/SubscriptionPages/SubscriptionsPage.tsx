@@ -11,33 +11,35 @@ import { Link } from "react-router-dom";
 import { DeleteIcon, EditIcon, WarningIcon } from "../../../assets/Assets";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { useSelector } from "react-redux";
-import { Subjects } from "../../../types";
+import { Subscriptions } from "../../../types";
 
-const SubjectsPage = () => {
+const SubscriptionsPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
-  const subjectsStore = useSelector((state: any) => state.subjects.data);
+  const SubscriptionsStore = useSelector(
+    (state: any) => state.subscriptions.data
+  );
   // const {
-  //   refetch: refetchSubjects,
-  //   loading: loadingSubjects,
-  //   data: dataSubjects,
-  // } = useGet(`${apiUrl}/admin/subjects`);
+  //   refetch: refetchSubscriptions,
+  //   loading: loadingSubscriptions,
+  //   data: dataSubscriptions,
+  // } = useGet(`${apiUrl}/admin/subscriptions/show`);
 
   const { changeState, loadingChange /* responseChange */ } = useChangeState();
   const { deleteData, loadingDelete /* responseDelete */ } = useDelete();
 
-  const [subjects, setSubjects] = useState<Subjects[]>([]);
+  const [subscriptions, setSubscriptions] = useState<Subscriptions[]>([]);
   const [openDelete, setOpenDelete] = useState<number | null>(null);
 
   const [currentPage, setCurrentPage] = useState(1); // Track the current page
-  const subjectsPerPage = 10; // Limit to 10 Subjects per page
+  const subscriptionsPerPage = 10; // Limit to 10 Subscriptions per page
 
   // Calculate total number of pages
-  const totalPages = Math.ceil(subjects.length / subjectsPerPage);
+  const totalPages = Math.ceil(subscriptions.length / subscriptionsPerPage);
 
-  // Get the Subjects for the current page
-  const currentSubjects = subjects.slice(
-    (currentPage - 1) * subjectsPerPage,
-    currentPage * subjectsPerPage
+  // Get the Subscriptions for the current page
+  const currentSubscriptions = subscriptions.slice(
+    (currentPage - 1) * subscriptionsPerPage,
+    currentPage * subscriptionsPerPage
   );
 
   // handle page change
@@ -45,11 +47,11 @@ const SubjectsPage = () => {
     setCurrentPage(pageNumber);
   };
 
-  // Fetch Subjects when the component mounts or when refetch is called
+  // Fetch Subscriptions when the component mounts or when refetch is called
   useEffect(() => {
-    // refetchSubjects();
-    setSubjects(subjectsStore);
-  }, [subjectsStore]); // Empty dependency array to only call refetch once on mount
+    // refetchSubscriptions();
+    setSubscriptions(SubscriptionsStore);
+  }, [SubscriptionsStore]); // Empty dependency array to only call refetch once on mount
 
   // View supp category
 
@@ -60,19 +62,21 @@ const SubjectsPage = () => {
     setOpenDelete(null);
   };
 
-  // Change subject status
+  // Change subscription status
   const handleChangeStaus = async (id: number, status: string) => {
     const response = await changeState({
-      url: `${apiUrl}/admin/subject/status/${id}`,
+      url: `${apiUrl}/admin/subscription/status/${id}`,
       message: "statusChange",
       data: status,
     });
 
     if (response) {
-      // Fix typo in prevSubject -> prevSubject
-      setSubjects((prevSubjects) =>
-        prevSubjects.map((subject) =>
-          subject.id === id ? { ...subject, status: status } : subject
+      // Fix typo in prevSubscription -> prevSubscription
+      setSubscriptions((prevSubscriptions) =>
+        prevSubscriptions.map((subscription) =>
+          subscription.id === id
+            ? { ...subscription, status: status }
+            : subscription
         )
       );
     }
@@ -81,86 +85,93 @@ const SubjectsPage = () => {
   // Delete Category
   const handleDelete = async (id: number, name: string) => {
     const success = await deleteData(
-      `${apiUrl}/admin/subject/${id}`,
+      `${apiUrl}/admin/subscription/${id}`,
       `${name} Deleted Success.`
     );
 
     if (success) {
-      // Update subjects only if deleteData succeeded
-      setSubjects((prevSubjects) =>
-        prevSubjects.filter((subject) => subject.id !== id)
+      // Update Subscriptions only if deleteData succeeded
+      setSubscriptions((prevSubscriptions) =>
+        prevSubscriptions.filter((subscription) => subscription.id !== id)
       );
-      // refetchSubjects();
+      // refetchSubscriptions();
     }
   };
 
-  // Update subjects when `data` changes
+  // Update Subscriptions when `data` changes
   // useEffect(() => {
-  //   if ((dataSubjects as any).subjects) {
-  //     setSubjects((dataSubjects as any).subjects);
+  //   if ((dataSubscriptions as any).Subscriptions) {
+  //     setSubscriptions((dataSubscriptions as any).Subscriptions);
   //   }
-  // }, [dataSubjects]); // Only run this effect when `data` changes
+  // }, [dataSubscriptions]); // Only run this effect when `data` changes
 
-  const headers = ["#", "المادة", "الحالة", "ادوات"];
+  const headers = ["#", "الاسم", "عدد الحصص", "السعر", "الحالة", "ادوات"];
   return (
     <div className="w-full flex items-start justify-start">
       <div className="w-full flex flex-col">
-        <table className="w-full sm:min-w-0 block ">
-          <thead className="w-full">
-            <tr className="w-full border-b-2 border-mainColor">
-              {headers.map((name, index) => (
-                <th
-                  className="min-w-[120px] sm:w-[8%] lg:w-[5%] text-mainColor text-center font-TextFontLight sm:text-sm lg:text-base xl:text-lg pb-3"
-                  key={index}
-                >
-                  {name}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          {
-            /* loadingSubjects || */ loadingChange || loadingDelete ? (
-              <div className="w-full h-56 flex justify-center items-center">
-                <StaticLoader />
-              </div>
-            ) : (
-              <tbody className="w-full">
-                {subjects.length === 0 ? (
+        <div className="overflow-auto rounded-lg shadow-lg">
+          <table className="w-full border-collapse min-w-max">
+            <thead className="bg-mainColor text-white">
+              <tr>
+                {headers.map((name, index) => (
+                  <th
+                    key={index}
+                    className="px-4 py-3 text-center text-xl sm:text-base md:text-lg lg:text-xl whitespace-nowrap"
+                  >
+                    {name}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {
+                /* loadingSubscriptions || */ loadingChange || loadingDelete ? (
+                  <tr>
+                    <td colSpan={headers.length} className="py-4 text-center">
+                      <StaticLoader />
+                    </td>
+                  </tr>
+                ) : subscriptions.length === 0 ? (
                   <tr>
                     <td
-                      colSpan={12}
-                      className="pt-2 text-center text-xl text-mainColor font-TextFontMedium  "
+                      colSpan={headers.length}
+                      className="py-4 text-center text-xl text-gray-600 font-TextFontMedium"
                     >
-                      لا يوجد مواد
+                      لا يوجد اشتراكات
                     </td>
                   </tr>
                 ) : (
-                  currentSubjects.map(
+                  currentSubscriptions.map(
                     (
-                      subject,
+                      subscription,
                       index // Example with two rows
                     ) => (
-                      <tr
-                        className="w-full border-b-2 border-gray-300"
-                        key={index}
-                      >
-                        <td className="min-w-[80px] sm:min-w-[50px] sm:w-1/12 lg:w-1/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                          {(currentPage - 1) * subjectsPerPage + index + 1}
+                      <tr key={index} className="hover:bg-gray-50">
+                        <td className="px-4 py-3 text-center text-mainColor text-xl sm:text-base">
+                          {(currentPage - 1) * subscriptionsPerPage + index + 1}
                         </td>
                         {/* Name */}
-                        <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                          {subject?.name || "-"}
+                        <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                          {subscription?.name || "-"}
+                        </td>
+                        {/* Sessions Count */}
+                        <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                          {subscription?.sessions || "-"}
+                        </td>
+                        {/* price */}
+                        <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                          {subscription?.price || "-"}
                         </td>
 
                         {/* Status */}
-                        <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
+                        <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
                           <Switch
-                            checked={subject.status === "active"}
+                            checked={subscription.status === "active"}
                             bgcolor={true}
                             handleClick={() => {
                               handleChangeStaus(
-                                subject.id,
-                                subject.status === "active"
+                                subscription.id,
+                                subscription.status === "active"
                                   ? "unactive"
                                   : "active"
                               );
@@ -171,17 +182,17 @@ const SubjectsPage = () => {
                         {/* Tools */}
                         <td className="px-4 py-3 text-center">
                           <div className="flex items-center justify-center gap-2">
-                            <Link to={`edit/${subject.id}`}>
+                            <Link to={`edit/${subscription.id}`}>
                               <EditIcon />
                             </Link>
                             <button
                               type="button"
                               className="cursor-pointer"
-                              onClick={() => handleOpenDelete(subject.id)}
+                              onClick={() => handleOpenDelete(subscription.id)}
                             >
                               <DeleteIcon />
                             </button>
-                            {openDelete === subject.id && (
+                            {openDelete === subscription.id && (
                               <Dialog
                                 open={true}
                                 onClose={handleCloseDelete}
@@ -195,8 +206,8 @@ const SubjectsPage = () => {
                                         <WarningIcon />
                                         <div className="flex items-center">
                                           <div className="text-center text-xl font-TextFontSemiBold text-gray-600">
-                                            سوف يتم حذف المادة{" "}
-                                            {subject?.name || ""}
+                                            سوف يتم حذف الاشتراك{" "}
+                                            {subscription?.name || ""}
                                           </div>
                                         </div>
                                       </div>
@@ -205,8 +216,8 @@ const SubjectsPage = () => {
                                           className="inline-flex w-full justify-center rounded-md bg-red-500 hover:bg-red-600 cursor-pointer transition duration-300 px-6 py-3 text-sm font-TextFontSemiBold text-white shadow-sm sm:ml-3 sm:w-auto"
                                           onClick={() =>
                                             handleDelete(
-                                              subject.id,
-                                              subject.name
+                                              subscription.id,
+                                              subscription.name
                                             )
                                           }
                                         >
@@ -231,12 +242,12 @@ const SubjectsPage = () => {
                       </tr>
                     )
                   )
-                )}
-              </tbody>
-            )
-          }
-        </table>
-        {subjects.length > 10 && (
+                )
+              }
+            </tbody>
+          </table>
+        </div>
+        {subscriptions.length > 10 && (
           <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4">
             {totalPages !== currentPage && (
               <SubmitButton
@@ -288,4 +299,4 @@ const SubjectsPage = () => {
   );
 };
 
-export default SubjectsPage;
+export default SubscriptionsPage;

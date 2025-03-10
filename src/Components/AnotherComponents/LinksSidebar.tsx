@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/Auth";
 import { LiaChalkboardTeacherSolid } from "react-icons/lia";
 import { PiStudent } from "react-icons/pi";
-import { ImBook } from "react-icons/im";
+import { BiSolidBackpack } from "react-icons/bi";
 import { FaRev } from "react-icons/fa";
 
 const LinksSidebar = () => {
@@ -21,12 +21,12 @@ const LinksSidebar = () => {
   /* Students */
   const [isActiveStudents, setIsActiveStudents] = useState(false);
   const [isActiveStudentsIcon, setIsActiveStudentsIcon] = useState(false);
-  /* Subjects */
-  const [isActiveSubjects, setIsActiveSubjects] = useState(false);
-  const [isActiveSubjectsIcon, setIsActiveSubjectsIcon] = useState(false);
-  /* Classes */
-  const [isActiveClasses, setIsActiveClasses] = useState(false);
-  const [isActiveClassesIcon, setIsActiveClassesIcon] = useState(false);
+  /* Subscriptions */
+  const [isActiveSubscriptions, setIsActiveSubscriptions] = useState(false);
+  const [isActiveSubscriptionsIcon, setIsActiveSubscriptionsIcon] = useState(false);
+  /* Sessions */
+  const [isActiveSessions, setIsActiveSessions] = useState(false);
+  const [isActiveSessionsIcon, setIsActiveSessionsIcon] = useState(false);
 
   // Handler functions to manage navigation state
 
@@ -35,10 +35,10 @@ const LinksSidebar = () => {
     setIsActiveTeachersIcon(false);
     setIsActiveStudents(false);
     setIsActiveStudentsIcon(false);
-    setIsActiveSubjects(false);
-    setIsActiveSubjectsIcon(false);
-    setIsActiveClasses(false);
-    setIsActiveClassesIcon(false);
+    setIsActiveSubscriptions(false);
+    setIsActiveSubscriptionsIcon(false);
+    setIsActiveSessions(false);
+    setIsActiveSessionsIcon(false);
   };
   /* Teachers */
   const handleClickTeachers = () => {
@@ -64,28 +64,28 @@ const LinksSidebar = () => {
       // navigate("/dashboard/teachers", { replace: true });
     }
   }, [path]);
-  /* Subjects */
-  const handleClickSubjects = () => {
+  /* Subscriptions */
+  const handleClickSubscriptions = () => {
     handleStateLinks();
-    setIsActiveSubjects(true);
-    setIsActiveSubjectsIcon(true);
+    setIsActiveSubscriptions(true);
+    setIsActiveSubscriptionsIcon(true);
   };
   useEffect(() => {
-    if (path === "/dashboard/subjects") {
-      handleClickSubjects();
-      // navigate("/dashboard/subjects", { replace: true });
+    if (path === "/dashboard/subscriptions") {
+      handleClickSubscriptions();
+      // navigate("/dashboard/subscriptions", { replace: true });
     }
   }, [path]);
-  /* Classes */
-  const handleClickClasses = () => {
+  /* Sessions */
+  const handleClickSessions = () => {
     handleStateLinks();
-    setIsActiveClasses(true);
-    setIsActiveClassesIcon(true);
+    setIsActiveSessions(true);
+    setIsActiveSessionsIcon(true);
   };
   useEffect(() => {
-    if (path === "/dashboard/classes") {
-      handleClickClasses();
-      // navigate("/dashboard/classes", { replace: true });
+    if (path === "/dashboard/sessions") {
+      handleClickSessions();
+      // navigate("/dashboard/sessions", { replace: true });
     }
   }, [path]);
 
@@ -172,13 +172,13 @@ const LinksSidebar = () => {
           </div>
         </Link>
 
-        {/* Subjects */}
+        {/* Subscriptions */}
         <Link
-          to="/dashboard/subjects"
-          onClick={handleClickSubjects}
+          to="/dashboard/subscriptions"
+          onClick={handleClickSubscriptions}
           className={`
                                    ${
-                                     isActiveSubjects
+                                     isActiveSubscriptions
                                        ? "bg-[#4EE8E8] text-white"
                                        : "bg-transparent text-red-600"
                                    }
@@ -192,33 +192,33 @@ const LinksSidebar = () => {
                                     group`}
         >
           <div className="flex items-center gap-x-2">
-            <ImBook
+            <BiSolidBackpack 
               className={`${
-                isActiveSubjectsIcon ? "text-white" : "text-white"
+                isActiveSubscriptionsIcon ? "text-white" : "text-white"
               } text-2xl group-hover:text-white transition-all ease-in-out duration-300`}
             />
             <span
               className={`${hideSide ? "block" : "hidden"} 
                                           ${
-                                            isActiveSubjects
+                                            isActiveSubscriptions
                                               ? "text-white"
                                               : "text-white"
                                           }
                                           text-xl font-TextFontMedium transition-all ease-in-out duration-300
                                           group-hover:text-white`}
             >
-              المواد
+              الاشتراكات
             </span>
           </div>
         </Link>
 
-        {/* Classes */}
+        {/* Sessions */}
         <Link
-          to="/dashboard/classes"
-          onClick={handleClickClasses}
+          to="/dashboard/sessions"
+          onClick={handleClickSessions}
           className={`
                                    ${
-                                     isActiveClasses
+                                     isActiveSessions
                                        ? "bg-[#4EE8E8] text-white"
                                        : "bg-transparent text-red-600"
                                    }
@@ -234,13 +234,13 @@ const LinksSidebar = () => {
           <div className="flex items-center gap-x-2">
             <FaRev
               className={`${
-                isActiveClassesIcon ? "text-white" : "text-white"
+                isActiveSessionsIcon ? "text-white" : "text-white"
               } text-2xl group-hover:text-white transition-all ease-in-out duration-300`}
             />
             <span
               className={`${hideSide ? "block" : "hidden"} 
                                           ${
-                                            isActiveClasses
+                                            isActiveSessions
                                               ? "text-white"
                                               : "text-white"
                                           }

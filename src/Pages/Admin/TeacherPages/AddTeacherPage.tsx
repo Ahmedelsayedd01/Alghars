@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
   ButtonAdd,
-  DropDown,
   EmailInput,
   NumberInput,
   PasswordInput,
@@ -10,8 +9,6 @@ import {
   TextInput,
   UploadInput,
 } from "../../../Components/Components";
-import { Obj } from "../../../types";
-import { useSelector } from "react-redux";
 import { usePost } from "../../../Hooks/usePost";
 import { useAuth } from "../../../Context/Auth";
 
@@ -41,13 +38,6 @@ const AddTeacherPage = () => {
 
   const [teacherStatus, setTeacherStatus] = useState(0);
 
-  const [selectedSubject, setSelectedSubject] = useState<Obj | null>(null);
-
-  const subjects = useSelector((state: any) => state.subjects.data);
-
-  useEffect(() => {
-    console.log("selectedSubject", selectedSubject);
-  }, [selectedSubject]);
 
   interface HandleImageChangeEvent extends React.ChangeEvent<HTMLInputElement> {
     target: HTMLInputElement & EventTarget;
@@ -82,7 +72,6 @@ const AddTeacherPage = () => {
     setTeacherEmail('')
     setTeacherPassword('')
     setTeacherStatus(0)
-    setSelectedSubject(null)
   };
 
   useEffect(() => {
@@ -124,7 +113,6 @@ const AddTeacherPage = () => {
       phone: teacherPhone,
       address: teacherAddress,
       avatar: teacherPhotoFile ? teacherPhotoFile.name : "",
-      subject: selectedSubject?.id?.toString() || "",
       email: teacherEmail,
       password: teacherPassword,
       status: teacherStatus === 1 ? 'active' : 'inactive',
@@ -186,15 +174,6 @@ const AddTeacherPage = () => {
                 onClick={() => handleImageClick({ ref: teacherPhoto })}
               />
             </div>
-
-            {/* Teacher Subject*/}
-            <DropDown
-              title={"المادة:"}
-              value={selectedSubject}
-              onChange={(e: { value: Obj }) => setSelectedSubject(e.value)}
-              items={subjects}
-              placeholder={"اختر المادة"}
-            />
 
             {/* Teacher Email && Password */}
             <div className="sm:w-full lg:w-[26%] flex flex-col items-start justify-center gap-y-2">

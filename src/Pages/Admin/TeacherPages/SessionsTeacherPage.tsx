@@ -30,10 +30,10 @@ const SessionsTeacherPage = ({ nameTitle }: SessionsTeacherPageProps) => {
       "اسم الطالب": `${session?.student.name || "-"}`,
       "عنوان الطالب": `${session?.student.address || "-"}`,
       "هاتف ولي الأمر": `${session?.student.parentPhone || "-"}`,
-      'التاريخ': `${session?.date || "-"}`,
+      التاريخ: `${session?.date || "-"}`,
       "ميعاد البدء": `${session?.start || "-"}`,
       "ميعاد الانتهاء": `${session?.end || "-"}`,
-      'الحالة':
+      الحالة:
         (session.status === "pending" && "قيد الانتظار") ||
         (session.status === "processing" && "قيد التنفيذ") ||
         (session.status === "done" && "تمت") ||
@@ -102,74 +102,73 @@ const SessionsTeacherPage = ({ nameTitle }: SessionsTeacherPageProps) => {
             rounded="rounded-xl"
           />
         </div>
-        <table className="w-full sm:min-w-0 block ">
-          <thead className="w-full">
-            <tr className="w-full border-b-2 border-mainColor">
-              {headers.map((name, index) => (
-                <th
-                  className="min-w-[120px] sm:w-[8%] lg:w-[5%] text-mainColor text-center font-TextFontLight sm:text-sm lg:text-base xl:text-lg pb-3"
-                  key={index}
-                >
-                  {name}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="w-full">
-            {sessions.length === 0 ? (
+        <div className="overflow-auto rounded-lg shadow-lg">
+        <table className="w-full border-collapse min-w-max">
+            <thead className="bg-mainColor text-white">
               <tr>
-                <td
-                  colSpan={12}
-                  className="pt-2 text-center text-xl text-mainColor font-TextFontMedium  "
-                >
-                  لا يوجد حصص
-                </td>
+                {headers.map((name, index) => (
+                  <th
+                    key={index}
+                    className="px-4 py-3 text-center text-xl sm:text-base md:text-lg lg:text-xl whitespace-nowrap"
+                  >
+                    {name}
+                  </th>
+                ))}
               </tr>
-            ) : (
-              currentSessions.map((session, index: number) => (
-                <tr
-                  className="w-full border-b-2 border-gray-300"
-                  key={session.id}
-                >
-                  <td className="min-w-[50px] sm:min-w-[50px] sm:w-1/12 lg:w-1/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                    {(currentPage - 1) * SessionsPerPage + index + 1}
-                  </td>
-                  {/* Student Name */}
-                  <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                    {session?.student?.name || "-"}
-                  </td>
-                  {/* Student Address */}
-                  <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                    {session?.student?.address || "-"}
-                  </td>
-                  {/* Student Parent Phone */}
-                  <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                    {session?.student?.parentPhone || "-"}
-                  </td>
-                  {/* Session Date */}
-                  <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                    {session?.date || "-"}
-                  </td>
-                  {/* Session Start Time */}
-                  <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                    {session?.start || "-"}
-                  </td>
-                  {/* Session End Time */}
-                  <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                    {session?.end || "-"}
-                  </td>
-                  {/* Session Status */}
-                  <td className="min-w-[150px] sm:min-w-[100px] sm:w-2/12 lg:w-2/12 py-2 text-center text-mainColor text-sm sm:text-base lg:text-lg xl:text-xl overflow-hidden">
-                    {session?.status === "pending" && "قيد الانتظار"}
-                    {session?.status === "processing" && "قيد التنفيذ"}
-                    {session?.status === "done" && "تمت"}
-                    {session?.status === "cancelled" && "لم يتم تنفيذها"}
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {sessions.length === 0 ? (
+                <tr>
+                  <td
+                    colSpan={headers.length}
+                    className="py-4 text-center text-xl text-gray-600 font-TextFontMedium"
+                  >
+                    لا يوجد حصص
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                currentSessions.map((session, index: number) => (
+                  <tr key={index} className="hover:bg-gray-50">
+                    <td className="px-4 py-3 text-center text-mainColor text-xl sm:text-base">
+                      {(currentPage - 1) * SessionsPerPage + index + 1}
+                    </td>
+                    {/* Student Name */}
+                    <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                      {session?.student?.name || "-"}
+                    </td>
+                    {/* Student Address */}
+                    <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                      {session?.student?.address || "-"}
+                    </td>
+                    {/* Student Parent Phone */}
+                    <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                      {session?.student?.parentPhone || "-"}
+                    </td>
+                    {/* Session Date */}
+                    <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                      {session?.date || "-"}
+                    </td>
+                    {/* Session Start Time */}
+                    <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                      {session?.start || "-"}
+                    </td>
+                    {/* Session End Time */}
+                    <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                      {session?.end || "-"}
+                    </td>
+                    {/* Session Status */}
+                    <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                      {session?.status === "pending" && "قيد الانتظار"}
+                      {session?.status === "processing" && "قيد التنفيذ"}
+                      {session?.status === "done" && "تمت"}
+                      {session?.status === "cancelled" && "لم يتم تنفيذها"}
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
         {sessions.length > 10 && (
           <div className="flex flex-wrap items-center justify-center gap-x-4">
             {totalPages !== currentPage && (

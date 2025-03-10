@@ -36,6 +36,14 @@ interface AuthContextType {
         status: string;
     }
 
+    interface Subscriptions{
+      id:number;
+      name:string;
+      sessions:number;
+      price:number;
+      status:string;
+    }
+
     interface TeacherSessions {
       sessions: Array<{
         id: number;
@@ -73,30 +81,34 @@ interface AuthContextType {
      interface Students {
       id: number;
       name: string;
-      category: string;
-      parentPhone: string;
       address: string;
-      countClass: number;
-      subscription: number;
+      parentPhone: string;
       image_link: string;
-      payment: string;
+      category: string;
+      subscription: string;
+      countClass: number;
+      payment: number;
+      price: number;
       status: string;
     }
-    interface Subjects {
+    interface Subscriptions {
       id: number;
       name: string;
+      sessions: number;
+      price:number;
       status: string;
     }
-    interface Classes {
+    interface SessionsSec {
       id: number;
       student: string;
       teacher: string;
-      date: string;
       teacherPhone: string;
-      subject: string;
+      subscription: string;
+      date: string;
+      // subject: string;
       start: string;
       end: string;
-      price: number;
+      // price: number;
       status: string;
       active: string;
     }
@@ -164,4 +176,4 @@ interface AuthContextType {
       status: string;
     }
 
-     export type { AuthContextType, Teachers, TeacherSessions, TeacherSession, Students, Subjects, Classes , PostOptions, ChangeStateOptions,LogoProps,Obj, ScheduleSessions,Sessions, Session };
+     export type { AuthContextType, Teachers, TeacherSessions, TeacherSession, Students, Subscriptions, SessionsSec , PostOptions, ChangeStateOptions,LogoProps,Obj, ScheduleSessions,Sessions, Session };
