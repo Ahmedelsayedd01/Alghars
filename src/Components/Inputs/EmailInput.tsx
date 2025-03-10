@@ -40,6 +40,7 @@ const EmailInput: React.FC<EmailInputProps> = ({
                           font-TextFontRegular bg-${backgound} 
                           valueInput`}
           placeholder={placeholder}
+          autoComplete="email"
         />
       </div>
     </>
