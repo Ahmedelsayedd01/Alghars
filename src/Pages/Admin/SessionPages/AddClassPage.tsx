@@ -3,42 +3,44 @@ import {
   ButtonAdd,
   DateInput,
   DropDown,
-  NumberInput,
+  // NumberInput,
   Switch,
 } from "../../../Components/Components";
-import { Obj } from "../../../types";
-import { useParams } from "react-router-dom";
+import { Obj, Subscriptions } from "../../../types";
 import { useSelector } from "react-redux";
+import { usePost } from "../../../Hooks/usePost";
+import { useAuth } from "../../../Context/Auth";
 
-interface EditClassPageProps {
-  nameTitle: (id: number | undefined) => void;
-}
-
-const EditClassPage = ({ nameTitle }: EditClassPageProps) => {
-  const { classId } = useParams();
-
+const AddClassPage = () => {
+    const auth = useAuth();
   const teachers = useSelector((state: any) => state.teachers.data);
   const students = useSelector((state: any) => state.students.data);
-  const subjects = useSelector((state: any) => state.subjects.data);
+  const subscriptionsStore = useSelector((state: any) => state.subscriptions.data);
+
+    const apiUrl = import.meta.env.VITE_API_BASE_URL;
+  
+    const { postData, loadingPost, response } = usePost({
+      url: `${apiUrl}/admin/session/create`,
+    });
 
   const [selectedTeacher, setSelectedTeacher] = useState<Obj | null>(null);
   const [selectedStudent, setSelectedStudent] = useState<Obj | null>(null);
-  const [selectedSubject, setSelectedSubject] = useState<Obj | null>(null);
+  const [selectedSubscription, setSelectedSubscription] = useState<Obj | null>(null);
 
+  const [subscriptions, setSubscriptions] = useState<Subscriptions[]>([]);
   const [classDate, setClassDate] = useState("");
-  const [classPrice, setClassPrice] = useState(0);
+  // const [classPrice, setClassPrice] = useState(0);
   const [classStatus, setClassStatus] = useState(0);
 
-  useEffect(() => {
-    console.log("classId", classId);
-    nameTitle(classId ? parseInt(classId) : undefined);
-  }, [classId]);
+    useEffect(() => {
+      setSubscriptions(subscriptionsStore);
+    }, [subscriptionsStore]);
 
   useEffect(() => {
     console.log("selectedTeacher", selectedTeacher);
     console.log("selectedStudent", selectedStudent);
-    console.log("selectedSubject", selectedSubject);
-  }, [selectedTeacher, selectedStudent, selectedSubject]);
+    console.log("selectedSubscription", selectedSubscription);
+  }, [selectedTeacher, selectedStudent, selectedSubscription]);
 
   const handleClassStatus = () => {
     const Active = classStatus;
@@ -46,8 +48,40 @@ const EditClassPage = ({ nameTitle }: EditClassPageProps) => {
       Active === 0 ? setClassStatus(1) : setClassStatus(0);
     }
   };
-  const handleEdit = () => {};
 
+  const handleReset = () => {
+    setSelectedTeacher(null);
+    setSelectedStudent(null);
+    setSelectedSubscription(null);
+    setClassDate('');
+    setClassStatus(0);
+  };
+
+  useEffect(() => {
+    if (response && response.status === 200) {
+      handleReset();
+    }
+    console.log("response", response);
+  }, [response]);
+
+  const handleAdd = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // if (!studentName) {
+    //   auth.toastError("اضف اسم الطالب");
+    //   return;
+    // }
+
+    const payload = {
+      teacher: selectedTeacher ? selectedTeacher.id.toString() : "",
+      student: selectedStudent ? selectedStudent.id.toString() : "",
+      subscription: selectedSubscription ? selectedSubscription.id.toString() : "",
+      date: classDate,
+      status: classStatus === 1 ? "active" : "inactive",
+    };
+
+    postData(payload, "تم اضافة الحصة بنجاح");
+  };
   return (
     <form>
       <div className="w-full flex flex-wrap sm:flex-col lg:flex-row items-center justify-start gap-4 sm:mb-8 lg:mb-0">
@@ -69,13 +103,13 @@ const EditClassPage = ({ nameTitle }: EditClassPageProps) => {
           placeholder={"اختر الطالب"}
         />
 
-        {/*  Subject*/}
+        {/*  subscription */}
         <DropDown
-          title={"المادة:"}
-          value={selectedSubject}
-          onChange={(e: { value: Obj }) => setSelectedSubject(e.value)}
-          items={subjects}
-          placeholder={"اختر المادة"}
+          title={"الاشتراك:"}
+          value={selectedSubscription}
+          onChange={(e: { value: Obj }) => setSelectedSubscription(e.value)}
+          items={subscriptions}
+          placeholder={"اختر الاشتراك"}
         />
 
         {/* Date Class */}
@@ -90,14 +124,14 @@ const EditClassPage = ({ nameTitle }: EditClassPageProps) => {
         />
 
         {/* Price Class */}
-        <NumberInput
+        {/* <NumberInput
           title={"السعر:"}
           value={classPrice.toString()}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setClassPrice(Number(e.target.value))
           }
           placeholder="ادخل السعر "
-        />
+        /> */}
 
         <div className="sm:w-full lg:w-[26%] flex items-center justify-start gap-x-2 mt-7">
           <span className="text-2xl font-TextFontMedium text-thirdColor mt-2">
@@ -113,12 +147,10 @@ const EditClassPage = ({ nameTitle }: EditClassPageProps) => {
       </div>
       {/* Button Add */}
       <div className="w-full flex justify-end items-center">
-        <ButtonAdd
-        text="تعديل"
-        handleClick={handleEdit} />
+        <ButtonAdd handleClick={()=>handleAdd} />
       </div>
     </form>
   );
 };
 
-export default EditClassPage;
+export default AddClassPage;
