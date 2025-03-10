@@ -8,7 +8,7 @@ const EditStudentLayout = () => {
     <>
       <TitleSection text={`تعديل الطالب ${nameStu}`} navIcon={true} />
       <EditStudentPage
-        nameTitle={(id: number | undefined) => setNameStu(id?.toString() || "")}
+        nameTitle={(name: string | undefined) => setNameStu(name || "")}
       />
     </>
   );
