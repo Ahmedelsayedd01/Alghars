@@ -10,7 +10,7 @@ import {
 } from "../../../Components/Components";
 import { Link, useNavigate } from "react-router-dom";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { Students } from "../../../types";
 import { DeleteIcon, EditIcon, WarningIcon } from "../../../assets/Assets";
 import * as XLSX from "xlsx";
@@ -18,7 +18,7 @@ import * as XLSX from "xlsx";
 const StudentsPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
-  const studentsStore = useSelector((state: any) => state.students.data);
+  // const studentsStore = useSelector((state: any) => state.students.data);
   const {
     refetch: refetchStudents,
     loading: loadingStudents,
@@ -97,9 +97,9 @@ const StudentsPage = () => {
 
   // Fetch Students when the component mounts or when refetch is called
   useEffect(() => {
-    // refetchStudents();
-    setStudents(studentsStore);
-    setFilterStudents(studentsStore);
+    refetchStudents();
+    // setStudents(studentsStore);
+    // setFilterStudents(studentsStore);
   }, [refetchStudents]); // Empty dependency array to only call refetch once on mount
 
   const handleFilterStudents = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,6 +120,8 @@ const StudentsPage = () => {
   useEffect(() => {
     if (dataStudents) {
       // setStudents(dataStudents);
+      setStudents(dataStudents);
+      setFilterStudents(dataStudents);
     }
     console.log("dataStudents", dataStudents);
   }, [dataStudents]); // Only run this effect when `data` changes
@@ -343,8 +345,7 @@ const StudentsPage = () => {
                                     <WarningIcon />
                                     <div className="flex items-center">
                                       <div className="text-center text-xl font-TextFontSemiBold text-gray-600">
-                                        سوف يتم حذف الطالب{" "}
-                                        {student?.name || ""}
+                                        سوف يتم حذف الطالب {student?.name || ""}
                                       </div>
                                     </div>
                                   </div>
