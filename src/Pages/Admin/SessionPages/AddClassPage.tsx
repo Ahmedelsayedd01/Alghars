@@ -7,24 +7,50 @@ import {
   // NumberInput,
   Switch,
 } from "../../../Components/Components";
-import { Obj, Subscriptions } from "../../../types";
-import { useSelector } from "react-redux";
+import { Obj, Students, Subscriptions, Teachers } from "../../../types";
 import { usePost } from "../../../Hooks/usePost";
 import { useAuth } from "../../../Context/Auth";
+import { useGet } from "../../../Hooks/useGet";
 
 const AddClassPage = () => {
   const auth = useAuth();
-  const teachers = useSelector((state: any) => state.teachers.data);
-  const students = useSelector((state: any) => state.students.data);
-  const subscriptionsStore = useSelector(
-    (state: any) => state.subscriptions.data
-  );
+  // const teachers = useSelector((state: any) => state.teachers.data);
+  // const students = useSelector((state: any) => state.students.data);
+
+  // const subscriptionsStore = useSelector(
+  //   (state: any) => state.subscriptions.data
+  // );
 
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
+
+  /* Get students */
+  const {
+    refetch: refetchStudents,
+    loading: loadingStudents,
+    data: dataStudents,
+  } = useGet(`${apiUrl}/admin/student/show`);
+  
+  /* Get Teachers */
+  const {
+    refetch: refetchTeachers,
+    loading: loadingTeachers,
+    data: dataTeachers,
+  } = useGet(`${apiUrl}/admin/teacher/show`);
+
+  /* Get Subscriptions */
+  const {
+    refetch: refetchSubscriptions,
+    loading: loadingSubscriptions,
+    data: dataSubscriptions,
+  } = useGet(`${apiUrl}/admin/package/show`);
 
   const { postData, loadingPost, response } = usePost({
     url: `${apiUrl}/admin/session/create`,
   });
+
+  const [teachers, setTeachers] = useState<Teachers[]>([]);
+  const [students, setStudents] = useState<Students[]>([]);
+  const [subscriptions, setSubscriptions] = useState<Subscriptions[]>([]);
 
   const [selectedTeacher, setSelectedTeacher] = useState<Obj | null>(null);
   const [selectedStudent, setSelectedStudent] = useState<Obj | null>(null);
@@ -32,14 +58,29 @@ const AddClassPage = () => {
     null
   );
 
-  const [subscriptions, setSubscriptions] = useState<Subscriptions[]>([]);
   const [classDate, setClassDate] = useState("");
-  // const [classPrice, setClassPrice] = useState(0);
   const [classStatus, setClassStatus] = useState(0);
 
   useEffect(() => {
-    setSubscriptions(subscriptionsStore);
-  }, [subscriptionsStore]);
+    refetchStudents();
+    refetchTeachers();
+    refetchSubscriptions();
+  }, [refetchStudents,refetchTeachers,refetchSubscriptions]); 
+
+
+  useEffect(() => {
+    if (dataStudents) {
+      setStudents(dataStudents);
+    }
+    if (dataTeachers) {
+      setTeachers(dataTeachers);
+    }
+    if (dataSubscriptions) {
+      setSubscriptions(dataSubscriptions);
+    }
+    console.log("dataStudents", dataStudents);
+  }, [dataStudents, dataTeachers, dataSubscriptions]);
+
 
   useEffect(() => {
     console.log("selectedTeacher", selectedTeacher);
@@ -63,7 +104,7 @@ const AddClassPage = () => {
   };
 
   useEffect(() => {
-    if (response && response.status === 200) {
+    if (response && (response.status === 201 || response.status === 200)) {
       handleReset();
     }
     console.log("response", response);
@@ -72,31 +113,46 @@ const AddClassPage = () => {
   const handleAdd = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!selectedTeacher) {
+      auth.toastError("اختر اسم المعلم");
+      return;
+    }
     if (!selectedStudent) {
-      auth.toastError("اضف اسم الطالب");
+      auth.toastError("اختر اسم الطالب");
+      return;
+    }
+    if (!classDate) {
+      auth.toastError("اختر تاريخ الحصة");
       return;
     }
 
-    const payload = {
-      teacher: selectedTeacher ? selectedTeacher.id.toString() : "",
-      student: selectedStudent ? selectedStudent.id.toString() : "",
-      subscription: selectedSubscription
-        ? selectedSubscription.id.toString()
-        : "",
-      date: classDate,
-      status: classStatus === 1 ? "active" : "inactive",
-    };
+    const formData = new FormData();
 
-    postData(payload, "تم اضافة الحصة بنجاح");
+    formData.append(
+      "student_id",
+      selectedStudent ? selectedStudent.id.toString() : ""
+    );
+    formData.append(
+      "teacher_id",
+      selectedTeacher ? selectedTeacher.id.toString() : ""
+    );
+    formData.append("date", classDate);
+    formData.append(
+      "package_id",
+      selectedSubscription ? selectedSubscription.id.toString() : ""
+    );
+    formData.append("status", classStatus === 1 ? "active" : "inactive");
+
+    postData(formData, "تم اضافة الحصة بنجاح");
   };
   return (
     <>
-      {loadingPost ? (
+      {loadingStudents|| loadingTeachers|| loadingSubscriptions || loadingPost ? (
         <div className="w-full h-56 flex justify-center items-center">
           <StaticLoader />
         </div>
       ) : (
-        <form>
+        <form onSubmit={handleAdd}>
           <div className="w-full flex flex-wrap sm:flex-col lg:flex-row items-center justify-start gap-4 sm:mb-8 lg:mb-0">
             {/* Teacher Name */}
             <DropDown
@@ -127,6 +183,7 @@ const AddClassPage = () => {
 
             {/* Date Class */}
             <DateInput
+              required={false}
               title={"التاريخ:"}
               value={classDate}
               maxDate={false}
