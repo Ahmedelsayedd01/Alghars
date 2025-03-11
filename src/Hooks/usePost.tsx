@@ -5,12 +5,17 @@ import { PostOptions } from "../types";
 
 export const usePost = ({ url, login = false, type = false }: PostOptions) => {
   const auth = useAuth();
-  const [loadingPost, setLoadingPost] = useState(false);
-  const [response, setResponse] = useState<AxiosResponse<any, any> | null>(
-    null
-  );
+  // const [loadingPost, setLoadingPost] = useState(false);
+  // const [response, setResponse] = useState<AxiosResponse<any, any> | null>(
+  //   null
+  // );
 
-  const postData = async (data: { [key: string]: string }, name?: string) => {
+  // const postData = async (data: { [key: string]: string }, name?: string) => {
+  //   setLoadingPost(true);
+  const [loadingPost, setLoadingPost] = useState(false);
+  const [response, setResponse] = useState<any>(null);
+
+  const postData = async (data: { [key: string]: string } | FormData, name: string) => {
     setLoadingPost(true);
     try {
       const token = auth?.userState?.token || "";
@@ -29,7 +34,7 @@ export const usePost = ({ url, login = false, type = false }: PostOptions) => {
 
       const response = await axios.post(url, data, config);
 
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         setResponse(response);
         {
           name ? auth.toastSuccess(name) : "";
