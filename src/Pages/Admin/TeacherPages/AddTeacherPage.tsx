@@ -38,7 +38,6 @@ const AddTeacherPage = () => {
 
   const [teacherStatus, setTeacherStatus] = useState(0);
 
-
   interface HandleImageChangeEvent extends React.ChangeEvent<HTMLInputElement> {
     target: HTMLInputElement & EventTarget;
   }
@@ -64,18 +63,18 @@ const AddTeacherPage = () => {
     }
   };
   const handleReset = () => {
-    setTeacherName('')
-    setTeacherPhone('')
-    setTeacherAddress('')
-    setTeacherPhotoName('')
-    setTeacherPhotoFile(null)
-    setTeacherEmail('')
-    setTeacherPassword('')
-    setTeacherStatus(0)
+    setTeacherName("");
+    setTeacherPhone("");
+    setTeacherAddress("");
+    setTeacherPhotoName("");
+    setTeacherPhotoFile(null);
+    setTeacherEmail("");
+    setTeacherPassword("");
+    setTeacherStatus(0);
   };
 
   useEffect(() => {
-    if (response && response.status === 200) {
+    if ((response && response.status === 201) || response.status === 200) {
       handleReset();
     }
     console.log("response", response);
@@ -84,7 +83,7 @@ const AddTeacherPage = () => {
   const handleAdd = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!teacherName) {
+    if (teacherName === "") {
       auth.toastError("اضف اسم المعلم");
       return;
     }
@@ -108,17 +107,19 @@ const AddTeacherPage = () => {
       auth.toastError("اضف كلمة المرور");
       return;
     }
-    const payload = {
-      name: teacherName,
-      phone: teacherPhone,
-      address: teacherAddress,
-      avatar: teacherPhotoFile ? teacherPhotoFile.name : "",
-      email: teacherEmail,
-      password: teacherPassword,
-      status: teacherStatus === 1 ? 'active' : 'inactive',
-    };
 
-    postData(payload, "تم اضافة المعلم بنجاح");
+    const formData = new FormData();
+    formData.append("username", teacherName);
+    formData.append("phone", teacherPhone);
+    formData.append("address", teacherAddress);
+    if (teacherPhotoFile) {
+      formData.append("avatar", teacherPhotoFile);
+    }
+    formData.append("email", teacherEmail);
+    formData.append("password", teacherPassword);
+    formData.append("status", teacherStatus === 1 ? "active" : "inactive");
+
+    postData(formData, "تم اضافة المعلم بنجاح");
   };
 
   return (
@@ -128,7 +129,7 @@ const AddTeacherPage = () => {
           <StaticLoader />
         </div>
       ) : (
-        <form>
+        <form onSubmit={handleAdd}>
           <div className="w-full flex flex-wrap sm:flex-col lg:flex-row items-center justify-start gap-4 sm:mb-8 lg:mb-0">
             {/* Teacher Name */}
             <TextInput
@@ -149,7 +150,7 @@ const AddTeacherPage = () => {
               }
               placeholder="ادخل رقم الهاتف"
             />
-            
+
             {/* Teacher Address */}
             <TextInput
               title={" العنوان:"}
@@ -159,7 +160,6 @@ const AddTeacherPage = () => {
               }
               placeholder="ادخل العنوان"
             />
-
 
             {/* Teacher Photo */}
             <div className="sm:w-full lg:w-[26%] flex flex-col items-start justify-center gap-y-2">
@@ -181,8 +181,9 @@ const AddTeacherPage = () => {
                 البريد الالكتروني:
               </span>
               <EmailInput
-                isSign={false}
                 value={teacherEmail}
+                isSign={false}
+                required={false}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   setTeacherEmail(e.target.value);
                 }}
@@ -195,8 +196,9 @@ const AddTeacherPage = () => {
                 كلمة المرور:
               </span>
               <PasswordInput
-                isSign={false}
                 value={teacherPassword}
+                isSign={false}
+                required={false}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   setTeacherPassword(e.target.value);
                 }}
