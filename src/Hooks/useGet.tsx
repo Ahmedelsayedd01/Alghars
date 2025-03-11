@@ -12,17 +12,16 @@ export const useGet = (url: string) => {
     try {
       const response = await axios.get(url, {
         headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${auth?.userState.token || ""}`,
+          Authorization: `Bearer ${auth?.userState?.token || ""}`,
         },
       });
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         setData(response.data);
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
         auth.toastError(error.message);
-        console.log('error',error)
+        console.log("error", error);
       } else {
         // Handle the case where error is not an instance of Error
         auth.toastError("An unknown error occurred");
@@ -34,8 +33,8 @@ export const useGet = (url: string) => {
 
   useEffect(() => {
     fetchData();
-    console.log('token', auth?.userState.token);
-  }, [fetchData]);
+    console.log("token", auth?.userState?.token);
+  }, [fetchData, auth?.userState?.token]);
 
   return { refetch: fetchData, loading, data };
 };
