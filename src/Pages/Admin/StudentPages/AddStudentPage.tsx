@@ -107,7 +107,7 @@ const AddStudentPage = () => {
   };
 
   useEffect(() => {
-    if (response && response.status === 200) {
+    if (response && response.status === 201 || response.status === 200) {
       handleReset();
     }
     console.log("response", response);
@@ -149,19 +149,20 @@ const AddStudentPage = () => {
       return;
     }
 
-    const payload = {
-      name: studentName,
-      parentPhone: studentParentPhone,
-      address: studentAddress,
-      avatar: studentPhotoFile ? studentPhotoFile.name : "",
-      category: studentCategory,
-      subscription: studentSubscription.id.toString(),
-      price: price,
-      payment: selectedPayment.id.toString(),
-      status: studentStatus === 1 ? "active" : "inactive",
-    };
+    const formData = new FormData();
 
-    postData(payload, "تم اضافة الطالب بنجاح");
+    formData.append('username', studentName);
+    formData.append('parent_phone', studentParentPhone);
+    formData.append('address', studentAddress);
+    formData.append('category', studentCategory);
+    formData.append('subscription', studentSubscription.id.toString());
+    formData.append('avatar', studentPhotoFile);
+    formData.append('email', studentName);
+    formData.append('price', price);
+    formData.append('payment_method', selectedPayment.id.toString());
+    formData.append('status',studentStatus === 1 ? "active" : "inactive");
+
+    postData(formData, "تم اضافة الطالب بنجاح");
   };
 
   return (
