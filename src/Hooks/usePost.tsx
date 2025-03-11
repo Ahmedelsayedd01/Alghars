@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios /* { AxiosResponse } */ from "axios";
 import { useState } from "react";
 import { useAuth } from "../Context/Auth"; // Make sure to import useAuth if required
 import { PostOptions } from "../types";

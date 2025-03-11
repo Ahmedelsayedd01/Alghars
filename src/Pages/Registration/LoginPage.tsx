@@ -42,12 +42,16 @@ const LoginPage = () => {
       auth.toastError("اضف كلمة المرور");
       return;
     }
-    const payload = {
-      email,
-      password,
-    };
+    const formData = new FormData();
+    formData.append('email',email)
+    formData.append('password',email)
 
-    postData(payload); // Call postData with formData
+    // const payload = {
+    //   email,
+    //   password,
+    // };
+
+    postData(formData, ''); // Call postData with formData and an empty object as the second argument
   };
 
   useEffect(() => {
