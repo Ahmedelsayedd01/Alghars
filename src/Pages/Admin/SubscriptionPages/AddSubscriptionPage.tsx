@@ -14,7 +14,7 @@ const AddSubscriptionPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
   const { postData, loadingPost, response } = usePost({
-    url: `${apiUrl}/admin/subscriptions/create`,
+    url: `${apiUrl}/admin/package/create`,
   });
 
   const [subscriptionName, setSubscriptionName] = useState("");
@@ -38,7 +38,7 @@ const AddSubscriptionPage = () => {
   };
 
   useEffect(() => {
-    if (response && response.status === 200) {
+    if (response && response.status === 201 || response.status === 200) {
       handleReset();
     }
     console.log("response", response);
@@ -61,14 +61,13 @@ const AddSubscriptionPage = () => {
       return;
     }
 
-    const payload = {
-      name: subscriptionName,
-      sessions: subscriptionSessionsCount,
-      price: subscriptionPrice,
-      subscriptionStatus: subscriptionStatus === 1 ? "active" : "inactive",
-    };
+    const formData = new FormData();
+    formData.append('name', subscriptionName);
+    formData.append('sessionCount', subscriptionSessionsCount);
+    formData.append('price', subscriptionPrice);
+    formData.append('status', subscriptionStatus === 1 ? "active" : "inactive");
 
-    postData(payload, "تم اضافة الاشتراك بنجاح");
+    postData(formData, "تم اضافة الاشتراك بنجاح");
   };
 
   return (
