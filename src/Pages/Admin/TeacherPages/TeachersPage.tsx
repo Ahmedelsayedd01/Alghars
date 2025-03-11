@@ -53,12 +53,12 @@ const TeachersPage = () => {
   const handleShare = () => {
     const data = filterTeachers.map((teacher: Teachers, index: number) => ({
       "#": index + 1,
-      الاسم: `${teacher?.name || "-"}`,
-      العنوان: `${teacher?.address || "-"}`,
-      الهاتف: `${teacher?.phone || "-"}`,
-      الايميل: `${teacher?.email || "-"}`,
-      "عدد الحصص	": `${teacher?.countClass || "-"}`,
-      الحالة: teacher.status === "active" ? "يعمل" : "متوقف",
+      'الاسم': `${teacher?.name || "-"}`,
+      'العنوان': `${teacher?.address || "-"}`,
+      'الهاتف': `${teacher?.phone || "-"}`,
+      'الايميل': `${teacher?.email || "-"}`,
+      "عدد الحصص": `${teacher?.countClass || "-"}`,
+      'الحالة': teacher.status === "active" ? "يعمل" : "متوقف",
     }));
 
     // Create a new workbook and add the data
@@ -85,7 +85,7 @@ const TeachersPage = () => {
 
   // Fetch Teachers when the component mounts or when refetch is called
   useEffect(() => {
-    // refetchTeachers();
+    refetchTeachers();
     setTeachers(teachersStore);
     setFilterTeachers(teachersStore);
   }, [refetchTeachers]); // Empty dependency array to only call refetch once on mount
