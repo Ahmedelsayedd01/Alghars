@@ -10,23 +10,24 @@ import {
 } from "../../../Components/Components";
 import { Link, useNavigate } from "react-router-dom";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
-import { useSelector } from "react-redux";
-import { Teachers } from "../../../types";
+import { useDispatch } from "react-redux";
+import {  SessionsSec, Teachers } from "../../../types";
 import { DeleteIcon, EditIcon, WarningIcon } from "../../../assets/Assets";
 import * as XLSX from "xlsx";
+import { setTeachersStore } from "../../../Store/CreateSlices";
 
 const TeachersPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
-  const teachersStore = useSelector((state: any) => state.teachers.data);
+  const dispatch = useDispatch();
   const {
     refetch: refetchTeachers,
     loading: loadingTeachers,
     data: dataTeachers,
-  } = useGet(`${apiUrl}/admin/teacher/show`);
+  } = useGet<Teachers>(`${apiUrl}/admin/teacher/show`);
 
-  const { changeState, loadingChange /* responseChange */ } = useChangeState();
-  const { deleteData, loadingDelete /* responseDelete */ } = useDelete();
+  const { changeState, /*loadingChange , responseChange */ } = useChangeState();
+  const { deleteData, /*loadingDelete , responseDelete */ } = useDelete();
 
   const [teachers, setTeachers] = useState<Teachers[]>([]);
   const [filterTeachers, setFilterTeachers] = useState<Teachers[]>([]);
@@ -53,12 +54,12 @@ const TeachersPage = () => {
   const handleShare = () => {
     const data = filterTeachers.map((teacher: Teachers, index: number) => ({
       "#": index + 1,
-      'الاسم': `${teacher?.name || "-"}`,
-      'العنوان': `${teacher?.address || "-"}`,
-      'الهاتف': `${teacher?.phone || "-"}`,
-      'الايميل': `${teacher?.email || "-"}`,
-      "عدد الحصص": `${teacher?.countClass || "-"}`,
-      'الحالة': teacher.status === "active" ? "يعمل" : "متوقف",
+      " الاسم ": `${teacher?.name || "-"}`,
+      " العنوان ": `${teacher?.address || "-"}`,
+      " الهاتف ": `${teacher?.phone || "-"}`,
+      " الايميل ": `${teacher?.email || "-"}`,
+      "عدد الحصص": `${teacher?.sessionCount || "-"}`,
+      " الحالة ": teacher.status === "active" ? "يعمل" : "متوقف",
     }));
 
     // Create a new workbook and add the data
@@ -86,9 +87,17 @@ const TeachersPage = () => {
   // Fetch Teachers when the component mounts or when refetch is called
   useEffect(() => {
     refetchTeachers();
-    setTeachers(teachersStore);
-    setFilterTeachers(teachersStore);
   }, [refetchTeachers]); // Empty dependency array to only call refetch once on mount
+
+  useEffect(() => {
+    if (dataTeachers) {
+      dispatch(setTeachersStore(dataTeachers));
+      setTeachers(dataTeachers);
+      setFilterTeachers(dataTeachers);
+    }
+    console.log("teachersStore", dataTeachers);
+    console.log("dataTeachers", dataTeachers);
+  }, [dataTeachers]);
 
   const handleFilterTeachers = (e: React.ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value.toLowerCase();
@@ -107,7 +116,7 @@ const TeachersPage = () => {
   // Update Teachers when `data` changes
   useEffect(() => {
     if (dataTeachers) {
-      setTeachers(dataTeachers);
+      dispatch(setTeachersStore(dataTeachers));
     }
     console.log("dataTeachers", dataTeachers);
   }, [dataTeachers]); // Only run this effect when `data` changes
@@ -120,16 +129,21 @@ const TeachersPage = () => {
   };
 
   // Change Teacher status
-  const handleChangeStaus = async (id: number, status: string) => {
+  const handleChangeStaus = async (
+    id: number,
+    name: string,
+    status: string
+  ) => {
+    const data = { status };
     const response = await changeState({
-      url: `${apiUrl}/admin/teacher/status/${id}`,
-      message: "تم تغير حالة المعلم",
-      data: status,
+      url: `${apiUrl}/admin/teacher/update/${id}`,
+      message: `تم تغير حالة المعلم ${name}`,
+      data,
     });
 
     if (response) {
       // Fix typo in prevteachers -> prevTeachers
-      setTeachers((prevTeachers) =>
+      setFilterTeachers((prevTeachers) =>
         prevTeachers.map((teacher) =>
           teacher.id === id ? { ...teacher, status: status } : teacher
         )
@@ -141,7 +155,7 @@ const TeachersPage = () => {
   const handleDelete = async (id: number, name: string) => {
     const success = await deleteData(
       `${apiUrl}/admin/teacher/delete/${id}`,
-      `${name} تم حذف المعلم.`
+      `تم حذف المعلم ${name} .`
     );
 
     if (success) {
@@ -217,7 +231,7 @@ const TeachersPage = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {loadingTeachers || loadingChange || loadingDelete ? (
+              {loadingTeachers /* || loadingChange || loadingDelete */ ? (
                 <tr>
                   <td colSpan={headers.length} className="py-4 text-center">
                     <StaticLoader />
@@ -242,7 +256,7 @@ const TeachersPage = () => {
                     <td className="px-4 py-3 text-center">
                       <div className="flex justify-center">
                         <img
-                          src={teacher?.image_link || "-"}
+                          src={teacher?.avatar || "-"}
                           className="w-14 h-14 rounded-full border-2 border-mainColor"
                           loading="lazy"
                           alt="Photo"
@@ -271,7 +285,12 @@ const TeachersPage = () => {
                         to={`sessions/${teacher.id}`}
                         className="text-xl text-mainColor border-b-2 font-TextFontSemiBold hover:text-thirdColor"
                       >
-                        {teacher?.countClass || 0}
+                        {/* {teacher?.sessionCount || 0} */}
+                        {Array.isArray(teacher?.sessions)
+                          ? teacher.sessions.filter(
+                              (ses: SessionsSec) => ses.status === "done"
+                            ).length
+                          : 0}
                       </Link>
                     </td>
                     {/* Status */}
@@ -282,7 +301,8 @@ const TeachersPage = () => {
                         handleClick={() =>
                           handleChangeStaus(
                             teacher.id,
-                            teacher.status === "active" ? "unactive" : "active"
+                            teacher.name,
+                            teacher.status === "active" ? "inactive" : "active"
                           )
                         }
                       />

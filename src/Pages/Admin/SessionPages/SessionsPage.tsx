@@ -10,23 +10,24 @@ import {
 } from "../../../Components/Components";
 import { Link, useNavigate } from "react-router-dom";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { SessionsSec } from "../../../types";
 import { DeleteIcon, EditIcon, WarningIcon } from "../../../assets/Assets";
 import * as XLSX from "xlsx";
+import { setSessionsSec } from "../../../Store/CreateSlices";
 
 const SessionsPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
-  const sessionsStore = useSelector((state: any) => state.sessions.data);
+  const dispatch = useDispatch();
   const {
     refetch: refetchSessions,
     loading: loadingSessions,
     data: dataSessions,
-  } = useGet(`${apiUrl}/admin/session/show`);
+  } = useGet<SessionsSec>(`${apiUrl}/admin/session/show`);
 
-  const { changeState, loadingChange /* responseChange */ } = useChangeState();
-  const { deleteData, loadingDelete /* responseDelete */ } = useDelete();
+  const { changeState, /*loadingChange  responseChange */ } = useChangeState();
+  const { deleteData, /*loadingDelete  responseDelete */ } = useDelete();
 
   const [sessions, setSessions] = useState<SessionsSec[]>([]);
   const [filterSessions, setFilterSessions] = useState<SessionsSec[]>([]);
@@ -68,14 +69,13 @@ const SessionsPage = () => {
       "اسم المعلم": session.teacher,
       "رقم المعلم": session.teacherPhone,
       "اسم الحصة": session.student,
-      "التاريخ": session.date,
-      "ميعاد البدء": session.start,  // Corrected
+      " التاريخ ": session.date,
+      "ميعاد البدء": session.start, // Corrected
       "ميعاد الانتهاء": session.end, // Corrected
-      "الاشتراك": session.subscription, // Added quotes
-      "الحالة": session.status, // Added quotes
-      "النشاط": session.active === "active" ? "يعمل" : "متوقف",
+      " الاشتراك ": session.subscription, // Added quotes
+      " الحالة ": session.status, // Added quotes
+      " النشاط ": session.active === "active" ? "يعمل" : "متوقف",
     }));
-    
 
     // Create a new workbook and add the data
     const workbook = XLSX.utils.book_new();
@@ -104,16 +104,24 @@ const SessionsPage = () => {
 
   // Fetch Sessions when the component mounts or when refetch is called
   useEffect(() => {
-    // refetchSessions();
-    setSessions(sessionsStore);
-    setFilterSessions(sessionsStore);
+    refetchSessions();
   }, [refetchSessions]); // Empty dependency array to only call refetch once on mount
+
+  useEffect(() => {
+    if (dataSessions) {
+      dispatch(setSessionsSec(dataSessions));
+      setSessions(dataSessions);
+      setFilterSessions(dataSessions);
+    }
+  }, [dataSessions]);
 
   const handleFilterSessions = (e: React.ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value.toLowerCase();
 
     const filteredSessions = sessions.filter(
-      (session: SessionsSec) => session.teacher.toLowerCase().includes(text) // Allows partial matching
+      (session: SessionsSec) =>
+        session.teacher.name.toLowerCase().includes(text) ||
+        session.date.toLowerCase().includes(text)
     );
 
     console.log("text", text);
@@ -122,14 +130,6 @@ const SessionsPage = () => {
     setFilterText(text);
     setFilterSessions(!text ? sessions : filteredSessions);
   };
-
-  // Update Teachers when `data` changes
-  useEffect(() => {
-    if (dataSessions) {
-      // setSessions(dataSessions);
-    }
-    console.log("dataSessions", dataSessions);
-  }, [dataSessions]); // Only run this effect when `data` changes
 
   const handleOpenDelete = (id: number) => {
     setOpenDelete(id);
@@ -140,10 +140,11 @@ const SessionsPage = () => {
 
   // Change session status
   const handleChangeStaus = async (id: number, status: string) => {
+    const data = { status };
     const response = await changeState({
-      url: `${apiUrl}/admin/session/status/${id}`,
+      url: `${apiUrl}/admin/session/update/${id}`,
       message: "تم تغير حالة الحصة",
-      data: status,
+      data,
     });
 
     if (response) {
@@ -160,14 +161,15 @@ const SessionsPage = () => {
   const handleDelete = async (id: number, name: string) => {
     const success = await deleteData(
       `${apiUrl}/admin/session/delete/${id}`,
-      `${name} تم حذف الحصة.`
+      `تم حذف حصة ${name} بنجاح.`
     );
 
     if (success) {
       // Update Sessions only if deleteData succeeded
-      setSessions((prevSessions) =>
+      setFilterSessions((prevSessions) =>
         prevSessions.filter((sessions) => sessions.id !== id)
       );
+      setOpenDelete(null);
       // refetchSessions();
     }
   };
@@ -239,7 +241,7 @@ const SessionsPage = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {loadingSessions || loadingChange || loadingDelete ? (
+              {loadingSessions /* || loadingChange || loadingDelete */ ? (
                 <tr>
                   <td colSpan={headers.length} className="py-4 text-center">
                     <StaticLoader />
@@ -263,36 +265,40 @@ const SessionsPage = () => {
 
                     {/* Name */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
-                      {session?.teacher || "-"}
-                    </td>
-                    <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
-                      {session?.teacherPhone || "-"}
+                      {session?.teacher?.name || "-"}
                     </td>
                     {/* Phone */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
-                      {session?.student || "-"}
+                      {session?.teacher?.phone || "-"}
                     </td>
-                    {/* Address */}
+                    {/* Student */}
+                    <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                      {session?.student?.name || "-"}
+                    </td>
+                    {/* Date */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
                       {session?.date || "-"}
                     </td>
-                    {/* Category */}
+                    {/* Start Time */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
                       {session?.start || "لم تبدا"}
                     </td>
-                    {/* Subscription */}
+                    {/* End Time */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
-                      {session?.end|| "لم تنتهي"}
+                      {session?.end || "لم تنتهي"}
                     </td>
                     {/* Subscription */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
                       {session?.subscription || "-"}
                     </td>
-                    {/* Payment */}
-                    <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
-                      {session?.status || "-"}
-                    </td>
                     {/* Status */}
+                    <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                      {session?.status === "pending" && "لم تبدا"}
+                      {session?.status === "processing" && "قيد التنفيذ"}
+                      {session?.status === "done" && "تم الانتهاء"}
+                      {session?.status === "cancel" && "تم الالغاء"}
+                    </td>
+                    {/* Active */}
                     <td className="px-4 py-3 text-center">
                       <Switch
                         checked={session.active === "active"}
@@ -300,7 +306,7 @@ const SessionsPage = () => {
                         handleClick={() =>
                           handleChangeStaus(
                             session.id,
-                            session.active === "active" ? "unactive" : "active"
+                            session.active === "active" ? "inactive" : "active"
                           )
                         }
                       />

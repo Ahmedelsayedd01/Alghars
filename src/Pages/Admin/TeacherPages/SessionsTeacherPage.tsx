@@ -29,11 +29,11 @@ const SessionsTeacherPage = ({ nameTitle }: SessionsTeacherPageProps) => {
       "#": index + 1,
       "اسم الطالب": `${session?.student.name || "-"}`,
       "عنوان الطالب": `${session?.student.address || "-"}`,
-      "هاتف ولي الأمر": `${session?.student.parentPhone || "-"}`,
-      التاريخ: `${session?.date || "-"}`,
-      "ميعاد البدء": `${session?.start || "-"}`,
-      "ميعاد الانتهاء": `${session?.end || "-"}`,
-      الحالة:
+      "هاتف ولي الأمر": `${session?.student.parent_phone || "-"}`,
+      " التاريخ ": `${session?.date || "-"}`,
+      "ميعاد البدء": `${session?.start || "لم تبداء"}`,
+      "ميعاد الانتهاء": `${session?.end || "لم تنتهي"}`,
+      " الحالة ":
         (session.status === "pending" && "قيد الانتظار") ||
         (session.status === "processing" && "قيد التنفيذ") ||
         (session.status === "done" && "تمت") ||
@@ -103,7 +103,7 @@ const SessionsTeacherPage = ({ nameTitle }: SessionsTeacherPageProps) => {
           />
         </div>
         <div className="overflow-auto rounded-lg shadow-lg">
-        <table className="w-full border-collapse min-w-max">
+          <table className="w-full border-collapse min-w-max">
             <thead className="bg-mainColor text-white">
               <tr>
                 {headers.map((name, index) => (
@@ -142,7 +142,7 @@ const SessionsTeacherPage = ({ nameTitle }: SessionsTeacherPageProps) => {
                     </td>
                     {/* Student Parent Phone */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
-                      {session?.student?.parentPhone || "-"}
+                      {session?.student?.parent_phone || "-"}
                     </td>
                     {/* Session Date */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
@@ -150,11 +150,11 @@ const SessionsTeacherPage = ({ nameTitle }: SessionsTeacherPageProps) => {
                     </td>
                     {/* Session Start Time */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
-                      {session?.start || "-"}
+                      {session?.start || "لم تبداء"}
                     </td>
                     {/* Session End Time */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
-                      {session?.end || "-"}
+                      {session?.end || "لم تنتهي"}
                     </td>
                     {/* Session Status */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">

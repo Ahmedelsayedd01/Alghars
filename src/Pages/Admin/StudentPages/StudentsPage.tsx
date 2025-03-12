@@ -14,19 +14,22 @@ import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { Students } from "../../../types";
 import { DeleteIcon, EditIcon, WarningIcon } from "../../../assets/Assets";
 import * as XLSX from "xlsx";
+import { useDispatch } from "react-redux";
+import { setStudentsStore } from "../../../Store/CreateSlices";
 
 const StudentsPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
-  // const studentsStore = useSelector((state: any) => state.students.data);
+  const dispatch = useDispatch();
+
   const {
     refetch: refetchStudents,
     loading: loadingStudents,
-    data: dataStudents,
-  } = useGet(`${apiUrl}/admin/student/show`);
+    data: dataStudents /* : Students[] */,
+  } = useGet<Students>(`${apiUrl}/admin/student/show`);
 
-  const { changeState, loadingChange /* responseChange */ } = useChangeState();
-  const { deleteData, loadingDelete /* responseDelete */ } = useDelete();
+  const { changeState, /* loadingChange, responseChange */ } = useChangeState();
+  const { deleteData, /*loadingDelete , responseDelete */ } = useDelete();
 
   const [students, setStudents] = useState<Students[]>([]);
   const [filterStudents, setFilterStudents] = useState<Students[]>([]);
@@ -53,22 +56,23 @@ const StudentsPage = () => {
   const handleShare = () => {
     const data = filterStudents.map((student: Students, index: number) => ({
       "#": index + 1,
-      الاسم: `${student?.name || "-"}`,
-      العنوان: `${student?.address || "-"}`,
-      "هاتف ولي الأمر": `${student?.parentPhone || "-"}`,
-      المرحلة: `${student?.category || "-"}`,
-      الاشتراك: `${student?.subscription || "-"}`,
-      "عدد الحصص	": `${student?.countClass || "-"}`,
-      الدفع: `${
-        student?.payment === 0
+      " الاسم ": `${student?.name || "-"}`,
+      " العنوان ": `${student?.address || "-"}`,
+      "هاتف ولي الأمر": `${student?.parent_phone || "-"}`,
+      " المرحلة ": `${student?.category || "-"}`,
+      " الاشتراك ": `${student?.subscription?.name || "-"}`,
+      " السعر ": `${student?.price || 0}`, 
+      "عدد الحصص	": `${student?.countClass || "-"}`, 
+      " الدفع ": `${
+        student?.payment_method === "0"
           ? "تقسيط"
-          : student?.payment === 1
+          : student?.payment_method === "1"
           ? "لم يتم الدفع"
-          : student?.payment === 2
+          : student?.payment_method === "2"
           ? "تم الدفع"
           : "-"
       }`,
-      الحالة: student.status === "active" ? "يعمل" : "متوقف",
+      " الحالة ": student.status === "active" ? "يعمل" : "متوقف",
     }));
 
     // Create a new workbook and add the data
@@ -98,9 +102,16 @@ const StudentsPage = () => {
   // Fetch Students when the component mounts or when refetch is called
   useEffect(() => {
     refetchStudents();
-    // setStudents(studentsStore);
-    // setFilterStudents(studentsStore);
   }, [refetchStudents]); // Empty dependency array to only call refetch once on mount
+
+  useEffect(() => {
+    if (dataStudents) {
+      dispatch(setStudentsStore(dataStudents));
+      setStudents(dataStudents);
+      setFilterStudents(dataStudents);
+    }
+    console.log("dataStudents", dataStudents);
+  }, [dataStudents]); // Empty dependency array to only call refetch once on mount
 
   const handleFilterStudents = (e: React.ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value.toLowerCase();
@@ -116,16 +127,6 @@ const StudentsPage = () => {
     setFilterStudents(!text ? students : filteredStudents);
   };
 
-  // Update Teachers when `data` changes
-  useEffect(() => {
-    if (dataStudents) {
-      // setStudents(dataStudents);
-      setStudents(dataStudents);
-      setFilterStudents(dataStudents);
-    }
-    console.log("dataStudents", dataStudents);
-  }, [dataStudents]); // Only run this effect when `data` changes
-
   const handleOpenDelete = (id: number) => {
     setOpenDelete(id);
   };
@@ -135,15 +136,18 @@ const StudentsPage = () => {
 
   // Change Teacher status
   const handleChangeStaus = async (id: number, status: string) => {
+    const data = {
+      status: status,
+    };
     const response = await changeState({
-      url: `${apiUrl}/admin/teacher/status/${id}`,
-      message: "تم تغير حالة المعلم",
-      data: status,
+      url: `${apiUrl}/admin/student/update/${id}`,
+      message: "تم تغير حالة الطالب",
+      data,
     });
 
     if (response) {
       // Fix typo in prevstudents -> prevStudents
-      setStudents((prevStudents) =>
+      setFilterStudents((prevStudents) =>
         prevStudents.map((student) =>
           student.id === id ? { ...student, status: status } : student
         )
@@ -155,12 +159,13 @@ const StudentsPage = () => {
   const handleDelete = async (id: number, name: string) => {
     const success = await deleteData(
       `${apiUrl}/admin/student/delete/${id}`,
-      `${name} تم حذف الطالب.`
+      `تم حذف الطالب ${name} بنجاح.`
     );
 
     if (success) {
+      handleCloseDelete();
       // Update Students only if deleteData succeeded
-      setStudents((prevStudents) =>
+      setFilterStudents((prevStudents) =>
         prevStudents.filter((student) => student.id !== id)
       );
       // refetchStudents();
@@ -235,7 +240,7 @@ const StudentsPage = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {loadingStudents || loadingChange || loadingDelete ? (
+              {loadingStudents /* || loadingChange || loadingDelete  */? (
                 <tr>
                   <td colSpan={headers.length} className="py-4 text-center">
                     <StaticLoader />
@@ -273,7 +278,7 @@ const StudentsPage = () => {
                     </td>
                     {/* Phone */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
-                      {student?.parentPhone || "-"}
+                      {student?.parent_phone || "-"}
                     </td>
                     {/* Address */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
@@ -285,7 +290,7 @@ const StudentsPage = () => {
                     </td>
                     {/* Subscription */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
-                      {student?.subscription || "-"}
+                      {student?.subscription?.name || "-"}
                     </td>
                     {/* Count Class */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
@@ -298,13 +303,13 @@ const StudentsPage = () => {
                     </td>
                     {/* Price */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
-                      {student?.price || "-"}
+                      {student?.price || 0}
                     </td>
                     {/* Payment */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
-                      {student?.payment === 0 && "تقسيط"}
-                      {student?.payment === 1 && "لم يتم الدفع"}
-                      {student?.payment === 2 && "تم الدفع"}
+                      {student?.payment_method === "0" && "تقسيط"}
+                      {student?.payment_method === "1" && "لم يتم الدفع"}
+                      {student?.payment_method === "2" && "تم الدفع"}
                     </td>
                     {/* Status */}
                     <td className="px-4 py-3 text-center">
@@ -314,7 +319,7 @@ const StudentsPage = () => {
                         handleClick={() =>
                           handleChangeStaus(
                             student.id,
-                            student.status === "active" ? "unactive" : "active"
+                            student.status === "active" ? "inactive" : "active"
                           )
                         }
                       />
