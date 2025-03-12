@@ -2,9 +2,9 @@ import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
 import { useAuth } from "../Context/Auth";
 
-export const useGet = (url: string) => {
+export const useGet = <T,>(url: string) => {
   const auth = useAuth();
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<T[] | null>(null);
   const [loading, setLoading] = useState(true);
 
   const fetchData = useCallback(async () => {
@@ -16,7 +16,9 @@ export const useGet = (url: string) => {
         },
       });
       if (response.status === 200 || response.status === 201) {
-        setData(response.data);
+        setData(response.data.data || response.data.packages);
+        console.log("responseDataHook", response.data.data);
+        console.log("responseDataHook2", response.data.packages);
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
