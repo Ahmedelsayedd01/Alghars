@@ -2,6 +2,8 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import App from "./App";
 import {
   LoginPage,
+  NotFoundPage,
+  UnauthorizedPage,
   // SchedulesPage,
   // SessionPage,
   // TeacherSessionsPage,
@@ -96,6 +98,14 @@ export const router = createBrowserRouter(
           ],
         },
       ],
+    },
+    {
+      path: "/unauthorized",
+      element: <UnauthorizedPage />,
+    },
+    {
+      path: "*",
+      element: <NotFoundPage />,
     },
   ],
   {

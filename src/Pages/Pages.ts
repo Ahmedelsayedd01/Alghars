@@ -1,4 +1,7 @@
 /* Authantication */
+export { default as UnauthorizedPage } from "./Custom/UnauthorizedPage";
+export { default as NotFoundPage } from "./Custom/NotFoundPage";
+/* Authantication */
 export { default as LoginPage } from "./Registration/LoginPage";
 /* Admin */
 // Admin-> Teachers
