@@ -38,7 +38,7 @@ const AddSubscriptionPage = () => {
   };
 
   useEffect(() => {
-    if (response && response.status === 201 || response.status === 200) {
+    if (response && response.data.message === "success") {
       handleReset();
     }
     console.log("response", response);

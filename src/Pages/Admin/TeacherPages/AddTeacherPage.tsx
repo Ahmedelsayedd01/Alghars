@@ -74,10 +74,10 @@ const AddTeacherPage = () => {
   };
 
   useEffect(() => {
-    if ((response && response.status === 201) || response.status === 200) {
+    if (response && response.data.status === "success") {
       handleReset();
     }
-    console.log("response", response);
+    console.log("response.status", response);
   }, [response]);
 
   const handleAdd = (e: React.FormEvent<HTMLFormElement>) => {
@@ -109,7 +109,7 @@ const AddTeacherPage = () => {
     }
 
     const formData = new FormData();
-    formData.append("username", teacherName);
+    formData.append("name", teacherName);
     formData.append("phone", teacherPhone);
     formData.append("address", teacherAddress);
     if (teacherPhotoFile) {

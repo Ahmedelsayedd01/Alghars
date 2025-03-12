@@ -9,9 +9,11 @@ import {
   UploadInput,
 } from "../../../Components/Components";
 import { Obj, Subscriptions } from "../../../types";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useAuth } from "../../../Context/Auth";
 import { usePost } from "../../../Hooks/usePost";
+import { useGet } from "../../../Hooks/useGet";
+import { setSubscriptionsStore } from "../../../Store/CreateSlices";
 
 interface HandleImageClickProps {
   ref: React.RefObject<HTMLInputElement>;
@@ -19,11 +21,16 @@ interface HandleImageClickProps {
 
 const AddStudentPage = () => {
   const auth = useAuth();
+  const dispatch = useDispatch();
   const studentPhoto = useRef<HTMLInputElement>(null!);
-
-  const subscriptionsStore = useSelector((state: any) => state.subscriptions.data);
-
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
+
+  /* Get Subscriptions */
+  const {
+    refetch: refetchSubscriptions,
+    loading: loadingSubscriptions,
+    data: dataSubscriptions,
+  } = useGet<Subscriptions>(`${apiUrl}/admin/package/show`);
 
   const { postData, loadingPost, response } = usePost({
     url: `${apiUrl}/admin/student/create`,
@@ -61,12 +68,15 @@ const AddStudentPage = () => {
   const [studentStatus, setStudentStatus] = useState(0);
 
   useEffect(() => {
-    setSubscriptions(subscriptionsStore);
-  }, [subscriptionsStore]);
+    refetchSubscriptions();
+  }, [refetchSubscriptions]);
+
   useEffect(() => {
-    console.log("studentSubscription", studentSubscription);
-    console.log("selectedPayment", selectedPayment);
-  }, [studentSubscription, selectedPayment]);
+    if (dataSubscriptions) {
+      dispatch(setSubscriptionsStore(dataSubscriptions));
+      setSubscriptions(dataSubscriptions);
+    }
+  }, [dataSubscriptions]);
 
   interface HandleImageChangeEvent extends React.ChangeEvent<HTMLInputElement> {
     target: HTMLInputElement & EventTarget;
@@ -94,20 +104,20 @@ const AddStudentPage = () => {
   };
 
   const handleReset = () => {
-    setStudentName('')
-    setStudentParentPhone('')
-    setStudentAddress('')
-    setStudentPhotoFile(null)
-    setStudentPhotoName('')
-    setStudentCategory('')
-    setStudentSubscription(null)
-    setSelectedPayment(null)
-    setPrice('')
-    setStudentStatus(0)
+    setStudentName("");
+    setStudentParentPhone("");
+    setStudentAddress("");
+    setStudentPhotoFile(null);
+    setStudentPhotoName("");
+    setStudentCategory("");
+    setStudentSubscription(null);
+    setSelectedPayment(null);
+    setPrice("");
+    setStudentStatus(0);
   };
 
   useEffect(() => {
-    if (response && response.status === 201 || response.status === 200) {
+    if (response && response.data.status === "success") {
       handleReset();
     }
     console.log("response", response);
@@ -151,23 +161,23 @@ const AddStudentPage = () => {
 
     const formData = new FormData();
 
-    formData.append('username', studentName);
-    formData.append('parent_phone', studentParentPhone);
-    formData.append('address', studentAddress);
-    formData.append('category', studentCategory);
-    formData.append('subscription', studentSubscription.id.toString());
-    formData.append('avatar', studentPhotoFile);
-    formData.append('email', studentName);
-    formData.append('price', price);
-    formData.append('payment_method', selectedPayment.id.toString());
-    formData.append('status',studentStatus === 1 ? "active" : "inactive");
+    formData.append("name", studentName);
+    formData.append("parent_phone", studentParentPhone);
+    formData.append("address", studentAddress);
+    formData.append("category", studentCategory);
+    formData.append("subscription", studentSubscription.id.toString());
+    formData.append("avatar", studentPhotoFile);
+    formData.append("email", studentName);
+    formData.append("price", price);
+    formData.append("payment_method", selectedPayment.id.toString());
+    formData.append("status", studentStatus === 1 ? "active" : "inactive");
 
     postData(formData, "تم اضافة الطالب بنجاح");
   };
 
   return (
     <>
-      {loadingPost ? (
+      {loadingSubscriptions || loadingPost ? (
         <div className="w-full h-56 flex justify-center items-center">
           <StaticLoader />
         </div>

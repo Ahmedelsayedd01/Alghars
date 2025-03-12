@@ -14,12 +14,6 @@ import { useGet } from "../../../Hooks/useGet";
 
 const AddClassPage = () => {
   const auth = useAuth();
-  // const teachers = useSelector((state: any) => state.teachers.data);
-  // const students = useSelector((state: any) => state.students.data);
-
-  // const subscriptionsStore = useSelector(
-  //   (state: any) => state.subscriptions.data
-  // );
 
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -28,21 +22,21 @@ const AddClassPage = () => {
     refetch: refetchStudents,
     loading: loadingStudents,
     data: dataStudents,
-  } = useGet(`${apiUrl}/admin/student/show`);
-  
+  } = useGet<Students>(`${apiUrl}/admin/student/show`);
+
   /* Get Teachers */
   const {
     refetch: refetchTeachers,
     loading: loadingTeachers,
     data: dataTeachers,
-  } = useGet(`${apiUrl}/admin/teacher/show`);
+  } = useGet<Teachers>(`${apiUrl}/admin/teacher/show`);
 
   /* Get Subscriptions */
   const {
     refetch: refetchSubscriptions,
     loading: loadingSubscriptions,
     data: dataSubscriptions,
-  } = useGet(`${apiUrl}/admin/package/show`);
+  } = useGet<Subscriptions>(`${apiUrl}/admin/package/show`);
 
   const { postData, loadingPost, response } = usePost({
     url: `${apiUrl}/admin/session/create`,
@@ -65,8 +59,7 @@ const AddClassPage = () => {
     refetchStudents();
     refetchTeachers();
     refetchSubscriptions();
-  }, [refetchStudents,refetchTeachers,refetchSubscriptions]); 
-
+  }, [refetchStudents, refetchTeachers, refetchSubscriptions]);
 
   useEffect(() => {
     if (dataStudents) {
@@ -80,7 +73,6 @@ const AddClassPage = () => {
     }
     console.log("dataStudents", dataStudents);
   }, [dataStudents, dataTeachers, dataSubscriptions]);
-
 
   useEffect(() => {
     console.log("selectedTeacher", selectedTeacher);
@@ -104,7 +96,7 @@ const AddClassPage = () => {
   };
 
   useEffect(() => {
-    if (response && (response.status === 201 || response.status === 200)) {
+    if (response && response.data.status === "success") {
       handleReset();
     }
     console.log("response", response);
@@ -141,13 +133,16 @@ const AddClassPage = () => {
       "package_id",
       selectedSubscription ? selectedSubscription.id.toString() : ""
     );
-    formData.append("status", classStatus === 1 ? "active" : "inactive");
+    formData.append("active", classStatus === 1 ? "active" : "inactive");
 
     postData(formData, "تم اضافة الحصة بنجاح");
   };
   return (
     <>
-      {loadingStudents|| loadingTeachers|| loadingSubscriptions || loadingPost ? (
+      {loadingStudents ||
+      loadingTeachers ||
+      loadingSubscriptions ||
+      loadingPost ? (
         <div className="w-full h-56 flex justify-center items-center">
           <StaticLoader />
         </div>
