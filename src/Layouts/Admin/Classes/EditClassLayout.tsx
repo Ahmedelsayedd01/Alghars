@@ -6,9 +6,9 @@ const EditClassLayout = () => {
   const [nameTec, setNameTec] = useState("");
   return (
     <>
-      <TitleSection text={`تعديل الحصة ${nameTec}`} navIcon={true} />
+      <TitleSection text={`تعديل حصة ${nameTec}`} navIcon={true} />
       <EditClassPage
-        nameTitle={(id: number | undefined) => setNameTec(id?.toString() || "")}
+        nameTitle={(name: string) => setNameTec(name|| "")}
       />
     </>
   );

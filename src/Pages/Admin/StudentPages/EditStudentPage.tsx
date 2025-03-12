@@ -33,7 +33,7 @@ const EditStudentPage = ({ nameTitle }: EditStudentPageProps) => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
   const { postData, loadingPost, response } = usePost({
-    url: `${apiUrl}/admin/student/upadte/${studentId}`,
+    url: `${apiUrl}/admin/student/update/${studentId}`,
   });
 
   const [studentName, setStudentName] = useState("");
@@ -82,17 +82,17 @@ const EditStudentPage = ({ nameTitle }: EditStudentPageProps) => {
         nameTitle(student.name);
         setStudentName(student.name);
         setStudentAddress(student.address);
-        setStudentParentPhone(student.parentPhone);
+        setStudentParentPhone(student.parent_phone);
         setStudentCategory(student.category);
         setStudentSubscription(
           subscriptions.find((subscription: Subscriptions) => subscription.name === student.subscription) || null
         );
         setPrice(student.price);
         setSelectedPayment(
-          payments.find((pay: Obj) => pay.id === student.payment) || null
+          payments.find((pay: Obj) => pay.id === Number(student.payment_method)) || null
         );
-        setStudentPhotoName(student.image_link);
-        setStudentPhotoFile(student.image_link);
+        setStudentPhotoName(student.avatar);
+        setStudentPhotoFile(student.avatar);
         setStudentStatus(student.status === "active" ? 1 : 0);
       }
     }
@@ -124,7 +124,7 @@ const EditStudentPage = ({ nameTitle }: EditStudentPageProps) => {
   };
 
   useEffect(() => {
-    if (response && response.status === 200) {
+    if (response && response.data.status === 'success') {
       navigate(-1 as any, { replace: true });
     }
     console.log("response", response);
@@ -166,19 +166,20 @@ const EditStudentPage = ({ nameTitle }: EditStudentPageProps) => {
       return;
     }
 
-    const payload = {
-      name: studentName,
-      parentPhone: studentParentPhone,
-      address: studentAddress,
-      avatar: studentPhotoFile ? studentPhotoFile.name : "",
-      category: studentCategory,
-      subscription: studentSubscription.id.toString(),
-      price: price,
-      payment: selectedPayment.id.toString(),
-      status: studentStatus === 1 ? "active" : "inactive",
-    };
+    const formData = new FormData();
 
-    postData(payload, "تم تعديل الطالب بنجاح");
+    formData.append('name', studentName);
+    formData.append('parent_phone', studentParentPhone);
+    formData.append('address', studentAddress);
+    formData.append('category', studentCategory);
+    formData.append('subscription', studentSubscription.id.toString());
+    formData.append('avatar', studentPhotoFile);
+    formData.append('email', studentName);
+    formData.append('price', price);
+    formData.append('payment_method', selectedPayment.id.toString());
+    formData.append('status',studentStatus === 1 ? "active" : "inactive");
+
+    postData(formData, "تم تعديل الطالب بنجاح");
   };
 
   return (
@@ -285,7 +286,7 @@ const EditStudentPage = ({ nameTitle }: EditStudentPageProps) => {
           </div>
           {/* Button Add */}
           <div className="w-full flex justify-end items-center">
-            <ButtonAdd handleClick={() => handleEdit} />
+            <ButtonAdd text={"تعديل"} handleClick={() => handleEdit} />
           </div>
         </form>
       )}

@@ -24,7 +24,7 @@ const EditSubscriptionPage = ({nameTitle}:SubscriptionProps) => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
   const { postData, loadingPost, response } = usePost({
-    url: `${apiUrl}/admin/subscriptions/create`,
+    url: `${apiUrl}/admin/package/update/${subscriptionId}`,
   });
 
   const [subscriptions, setSubscriptions] = useState<Subscriptions[]>([]);
@@ -51,7 +51,7 @@ const EditSubscriptionPage = ({nameTitle}:SubscriptionProps) => {
       if (subscription) {
         nameTitle(subscription.name);
         setSubscriptionName(subscription.name);
-        setSubscriptionSessionsCount(subscription.sessions);
+        setSubscriptionSessionsCount(subscription.sessionCount);
         setSubscriptionPrice(subscription.price);
         setSubscriptionStatus(subscription.status === "active" ? 1 : 0);
       }
@@ -152,7 +152,7 @@ const EditSubscriptionPage = ({nameTitle}:SubscriptionProps) => {
           </div>
           {/* Button Add */}
           <div className="w-full flex justify-end items-center">
-            <ButtonAdd handleClick={() => handleEdit} />
+            <ButtonAdd text="تعديل" handleClick={() => handleEdit} />
           </div>
         </form>
       )}

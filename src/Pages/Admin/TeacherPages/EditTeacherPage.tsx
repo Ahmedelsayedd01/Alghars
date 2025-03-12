@@ -58,8 +58,8 @@ const EditTeacherPage = ({ nameTitle }: EditTeacherPageProps) => {
         setTeacherName(teacher.name);
         setTeacherPhone(teacher.phone);
         setTeacherAddress(teacher.address);
-        setTeacherPhotoName(teacher.image_link);
-        setTeacherPhotoFile(teacher.image_link);
+        setTeacherPhotoName(teacher.avatar);
+        setTeacherPhotoFile(teacher.avatar);
         setTeacherEmail(teacher.email);
         setTeacherStatus(teacher.status === "active" ? 1 : 0);
       }
@@ -122,18 +122,18 @@ const EditTeacherPage = ({ nameTitle }: EditTeacherPageProps) => {
       auth.toastError("اضف البريد الالكتروني");
       return;
     }
+    const formData = new FormData();
+    formData.append("name", teacherName);
+    formData.append("phone", teacherPhone);
+    formData.append("address", teacherAddress);
+    if (teacherPhotoFile) {
+      formData.append("avatar", teacherPhotoFile);
+    }
+    formData.append("email", teacherEmail);
+    formData.append("password", teacherPassword);
+    formData.append("status", teacherStatus === 1 ? "active" : "inactive");
 
-    const payload = {
-      name: teacherName,
-      phone: teacherPhone,
-      address: teacherAddress,
-      avatar: teacherPhotoFile ? teacherPhotoFile.name : "",
-      email: teacherEmail,
-      password: teacherPassword,
-      status: teacherStatus === 1 ? "active" : "inactive",
-    };
-
-    postData(payload, "تم تعديل المعلم بنجاح");
+    postData(formData, "تم تعديل المعلم بنجاح");
   };
 
   return (
@@ -143,7 +143,7 @@ const EditTeacherPage = ({ nameTitle }: EditTeacherPageProps) => {
           <StaticLoader />
         </div>
       ) : (
-        <form>
+        <form onSubmit={handleEdit}>
           <div className="w-full flex flex-wrap sm:flex-col lg:flex-row items-center justify-start gap-4 sm:mb-8 lg:mb-0">
             {/* Teacher Name */}
             <TextInput
@@ -209,8 +209,9 @@ const EditTeacherPage = ({ nameTitle }: EditTeacherPageProps) => {
                 كلمة المرور:
               </span>
               <PasswordInput
-                isSign={false}
                 value={teacherPassword}
+                isSign={false}
+                required={false}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   setTeacherPassword(e.target.value);
                 }}
