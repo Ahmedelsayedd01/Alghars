@@ -75,10 +75,13 @@ const ClassesHistoryPage = () => {
 
   // Change Teacher status
   const handleChangeStaus = async (id: number, status: string) => {
+    const data = {
+      status,
+    };
     const response = await changeState({
       url: `${apiUrl}/admin/teacher/status/${id}`,
       message: "statusChange",
-      data: status,
+      data,
     });
 
     if (response) {
@@ -215,7 +218,7 @@ const ClassesHistoryPage = () => {
                               handleChangeStaus(
                                 teacher.id,
                                 teacher.status === "active"
-                                  ? "unactive"
+                                  ? "inactive"
                                   : "active"
                               );
                             }}
