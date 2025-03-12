@@ -36,7 +36,7 @@ export const ContextProvider = ({
 
   const loginUser = (userData: any) => {
     setUserState(userData);
-    toast.success(`اهلا ${userData.username}`);
+    toast.success(`اهلا ${userData.name}`);
   };
 
   const logout = () => {
