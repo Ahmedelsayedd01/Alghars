@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { useState } from "react";
 import { useAuth } from "../Context/Auth";
-import { ChangeStateOptions } from "../types";
 
 export const useChangeState = () => {
   const auth = useAuth();
@@ -10,6 +9,12 @@ export const useChangeState = () => {
     any,
     any
   > | null>(null);
+
+  interface ChangeStateOptions {
+    url: string;
+    message: string;
+    data: { [key: string]: any };
+  }
 
   const changeState = async ({ url, message, data }: ChangeStateOptions) => {
     // Accepting a single "data" object
@@ -23,7 +28,7 @@ export const useChangeState = () => {
 
       // Send the "data" object directly as the request body
 
-      const response = await axios.put(url, data || {}, config);
+      const response = await axios.post(url, data || {}, config);
 
       if (response.status === 200) {
         setResponseChange(response);
