@@ -15,31 +15,17 @@ interface AuthContextType {
         email: string;
         phone: string;
         address: string;
-        countClass: number;
-        image_link: string;
+        sessionCount: number;
+        avatar: string;
         subject: string;
-        sessions:Array<{
-            id: number;
-            student: {
-              id: number;
-              name:string;
-              parentPhone:string;
-              subject:string;
-              address:string;
-            };
-            date: string;
-            start: string;
-            end: string;
-            status: string;
-
-        }>;
+        sessions:Sessions;
         status: string;
     }
 
     interface Subscriptions{
       id:number;
       name:string;
-      sessions:number;
+      sessionCount:number;
       price:number;
       status:string;
     }
@@ -47,13 +33,7 @@ interface AuthContextType {
     interface TeacherSessions {
       sessions: Array<{
         id: number;
-        student: {
-          id: number;
-          name:string;
-          parentPhone:string;
-          subject:string;
-          address:string;
-        };
+        student:Students;
         date: string;
         start: string;
         end: string;
@@ -64,44 +44,37 @@ interface AuthContextType {
 
     interface TeacherSession{
         id: number;
-        student: {
-            id: number;
-            name:string;
-            subject:string;
-            parentPhone:string;
-            address:string;
-        };
+        student: Students;
         date: string;
         start: string;
         end: string;
         status: string;
-
     }
 
      interface Students {
       id: number;
       name: string;
       address: string;
-      parentPhone: string;
+      parent_phone: string;
       image_link: string;
       category: string;
-      subscription: string;
+      subscription: Subscriptions;
       countClass: number;
-      payment: number;
+      payment_method: string;
       price: number;
       status: string;
     }
-    interface Subscriptions {
-      id: number;
-      name: string;
-      sessions: number;
-      price:number;
-      status: string;
-    }
+    // interface Subscriptions {
+    //   id: number;
+    //   name: string;
+    //   sessions: number;
+    //   price:number;
+    //   status: string;
+    // }
     interface SessionsSec {
       id: number;
-      student: string;
-      teacher: string;
+      student: Students;
+      teacher: Teachers;
       teacherPhone: string;
       subscription: string;
       date: string;
@@ -137,12 +110,7 @@ interface AuthContextType {
       day: string;
       sessions: Array<{
         id: number;
-        student: {
-          id: number;
-          name: string;
-          subject: string;
-          address: string;
-        };
+        student:Students;
         start: string;
         end: string;
         status: string;
@@ -152,12 +120,7 @@ interface AuthContextType {
       day: string;
       sessions: Array<{
         id: number;
-        student: {
-          id: number;
-          name: string;
-          subject: string;
-          address: string;
-        };
+        student:Students;
         start: string;
         end: string;
         status: string;
@@ -165,12 +128,7 @@ interface AuthContextType {
     }
     interface Session {
       id: number;
-      student:{
-        id: number;
-          name: string;
-          subject: string;
-          address: string;
-      };
+      student:Students;
       start: string;
       end: string;
       status: string;
