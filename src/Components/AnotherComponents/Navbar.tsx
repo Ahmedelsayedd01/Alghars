@@ -62,7 +62,7 @@ const Navbar = () => {
           {/* Name Admin */}
           <div className="sm:w-10/12">
             <span className="w-full text-2xl text-thirdColor font-TextFontSemiBold">
-              مرحبا {auth?.userState?.username || ""}
+              مرحبا {auth?.userState?.name || ""}
             </span>
           </div>
         </div>
