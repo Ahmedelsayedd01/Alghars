@@ -35,13 +35,21 @@ export const useChangeState = () => {
         auth.toastSuccess(message);
         return true; // Return true on success
       }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        auth.toastError(error.message);
+    } catch (error: any) {
+      if (axios.isAxiosError(error) && error.response?.data?.errors) {
+        Object.entries(error.response.data.errors).forEach(([_, messages]) => {
+          // Show a toast for each error message
+          (messages as string[]).forEach((message: string) => {
+            auth.toastError(`${message}`);
+          });
+        });
+      } else if (axios.isAxiosError(error) && error.response?.data?.error) {
+        auth.toastError(error.response.data.error);
       } else {
-        // Handle the case where error is not an instance of Error
-        auth.toastError("An unknown error occurred");
+        auth.toastError((error as Error).message);
       }
+
+      console.error("Error posting JSON:", error);
     } finally {
       setLoadingChange(false);
     }
