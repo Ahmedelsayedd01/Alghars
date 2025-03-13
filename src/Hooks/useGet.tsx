@@ -16,7 +16,7 @@ export const useGet = <T,>(url: string) => {
         },
       });
       if (response.status === 200 || response.status === 201) {
-        setData(response.data.data || response.data.packages);
+        setData(response.data.data || response.data.packages || response.data);
         console.log("responseDataHook", response.data.data);
         console.log("responseDataHook2", response.data.packages);
       }
