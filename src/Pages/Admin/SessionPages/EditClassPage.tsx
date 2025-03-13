@@ -95,21 +95,7 @@ const EditClassPage = ({ nameTitle }: EditClassPageProps) => {
           students.find((t: Students) => t.id === session.student.id) || null
         );
         setClassStatus(session.active === "active" ? 1 : 0);
-        // setSelectedSubscription(
-        //   subscriptions.find((t: Subscriptions) => t.id === session.subscription.id) || null
-        // );
         setClassDate(session.date);
-        setClassStatus(session.status);
-        // setSessionSubscription(
-        //   subscriptions.find((: Subscriptionsubscriptions) => subscription.name === session.subscription) || null
-        // );
-        // setPrice(session.price);
-        // setSelectedPayment(
-        //   payments.find((pay: Obj) => pay.id === Number(session.payment_method)) || null
-        // );
-        // setSessionPhotoName(session.avatar);
-        // setSessionPhotoFile(session.avatar);
-        // setSessionStatus(session.status === "active" ? 1 : 0);
       }
       console.log("session.teas111111111111111", teachers);
       console.log("session", session);
@@ -125,10 +111,16 @@ const EditClassPage = ({ nameTitle }: EditClassPageProps) => {
 
 
 
+  // const handleClassStatus = () => {
+  //   const Active = classStatus;
+  //   {
+  //     Active === 0 ? setClassStatus(1) : setClassStatus(0);
+  //   }
+  // };
   const handleClassStatus = () => {
     const Active = classStatus;
     {
-      Active === 0 ? setClassStatus(1) : setClassStatus(0);
+      setClassStatus(Active === 0 ? 1 : 0);
     }
   };
 
