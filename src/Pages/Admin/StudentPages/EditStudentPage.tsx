@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { useAuth } from "../../../Context/Auth";
 import { usePost } from "../../../Hooks/usePost";
 import { useNavigate, useParams } from "react-router-dom";
+import { useGet } from "../../../Hooks/useGet";
 
 interface HandleImageClickProps {
   ref: React.RefObject<HTMLInputElement>;
@@ -28,9 +29,18 @@ const EditStudentPage = ({ nameTitle }: EditStudentPageProps) => {
 
   const studentPhoto = useRef<HTMLInputElement>(null!);
 
-  const subscriptionsStore = useSelector((state: any) => state.subscriptions.data);
+  const subscriptionsStore = useSelector(
+    (state: any) => state.subscriptions.data
+  );
 
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
+
+  /* Get Subscriptions */
+  const {
+    refetch: refetchSubscriptions,
+    loading: loadingSubscriptions,
+    data: dataSubscriptions,
+  } = useGet<Subscriptions>(`${apiUrl}/admin/package/show`);
 
   const { postData, loadingPost, response } = usePost({
     url: `${apiUrl}/admin/student/update/${studentId}`,
@@ -74,6 +84,16 @@ const EditStudentPage = ({ nameTitle }: EditStudentPageProps) => {
   }, [subscriptionsStore]);
 
   useEffect(() => {
+    refetchSubscriptions();
+  }, [refetchSubscriptions]);
+  useEffect(() => {
+    if (dataSubscriptions) {
+      setSubscriptions(dataSubscriptions);
+    }
+  }, [dataSubscriptions]);
+
+
+  useEffect(() => {
     if (studentId) {
       const student = studentsStore.find(
         (t: any) => t.id === parseInt(studentId)
@@ -85,16 +105,24 @@ const EditStudentPage = ({ nameTitle }: EditStudentPageProps) => {
         setStudentParentPhone(student.parent_phone);
         setStudentCategory(student.category);
         setStudentSubscription(
-          subscriptions.find((subscription: Subscriptions) => subscription.name === student.subscription) || null
+          student.subscription
+            ? subscriptions.find(
+                (subscription: Subscriptions) =>
+                  subscription.id === student.subscription.id
+              ) || null
+            : null
         );
         setPrice(student.price);
         setSelectedPayment(
-          payments.find((pay: Obj) => pay.id === Number(student.payment_method)) || null
+          payments.find(
+            (pay: Obj) => pay.id === Number(student.payment_method)
+          ) || null
         );
         setStudentPhotoName(student.avatar);
-        setStudentPhotoFile(student.avatar);
+        // setStudentPhotoFile(student.avatar);
         setStudentStatus(student.status === "active" ? 1 : 0);
       }
+      console.log("student", student);
     }
   }, [studentId, subscriptions]);
 
@@ -124,7 +152,7 @@ const EditStudentPage = ({ nameTitle }: EditStudentPageProps) => {
   };
 
   useEffect(() => {
-    if (response && response.data.status === 'success') {
+    if (response && response.data.status === "success") {
       navigate(-1 as any, { replace: true });
     }
     console.log("response", response);
@@ -149,10 +177,10 @@ const EditStudentPage = ({ nameTitle }: EditStudentPageProps) => {
       auth.toastError("اضف المرحلة الدراسية");
       return;
     }
-    if (!studentPhotoFile) {
-      auth.toastError("اضف صورة الطالب");
-      return;
-    }
+    // if (!studentPhotoFile) {
+    //   auth.toastError("اضف صورة الطالب");
+    //   return;
+    // }
     if (!studentSubscription) {
       auth.toastError("اختر الاشتراك");
       return;
@@ -168,23 +196,23 @@ const EditStudentPage = ({ nameTitle }: EditStudentPageProps) => {
 
     const formData = new FormData();
 
-    formData.append('name', studentName);
-    formData.append('parent_phone', studentParentPhone);
-    formData.append('address', studentAddress);
-    formData.append('category', studentCategory);
-    formData.append('subscription', studentSubscription.id.toString());
-    formData.append('avatar', studentPhotoFile);
-    formData.append('email', studentName);
-    formData.append('price', price);
-    formData.append('payment_method', selectedPayment.id.toString());
-    formData.append('status',studentStatus === 1 ? "active" : "inactive");
+    formData.append("name", studentName);
+    formData.append("parent_phone", studentParentPhone);
+    formData.append("address", studentAddress);
+    formData.append("category", studentCategory);
+    formData.append("package_id", studentSubscription.id.toString());
+    if (studentPhotoFile) {
+      formData.append("avatar", studentPhotoFile);
+    }    formData.append("price", price);
+    formData.append("payment_method", selectedPayment.id.toString());
+    formData.append("status", studentStatus === 1 ? "active" : "inactive");
 
     postData(formData, "تم تعديل الطالب بنجاح");
   };
 
   return (
     <>
-      {loadingPost ? (
+      {loadingPost || loadingSubscriptions ? (
         <div className="w-full h-92 flex justify-center items-center">
           <StaticLoader />
         </div>

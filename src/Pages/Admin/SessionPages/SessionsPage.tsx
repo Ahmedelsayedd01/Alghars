@@ -51,24 +51,12 @@ const SessionsPage = () => {
     setCurrentPage(pageNumber);
   };
 
-  /* 
-   "اسم المعلم
-"هاتف المعلم
-"اسم الحصة
-"الاشتراك",
-"التاريخ",
-"ميعاد البدء
-"ميعاد الانتهاء
-"الحالة",
-"النشاط",
-"ادوات",
-     */
   const handleShare = () => {
     const data = filterSessions.map((session: SessionsSec, index: number) => ({
       "#": index + 1,
       "اسم المعلم": session.teacher,
       "رقم المعلم": session.teacherPhone,
-      "اسم الحصة": session.student,
+      "اسم الطالب": session.student,
       " التاريخ ": session.date,
       "ميعاد البدء": session.start, // Corrected
       "ميعاد الانتهاء": session.end, // Corrected
@@ -140,7 +128,7 @@ const SessionsPage = () => {
 
   // Change session status
   const handleChangeStaus = async (id: number, status: string) => {
-    const data = { status };
+    const data = { active:status };
     const response = await changeState({
       url: `${apiUrl}/admin/session/update/${id}`,
       message: "تم تغير حالة الحصة",
@@ -149,9 +137,9 @@ const SessionsPage = () => {
 
     if (response) {
       // Fix typo in prevSessions -> prevSessions
-      setSessions((prevSessions) =>
+      setFilterSessions((prevSessions) =>
         prevSessions.map((session) =>
-          session.id === id ? { ...session, status: status } : session
+          session.id === id ? { ...session, active: status } : session
         )
       );
     }
@@ -178,7 +166,7 @@ const SessionsPage = () => {
     "#",
     "اسم المعلم",
     "رقم المعلم",
-    "اسم الحصة",
+    "اسم الطالب",
     "التاريخ",
     "ميعاد البدء",
     "ميعاد الانتهاء",
@@ -289,7 +277,7 @@ const SessionsPage = () => {
                     </td>
                     {/* Subscription */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
-                      {session?.subscription || "-"}
+                      {session?.student?.subscription?.name || "-"}
                     </td>
                     {/* Status */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">

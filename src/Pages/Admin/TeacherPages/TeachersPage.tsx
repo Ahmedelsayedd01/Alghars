@@ -159,6 +159,7 @@ const TeachersPage = () => {
     );
 
     if (success) {
+      setOpenDelete(null)
       // Update Teachers only if deleteData succeeded
       setTeachers((prevTeachers) =>
         prevTeachers.filter((teacher) => teacher.id !== id)

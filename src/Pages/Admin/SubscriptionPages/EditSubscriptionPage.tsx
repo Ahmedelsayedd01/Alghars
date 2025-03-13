@@ -93,7 +93,7 @@ const EditSubscriptionPage = ({nameTitle}:SubscriptionProps) => {
 
     const payload = {
       name: subscriptionName,
-      sessions: subscriptionSessionsCount,
+      sessionCount: subscriptionSessionsCount,
       price: subscriptionPrice,
       subscriptionStatus: subscriptionStatus === 1 ? "active" : "inactive",
     };

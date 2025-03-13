@@ -59,7 +59,7 @@ const EditTeacherPage = ({ nameTitle }: EditTeacherPageProps) => {
         setTeacherPhone(teacher.phone);
         setTeacherAddress(teacher.address);
         setTeacherPhotoName(teacher.avatar);
-        setTeacherPhotoFile(teacher.avatar);
+        // setTeacherPhotoFile(teacher.avatar);
         setTeacherEmail(teacher.email);
         setTeacherStatus(teacher.status === "active" ? 1 : 0);
       }
@@ -114,10 +114,10 @@ const EditTeacherPage = ({ nameTitle }: EditTeacherPageProps) => {
       auth.toastError("اضف عنوان المعلم");
       return;
     }
-    if (!teacherPhotoFile) {
-      auth.toastError("اضف صورة المعلم");
-      return;
-    }
+    // if (!teacherPhotoFile) {
+    //   auth.toastError("اضف صورة المعلم");
+    //   return;
+    // }
     if (!teacherEmail) {
       auth.toastError("اضف البريد الالكتروني");
       return;

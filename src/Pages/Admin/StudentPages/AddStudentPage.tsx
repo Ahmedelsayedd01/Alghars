@@ -146,10 +146,10 @@ const AddStudentPage = () => {
       auth.toastError("اضف صورة الطالب");
       return;
     }
-    if (!studentSubscription) {
-      auth.toastError("اضف الاشتراك");
-      return;
-    }
+    // if (!studentSubscription) {
+    //   auth.toastError("اضف الاشتراك");
+    //   return;
+    // }
     if (!selectedPayment) {
       auth.toastError("اضف حالة الدفع");
       return;
@@ -165,9 +165,8 @@ const AddStudentPage = () => {
     formData.append("parent_phone", studentParentPhone);
     formData.append("address", studentAddress);
     formData.append("category", studentCategory);
-    formData.append("subscription", studentSubscription.id.toString());
+    formData.append("package_id", studentSubscription ? studentSubscription.id.toString() : "");
     formData.append("avatar", studentPhotoFile);
-    formData.append("email", studentName);
     formData.append("price", price);
     formData.append("payment_method", selectedPayment.id.toString());
     formData.append("status", studentStatus === 1 ? "active" : "inactive");
