@@ -5,7 +5,6 @@ import {
   StaticLoader,
   SubmitButton,
 } from "../../Components/Components";
-// Make sure the file path is correct and the image exists in the specified location
 import photo from "../../assets/Images/image1.png";
 import { useAuth } from "../../Context/Auth";
 import { useNavigate } from "react-router-dom";
@@ -23,14 +22,6 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // const handleLogTeacher = () => {
-  //   auth.loginUser({ username: "معلم ذياد", role: "teacher" });
-  //   navigate("/schedule_sessions", { replace: true });
-  // };
-  // const handleLogAdmin = () => {
-  //   auth.loginUser({ username: "ذياد باشا", role: "admin" });
-  //   navigate("/dashboard/teachers", { replace: true });
-  // };
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Use uppercase "D"
 
@@ -42,16 +33,13 @@ const LoginPage = () => {
       auth.toastError("اضف كلمة المرور");
       return;
     }
-    // const formData = new FormData();
-    // formData.append('email',email)
-    // formData.append('password',password)
 
     const payload = {
       email,
       password,
     };
 
-    postData(payload, ''); // Call postData with formData and an empty object as the second argument
+    postData(payload, ""); // Call postData with formData and an empty object as the second argument
   };
 
   useEffect(() => {
@@ -64,6 +52,7 @@ const LoginPage = () => {
       }
       auth.loginUser(response.data.user);
     }
+    console.log("400 ", response);
   }, [response]);
   return (
     <>
@@ -75,11 +64,8 @@ const LoginPage = () => {
           <div className="sm:w-full xl:w-5/12 flex flex-col items-start justify-start gap-y-8 h-full">
             {loadingPost ? (
               <>
-                {/* <div className="w-full h-full">
-                  <Loading width={100} height={100} />
-                </div> */}
                 <div className="w-full h-screen flex justify-center items-center">
-                  <StaticLoader/>
+                  <StaticLoader />
                 </div>
               </>
             ) : (
@@ -112,26 +98,6 @@ const LoginPage = () => {
                     </div>
                   </div>
 
-                  {/* <div className="w-11/12 mx-auto flex gap-2">
-                    <SubmitButton
-                      bgColor="thirdColor"
-                      width="w-full"
-                      type="button"
-                      withIcon={false}
-                      withShare={false}
-                      text={"تسجيل كمعلم"}
-                      handleClick={handleLogTeacher}
-                    />
-                    <SubmitButton
-                      bgColor="thirdColor"
-                      width="w-full"
-                      type="button"
-                      withIcon={false}
-                      withShare={false}
-                      text={"تسجيل كمسؤول"}
-                      handleClick={handleLogAdmin}
-                    />
-                  </div> */}
                   <div className="w-11/12 mx-auto">
                     <SubmitButton
                       bgColor="thirdColor"

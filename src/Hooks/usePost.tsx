@@ -5,13 +5,6 @@ import { PostOptions } from "../types";
 
 export const usePost = ({ url, login = false, type = false }: PostOptions) => {
   const auth = useAuth();
-  // const [loadingPost, setLoadingPost] = useState(false);
-  // const [response, setResponse] = useState<AxiosResponse<any, any> | null>(
-  //   null
-  // );
-
-  // const postData = async (data: { [key: string]: string }, name?: string) => {
-  //   setLoadingPost(true);
   const [loadingPost, setLoadingPost] = useState(false);
   const [response, setResponse] = useState<any>(null);
 
