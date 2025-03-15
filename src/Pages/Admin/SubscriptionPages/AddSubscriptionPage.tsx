@@ -62,10 +62,11 @@ const AddSubscriptionPage = () => {
     }
 
     const formData = new FormData();
-    formData.append('name', subscriptionName);
-    formData.append('sessionCount', subscriptionSessionsCount);
-    formData.append('price', subscriptionPrice);
-    formData.append('status', subscriptionStatus === 1 ? "active" : "inactive");
+    formData.append("name", subscriptionName);
+    formData.append("sessionCount", subscriptionSessionsCount);
+    formData.append("price", subscriptionPrice);
+    // formData.append('status', subscriptionStatus === 1 ? "active" : "inactive");
+    formData.append("status", "active");
 
     postData(formData, "تم اضافة الاشتراك بنجاح");
   };
@@ -107,17 +108,16 @@ const AddSubscriptionPage = () => {
               placeholder="ادخل السعر"
             />
             {/* Subscription Status */}
-            <div className="sm:w-full lg:w-[26%] flex items-center justify-start gap-x-2 mt-7">
+            {/* <div className="sm:w-full lg:w-[26%] flex items-center justify-start gap-x-2 mt-7">
               <span className="text-2xl font-TextFontMedium text-thirdColor mt-2">
                 الحالة:
               </span>
-              {/* Subscription Status */}
               <Switch
                 bgcolor={false}
                 checked={subscriptionStatus === 1}
                 handleClick={handleSubscriptionStatus}
               />
-            </div>
+            </div> */}
           </div>
           {/* Button Add */}
           <div className="w-full flex justify-end items-center">
