@@ -4,7 +4,7 @@ import {
   DropDown,
   NumberInput,
   StaticLoader,
-  Switch,
+  // Switch,
   TextInput,
   UploadInput,
 } from "../../../Components/Components";
@@ -65,7 +65,7 @@ const AddStudentPage = () => {
   const [studentPhotoName, setStudentPhotoName] = useState("");
   const [studentPhotoFile, setStudentPhotoFile] = useState<File | null>(null);
 
-  const [studentStatus, setStudentStatus] = useState(0);
+  // const [studentStatus, setStudentStatus] = useState(0);
 
   useEffect(() => {
     refetchSubscriptions();
@@ -96,12 +96,12 @@ const AddStudentPage = () => {
     }
   };
 
-  const handleStudentStatus = () => {
-    const Active = studentStatus;
-    {
-      setStudentStatus(Active === 0 ? 1 : 0);
-    }
-  };
+  // const handleStudentStatus = () => {
+  //   const Active = studentStatus;
+  //   {
+  //     setStudentStatus(Active === 0 ? 1 : 0);
+  //   }
+  // };
 
   const handleReset = () => {
     setStudentName("");
@@ -113,7 +113,7 @@ const AddStudentPage = () => {
     setStudentSubscription(null);
     setSelectedPayment(null);
     setPrice("");
-    setStudentStatus(0);
+    // setStudentStatus(0);
   };
 
   useEffect(() => {

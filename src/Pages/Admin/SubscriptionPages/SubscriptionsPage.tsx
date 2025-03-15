@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { useChangeState } from "../../../Hooks/useChangeState";
+// import { useChangeState } from "../../../Hooks/useChangeState";
 import { useDelete } from "../../../Hooks/useDelete";
 import { useGet } from "../../../Hooks/useGet";
 import {
   StaticLoader,
   SubmitButton,
-  Switch,
+  // Switch,
 } from "../../../Components/Components";
 import { Link } from "react-router-dom";
 import { DeleteIcon, EditIcon, WarningIcon } from "../../../assets/Assets";
@@ -23,7 +23,7 @@ const SubscriptionsPage = () => {
     data: dataSubscriptions,
   } = useGet<Subscriptions>(`${apiUrl}/admin/package/show`);
 
-  const { changeState, /*loadingChange , responseChange */ } = useChangeState();
+  // const { changeState, /*loadingChange , responseChange */ } = useChangeState();
   const { deleteData, /*loadingDelete , responseDelete */ } = useDelete();
 
   const [subscriptions, setSubscriptions] = useState<Subscriptions[]>([]);
@@ -67,27 +67,27 @@ const SubscriptionsPage = () => {
   };
 
   // Change subscription status
-  const handleChangeStaus = async (id: number,name: string, status: string) => {
-    const data = {
-      status,
-    };
-    const response = await changeState({
-      url: `${apiUrl}/admin/package/update/${id}`,
-      message: `تم تغيير حالة  ${name} بنجاح.`,
-      data,
-    });
+  // const handleChangeStaus = async (id: number,name: string, status: string) => {
+  //   const data = {
+  //     status,
+  //   };
+  //   const response = await changeState({
+  //     url: `${apiUrl}/admin/package/update/${id}`,
+  //     message: `تم تغيير حالة  ${name} بنجاح.`,
+  //     data,
+  //   });
 
-    if (response) {
-      // Fix typo in prevSubscription -> prevSubscription
-      setSubscriptions((prevSubscriptions) =>
-        prevSubscriptions.map((subscription) =>
-          subscription.id === id
-            ? { ...subscription, status: status }
-            : subscription
-        )
-      );
-    }
-  };
+  //   if (response) {
+  //     // Fix typo in prevSubscription -> prevSubscription
+  //     setSubscriptions((prevSubscriptions) =>
+  //       prevSubscriptions.map((subscription) =>
+  //         subscription.id === id
+  //           ? { ...subscription, status: status }
+  //           : subscription
+  //       )
+  //     );
+  //   }
+  // };
 
   // Delete Category
   const handleDelete = async (id: number, name: string) => {

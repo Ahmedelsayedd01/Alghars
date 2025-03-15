@@ -3,7 +3,7 @@ import {
   ButtonAdd,
   NumberInput,
   StaticLoader,
-  Switch,
+  // Switch,
   TextInput,
 } from "../../../Components/Components";
 import { useAuth } from "../../../Context/Auth";
@@ -21,20 +21,20 @@ const AddSubscriptionPage = () => {
   const [subscriptionSessionsCount, setSubscriptionSessionsCount] =
     useState("");
   const [subscriptionPrice, setSubscriptionPrice] = useState("");
-  const [subscriptionStatus, setSubscriptionStatus] = useState(0);
+  // const [subscriptionStatus, setSubscriptionStatus] = useState(0);
 
-  const handleSubscriptionStatus = () => {
-    const Active = subscriptionStatus;
-    {
-      Active === 0 ? setSubscriptionStatus(1) : setSubscriptionStatus(0);
-    }
-  };
+  // const handleSubscriptionStatus = () => {
+  //   const Active = subscriptionStatus;
+  //   {
+  //     Active === 0 ? setSubscriptionStatus(1) : setSubscriptionStatus(0);
+  //   }
+  // };
 
   const handleReset = () => {
     setSubscriptionName("");
     setSubscriptionSessionsCount("");
     setSubscriptionPrice("");
-    setSubscriptionStatus(0);
+    // setSubscriptionStatus(0);
   };
 
   useEffect(() => {

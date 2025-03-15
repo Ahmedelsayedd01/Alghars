@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useChangeState } from "../../../Hooks/useChangeState";
+// import { useChangeState } from "../../../Hooks/useChangeState";
 import { useDelete } from "../../../Hooks/useDelete";
 import { useGet } from "../../../Hooks/useGet";
 import {
   SearchBar,
   StaticLoader,
   SubmitButton,
-  Switch,
+  // Switch,
 } from "../../../Components/Components";
 import { Link, useNavigate } from "react-router-dom";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
@@ -28,7 +28,7 @@ const StudentsPage = () => {
     data: dataStudents /* : Students[] */,
   } = useGet<Students>(`${apiUrl}/admin/student/show`);
 
-  const { changeState /* loadingChange, responseChange */ } = useChangeState();
+  // const { changeState /* loadingChange, responseChange */ } = useChangeState();
   const { deleteData /*loadingDelete , responseDelete */ } = useDelete();
 
   const [students, setStudents] = useState<Students[]>([]);
@@ -135,25 +135,25 @@ const StudentsPage = () => {
   };
 
   // Change Teacher status
-  const handleChangeStaus = async (id: number, status: string) => {
-    const data = {
-      status: status,
-    };
-    const response = await changeState({
-      url: `${apiUrl}/admin/student/update/${id}`,
-      message: "تم تغير حالة الطالب",
-      data,
-    });
+  // const handleChangeStaus = async (id: number, status: string) => {
+  //   const data = {
+  //     status: status,
+  //   };
+  //   const response = await changeState({
+  //     url: `${apiUrl}/admin/student/update/${id}`,
+  //     message: "تم تغير حالة الطالب",
+  //     data,
+  //   });
 
-    if (response) {
-      // Fix typo in prevstudents -> prevStudents
-      setFilterStudents((prevStudents) =>
-        prevStudents.map((student) =>
-          student.id === id ? { ...student, status: status } : student
-        )
-      );
-    }
-  };
+  //   if (response) {
+  //     // Fix typo in prevstudents -> prevStudents
+  //     setFilterStudents((prevStudents) =>
+  //       prevStudents.map((student) =>
+  //         student.id === id ? { ...student, status: status } : student
+  //       )
+  //     );
+  //   }
+  // };
 
   // Delete Category
   const handleDelete = async (id: number, name: string) => {
