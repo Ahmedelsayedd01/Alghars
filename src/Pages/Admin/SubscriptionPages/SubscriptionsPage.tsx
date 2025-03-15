@@ -112,7 +112,7 @@ const SubscriptionsPage = () => {
   //   }
   // }, [dataSubscriptions]); // Only run this effect when `data` changes
 
-  const headers = ["#", "الاسم", "عدد الحصص", "السعر", "الحالة", "ادوات"];
+  const headers = ["#", "الاسم", "عدد الحصص", "السعر", /* "الحالة", */ "ادوات"];
   return (
     <div className="w-full flex items-start justify-start">
       <div className="w-full flex flex-col">
@@ -170,7 +170,7 @@ const SubscriptionsPage = () => {
                       </td>
 
                       {/* Status */}
-                      <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                      {/* <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
                         <Switch
                           checked={subscription.status === "active"}
                           bgcolor={true}
@@ -184,7 +184,7 @@ const SubscriptionsPage = () => {
                             );
                           }}
                         />
-                      </td>
+                      </td> */}
 
                       {/* Tools */}
                       <td className="px-4 py-3 text-center">
