@@ -165,11 +165,15 @@ const AddStudentPage = () => {
     formData.append("parent_phone", studentParentPhone);
     formData.append("address", studentAddress);
     formData.append("category", studentCategory);
-    formData.append("package_id", studentSubscription ? studentSubscription.id.toString() : "");
+    formData.append(
+      "package_id",
+      studentSubscription ? studentSubscription.id.toString() : ""
+    );
     formData.append("avatar", studentPhotoFile);
     formData.append("price", price);
     formData.append("payment_method", selectedPayment.id.toString());
-    formData.append("status", studentStatus === 1 ? "active" : "inactive");
+    // formData.append("status", studentStatus === 1 ? "active" : "inactive");
+    formData.append("status", "active");
 
     postData(formData, "تم اضافة الطالب بنجاح");
   };
@@ -266,17 +270,17 @@ const AddStudentPage = () => {
               placeholder="ادخل المبلغ"
             />
 
-            <div className="sm:w-full lg:w-[26%] flex items-center justify-start gap-x-2 mt-7">
+              {/* Student Status */}
+            {/* <div className="sm:w-full lg:w-[26%] flex items-center justify-start gap-x-2 mt-7">
               <span className="text-2xl font-TextFontMedium text-thirdColor mt-2">
                 الحالة:
               </span>
-              {/* Student Status */}
               <Switch
                 bgcolor={false}
                 checked={studentStatus === 1}
                 handleClick={handleStudentStatus}
               />
-            </div>
+            </div> */}
           </div>
           {/* Button Add */}
           <div className="w-full flex justify-end items-center">
