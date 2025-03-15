@@ -28,8 +28,8 @@ const StudentsPage = () => {
     data: dataStudents /* : Students[] */,
   } = useGet<Students>(`${apiUrl}/admin/student/show`);
 
-  const { changeState, /* loadingChange, responseChange */ } = useChangeState();
-  const { deleteData, /*loadingDelete , responseDelete */ } = useDelete();
+  const { changeState /* loadingChange, responseChange */ } = useChangeState();
+  const { deleteData /*loadingDelete , responseDelete */ } = useDelete();
 
   const [students, setStudents] = useState<Students[]>([]);
   const [filterStudents, setFilterStudents] = useState<Students[]>([]);
@@ -61,8 +61,8 @@ const StudentsPage = () => {
       "هاتف ولي الأمر": `${student?.parent_phone || "-"}`,
       " المرحلة ": `${student?.category || "-"}`,
       " الاشتراك ": `${student?.subscription?.name || "-"}`,
-      " السعر ": `${student?.price || 0}`, 
-      "عدد الحصص	": `${student?.countClass || "-"}`, 
+      " السعر ": `${student?.price || 0}`,
+      "عدد الحصص	": `${student?.sessionCount || "-"}`,
       " الدفع ": `${
         student?.payment_method === "0"
           ? "تقسيط"
@@ -72,7 +72,7 @@ const StudentsPage = () => {
           ? "تم الدفع"
           : "-"
       }`,
-      " الحالة ": student.status === "active" ? "يعمل" : "متوقف",
+      // " الحالة ": student.status === "active" ? "يعمل" : "متوقف",
     }));
 
     // Create a new workbook and add the data
@@ -89,7 +89,7 @@ const StudentsPage = () => {
       { wch: 20 }, // Column for "subscription"
       { wch: 10 }, // Column for "countClass"
       { wch: 15 }, // Column for "payment"
-      { wch: 15 }, // Column for "status"
+      // { wch: 15 }, // Column for "status"
     ];
 
     // Append the customized worksheet
@@ -183,7 +183,7 @@ const StudentsPage = () => {
     "عدد الحصص",
     "السعر",
     "طريقة الدفع",
-    "الحالة",
+    // "الحالة",
     "ادوات",
   ];
 
@@ -240,7 +240,7 @@ const StudentsPage = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {loadingStudents /* || loadingChange || loadingDelete  */? (
+              {loadingStudents /* || loadingChange || loadingDelete  */ ? (
                 <tr>
                   <td colSpan={headers.length} className="py-4 text-center">
                     <StaticLoader />
@@ -298,7 +298,9 @@ const StudentsPage = () => {
                         to={`sessions/${student.id}`}
                         className="text-xl text-mainColor border-b-2 font-TextFontSemiBold hover:text-thirdColor"
                       > */}
-                      {student?.countClass || 0}
+                      {/* {student?.countClass + "/" + student?.sessionsLimite} */}
+                      { student?.sessionsLimite + '/' + student?.sessionCount}
+                      {/* { student?.sessionsLimite} */}
                       {/* </Link> */}
                     </td>
                     {/* Price */}
@@ -312,7 +314,7 @@ const StudentsPage = () => {
                       {student?.payment_method === "2" && "تم الدفع"}
                     </td>
                     {/* Status */}
-                    <td className="px-4 py-3 text-center">
+                    {/* <td className="px-4 py-3 text-center">
                       <Switch
                         checked={student.status === "active"}
                         bgcolor={true}
@@ -323,7 +325,7 @@ const StudentsPage = () => {
                           )
                         }
                       />
-                    </td>
+                    </td> */}
                     {/* Tools */}
                     <td className="px-4 py-3 text-center">
                       <div className="flex items-center justify-center gap-2">
