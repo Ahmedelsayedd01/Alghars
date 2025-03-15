@@ -59,7 +59,8 @@ interface AuthContextType {
       image_link: string;
       category: string;
       subscription: Subscriptions;
-      countClass: number;
+      sessionsLimite: string;
+      sessionCount: number;
       payment_method: string;
       price: number;
       status: string;
