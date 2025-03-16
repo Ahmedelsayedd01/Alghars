@@ -173,7 +173,7 @@ const AddStudentPage = () => {
     formData.append("price", price);
     formData.append("payment_method", selectedPayment.id.toString());
     // formData.append("status", studentStatus === 1 ? "active" : "inactive");
-    formData.append("status", "active");
+    // formData.append("status", "inactive");
 
     postData(formData, "تم اضافة الطالب بنجاح");
   };
