@@ -299,7 +299,7 @@ const StudentsPage = () => {
                         className="text-xl text-mainColor border-b-2 font-TextFontSemiBold hover:text-thirdColor"
                       > */}
                       {/* {student?.countClass + "/" + student?.sessionsLimite} */}
-                      { student?.sessionsLimite + '/' + student?.sessionCount}
+                      {student?.subscription?.sessionCount || 0}/{student?.sessionCount || 0}
                       {/* { student?.sessionsLimite} */}
                       {/* </Link> */}
                     </td>
