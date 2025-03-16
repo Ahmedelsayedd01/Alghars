@@ -168,8 +168,8 @@ const SessionsPage = () => {
     "رقم المعلم",
     "اسم الطالب",
     "التاريخ",
-    "ميعاد البدء",
-    "ميعاد الانتهاء",
+    // "ميعاد البدء",
+    // "ميعاد الانتهاء",
     "الاشتراك",
     "الحالة",
     "النشاط",
@@ -268,13 +268,13 @@ const SessionsPage = () => {
                       {session?.date || "-"}
                     </td>
                     {/* Start Time */}
-                    <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                    {/* <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
                       {session?.start || "لم تبدا"}
-                    </td>
+                    </td> */}
                     {/* End Time */}
-                    <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
+                    {/* <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
                       {session?.end || "لم تنتهي"}
-                    </td>
+                    </td> */}
                     {/* Subscription */}
                     <td className="px-4 py-3 text-center text-xl sm:text-base text-mainColor whitespace-nowrap overflow-hidden text-ellipsis">
                       {session?.student?.subscription?.name || "-"}
