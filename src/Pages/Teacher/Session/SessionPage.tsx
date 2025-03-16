@@ -208,7 +208,7 @@ const SessionPage = () => {
                 {session?.status === "pending" &&
                   session?.start === null &&
                   checkSessionStatus && (
-                    <p className="flex items-end gap-x-2 text-3xl font-TextFontMedium text-thirdColor">
+                    <p className="flex items-end gap-x-2 sm:text-xl lg:text-3xl font-TextFontMedium text-thirdColor">
                       لم تنتهي من الحصة التى بداتها{" "}
                       <Link
                         to={`/schedule_sessions/sessions/session/${sessionUnDone}`}
@@ -221,7 +221,7 @@ const SessionPage = () => {
                   )}
                 {/* session is processing */}
                 {session?.status === "processing" && endSession === false && (
-                  <p className="flex items-end gap-x-2 text-3xl font-TextFontMedium text-thirdColor">
+                  <p className="flex items-end gap-x-2 sm:text-xl lg:text-3xl font-TextFontMedium text-thirdColor">
                     لم تنتهي بعد وقت الحصة
                     <motion.span
                       className="text-xl flex"

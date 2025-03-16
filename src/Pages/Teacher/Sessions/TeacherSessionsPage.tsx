@@ -87,13 +87,13 @@ const TeacherSessionsPage = () => {
         </div>
       ) : sessionsTeacher.length === 0 ? (
         <div className="h-[50vh]  flex items-center justify-center ">
-          <p className="p-8 rounded-full bg-gray-200 shadow-lg text-3xl font-TextFontMedium text-thirdColor">
+          <p className="p-8 rounded-full bg-gray-200 shadow-lg sm:text-xl lg:text-3xl font-TextFontMedium text-thirdColor">
             لا يوجد حصص فى هذا اليوم
           </p>
         </div>
       ) : sessionLast ? (
         <div className="h-[50vh]  flex items-center justify-center ">
-          <p className="p-8 rounded-full bg-gray-200 shadow-lg text-3xl font-TextFontMedium text-thirdColor">
+          <p className="p-8 rounded-full bg-gray-200 shadow-lg sm:text-xl lg:text-3xl font-TextFontMedium text-thirdColor">
             لقد انتهت حصص هذا اليوم
           </p>
         </div>
